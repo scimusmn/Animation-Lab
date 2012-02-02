@@ -1,0 +1,196 @@
+<blocks font="ArialNarrow.ttf" xmlns:blck="http://www.smm.org/">
+	<bar name="Instruction blocks" color="883710">
+		<block name="right eye bob">
+			<seq>1</seq>
+			<cond>1</cond>
+            <blocksIn>
+				<block name="right eye %d" color="0x993399">
+					<dropdown>
+						<dds>BACK</dds>
+						<dds>FORTH</dds>
+						<selected>BACK</selected>
+					</dropdown>
+					<file>reye.blk</file>
+				</block>
+				<block name="wait %d second" color="0xFF6600">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>delay.blk</file>
+				</block>
+				<block name="right eye %d" color="0x993399">
+					<dropdown>
+						<dds>BACK</dds>
+						<dds>FORTH</dds>
+						<selected>FORTH</selected>
+					</dropdown>
+					<file>reye.blk</file>
+				</block>
+				<block name="wait %d second" color="0xFF6600">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>delay.blk</file>
+				</block>
+			</blocksIn>
+			<file>sequence.blk</file>
+		</block>
+		<block name="left eye bob">
+			<seq>1</seq>
+			<cond>1</cond>
+            <blocksIn>
+				<block name="left eye %d" color="0x993399">
+					<dropdown>
+						<dds>BACK</dds>
+						<dds>FORTH</dds>
+						<selected>BACK</selected>
+					</dropdown>
+					<file>leye.blk</file>
+				</block>
+				<block name="wait %d second" color="0xFF6600">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>delay.blk</file>
+				</block>
+				<block name="left eye %d" color="0x993399">
+					<dropdown>
+						<dds>BACK</dds>
+						<dds>FORTH</dds>
+						<selected>FORTH</selected>
+					</dropdown>
+					<file>leye.blk</file>
+				</block>
+				<block name="wait %d second" color="0xFF6600">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>delay.blk</file>
+				</block>
+			</blocksIn>
+			<file>sequence.blk</file>
+		</block>
+    <block name="stretch body">
+			<seq>1</seq>
+			<cond>1</cond>
+            <blocksIn>
+				<block name="%d body" color="0x993399">
+          <dropdown>
+            <dds>EXTEND</dds>
+            <dds>RETRACT</dds>
+            <selected>EXTEND</selected>
+          </dropdown>
+          <file>scrunch.blk</file>
+        </block>
+				<block name="wait %d second" color="0xFF6600">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>delay.blk</file>
+				</block>
+				<block name="%d body" color="0x993399">
+          <dropdown>
+            <dds>EXTEND</dds>
+            <dds>RETRACT</dds>
+            <selected>RETRACT</selected>
+          </dropdown>
+          <file>scrunch.blk</file>
+        </block>
+				<block name="wait %d second" color="0xFF6600">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>delay.blk</file>
+				</block>
+			</blocksIn>
+			<file>sequence.blk</file>
+		</block>
+    <block name="rattle tail">
+			<seq>1</seq>
+			<cond>1</cond>
+      <blocksIn>
+				<block name="move tail %d" color="0x993399">
+          <dropdown>
+              <dds>STOP</dds>
+              <dds>SLOW</dds>
+              <dds>FAST</dds>
+              <selected>FAST</selected>
+          </dropdown>
+          <file>rattle.blk</file>
+        </block>
+				<block name="wait %d second" color="0xFF6600">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>delay.blk</file>
+				</block>
+				<block name="move tail %d" color="0x993399">
+          <dropdown>
+              <dds>STOP</dds>
+              <dds>SLOW</dds>
+              <dds>FAST</dds>
+              <selected>STOP</selected>
+          </dropdown>
+          <file>rattle.blk</file>
+        </block>
+			</blocksIn>
+			<file>sequence.blk</file>
+		</block>
+    <block name="make sound">
+			<seq>1</seq>
+			<cond>1</cond>
+        <blocksIn>
+				<block name="play sound %d" color="0x993399">
+          <dropdown>
+              <dds>NONE</dds>
+              <dds>RATTLE</dds>
+              <dds>HISS</dds>
+              <selected>HISS</selected>
+          </dropdown>
+          <file>playSound.blk</file>
+        </block>
+				<block name="wait %d second" color="0xFF6600">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>5</ddhigh>
+						<selected>2</selected>
+					</dropdown>
+					<file>delay.blk</file>
+				</block>
+				<block name="play sound %d" color="0x993399">
+          <dropdown>
+              <dds>NONE</dds>
+              <dds>RATTLE</dds>
+              <dds>HISS</dds>
+              <selected>NONE</selected>
+          </dropdown>
+          <file>playSound.blk</file>
+        </block>
+			</blocksIn>
+			<file>sequence.blk</file>
+		</block>
+	</bar>
+</blocks>
+	

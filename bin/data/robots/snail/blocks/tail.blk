@@ -1,0 +1,18 @@
+global(){
+	~#include <Servo.h>
+	~Servo tail;
+	~int tailPin=9;
+}
+
+setup(){
+	tail.attach(tailPin);
+}
+
+loop(){
+	tail.write($dd[0].num +90);
+}
+
+endLoop(){
+}
+
+~ath

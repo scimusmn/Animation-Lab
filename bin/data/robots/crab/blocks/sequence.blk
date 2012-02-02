@@ -1,0 +1,17 @@
+global(){
+}
+
+setup(){
+}
+
+start(){
+}
+
+loop(){
+	$blockIn;
+}
+
+end(){
+}
+
+~ath

@@ -1,0 +1,115 @@
+<blocks font"ArialNarrow.ttf" xmlns:blck="http://www.smm.org/">
+	<bar name="motion" color="324288">
+		<block name="right claw %d">
+			<type>p</type>
+            <dropdown>
+                <dds>OPEN</dds>
+                <dds>CLOSE</dds>
+            </dropdown>
+			<file>rclaw.blk</file>
+		</block>
+		<block name="left claw %d">
+            <dropdown>
+                <dds>OPEN</dds>
+                <dds>CLOSE</dds>
+            </dropdown>
+			<file>lclaw.blk</file>
+		</block>
+		<block name="shake speed %d">
+			<type>g</type>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>100</ddhigh>
+            </dropdown>
+			<file>wriggle.blk</file>
+		</block>
+		<block name="eye color %d">
+            <dropdown>
+                <dds>RED</dds>
+                <dds>GREEN</dds>
+                <dds>BLUE</dds>
+                <dds>OFF</dds>
+            </dropdown>
+			<file>eyes.blk</file>
+            <part>eye color shift</part>
+		</block>
+	</bar>
+	<bar name="control" color="896016">
+		<block name="repeat %d times">
+			<type>F</type>
+			<cond>1</cond>
+            <dropdown>
+                <ddhigh>10</ddhigh>
+            </dropdown>
+			<file>repeat.blk</file>
+		</block>
+		<block name="if">
+			<type>i</type>
+			<ifblock>true</ifblock>
+			<cond>1</cond>
+			<file>if.blk</file>
+		</block>
+	</bar>
+	<bar name="timing" color="883710">
+		<block name="for %d seconds">
+			<type>c</type>
+			<cond>1</cond>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>10</ddhigh>
+            </dropdown>
+			<file>forSeconds.blk</file>
+		</block>
+		<block name="repeat forever">
+			<cond>1</cond>
+			<file>forever.blk</file>
+		</block>
+		<block name="delay %d second">
+			<type>d</type>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>1</ddhigh>
+            </dropdown>
+			<file>delay.blk</file>
+		</block>
+	</bar>
+	<bar name="sensing" color="155890">
+		<block name="button pressed">
+			<wid>90</wid>
+			<hgt>25</hgt>
+            <num>true</num>
+			<type>b</type>
+			<file>button.blk</file>
+		</block>
+        <block name="arduino led %d">
+            <type>m</type>
+            <dropdown>
+                <dds>ON</dds>
+                <dds>OFF</dds>
+            </dropdown>
+			<file>led.blk</file>
+		</block>
+	</bar>
+	<bar name="automation" color="367116">
+		<block name="eye color shift">
+			<type>L</type>
+			<file>autoColors.blk</file>
+            <part>eye color</part>
+		</block>
+	</bar>
+	<bar name="sound" color="841688">
+		<block name="play sound %d">
+			<type>S</type>
+            <dropdown>
+                <dds>BUBBLE</dds>
+                <dds>GLUB</dds>
+            </dropdown>
+			<file>playSound.blk</file>
+		</block>
+		<block name="stop sounds">
+			<type>A</type>
+			<file>stopSound.blk</file>
+		</block>
+	</bar>
+</blocks>
+	

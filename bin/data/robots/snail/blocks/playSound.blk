@@ -1,0 +1,38 @@
+global(){
+	~#include <Wire.h>
+	~bool playing=false;
+	~int sound;
+	~String soundTemp;
+}
+
+setup(){
+	~Wire.begin();
+}
+
+loop(){
+	soundTemp="$dd[0].str";
+	if(soundTemp.equals("BUBBLE")){
+		sound = 1;
+	}
+	else if(soundTemp.equals("GLUB")){
+		sound= 2;
+	}
+	else {
+		sound=0;
+	}
+	Wire.requestFrom(4,1);
+	while(Wire.available()){
+		playing=Wire.receive();
+		Serial.print(playing);
+	}
+	if(!playing){
+		Wire.beginTransmission(4);
+		Wire.send(sound);
+		Wire.endTransmission();
+	}
+}
+
+endLoop(){
+}
+
+~ath

@@ -1,0 +1,21 @@
+global(){
+	~#include "crabEyes.h"
+}
+
+setup(){
+	~eyes1.setup();
+}
+
+start(){
+	eyes1.start();
+}
+
+loop(){
+	eyes1.autoColor();
+}
+
+end(){
+	eyes1.end();
+}
+
+~ath

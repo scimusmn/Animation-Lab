@@ -1,0 +1,32 @@
+global(){
+	~#include <Servo.h>
+	@int tailDir=1;
+	@long tailTimer=0;
+	@int tailPos=90;
+	~Servo tail;
+	~int tailPin=9;
+}
+
+setup(){
+	~tail.attach(tailPin);
+}
+
+loop(){
+	int speedTail;
+	String temp="$dd[0].str";
+	if(temp.equals("FAST")) speedTail = 10;
+	else if(temp.equals("MED")) speedTail = 50;
+	else speedTail=100;
+	
+	if(millis()>tailTimer){
+		tail.write(tailPos+=tailDir);
+		if(tailPos>180) tailDir=-1;
+		else if(tailPos<=90) tailDir=1;
+		tailTimer=millis()+speedTail;
+	}
+}
+
+endLoop(){	
+}
+
+~ath

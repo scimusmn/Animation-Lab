@@ -1,0 +1,22 @@
+global(){
+	~#include <Wire.h>
+	~#include <sounds.h>
+}
+
+setup(){
+	~Sound.setup();
+}
+
+start(){
+  ~Sound.start();
+}
+
+loop(){
+	Sound.stop();
+}
+
+end(){
+  ~Sound.end();
+}
+
+~ath

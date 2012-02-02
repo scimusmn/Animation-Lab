@@ -1,0 +1,33 @@
+global(){
+	~#include <Servo.h>
+	@int flipDir=1;
+	@long flipTimer=0;
+	@int flipPos=90;
+	@int speedFlip;
+	@String tempFlip;
+	~Servo flip;
+	~int flipPin=10;
+}
+
+setup(){
+	~flip.attach(flipPin);
+}
+
+loop(){
+	tempFlip="$dd[0].str";
+	if(tempFlip.equals("FAST")) speedFlip = 10;
+	else if(tempFlip.equals("MED")) speedFlip = 50;
+	else speedFlip=100;
+	
+	if(millis()>flipTimer&&!tempFlip.equals("STOP")){
+		flip.write(flipPos+=flipDir);
+		if(flipPos>180) flipDir=-1;
+		else if(flipPos<=90) flipDir=1;
+		flipTimer=millis()+speedFlip;
+	}
+}
+
+endLoop(){	
+}
+
+~ath

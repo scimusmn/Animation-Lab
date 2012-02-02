@@ -1,0 +1,18 @@
+global(){
+	#ifndef AUDIO
+	#define AUDIO
+	bool playing=false;
+	#endif
+}
+
+setup(){
+}
+
+loop(){
+	playing
+}
+
+endLoop(){	
+}
+
+~ath

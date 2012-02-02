@@ -1,0 +1,92 @@
+<blocks font="ArialNarrow.ttf" title="FishBot" subtitle="Advanced: Design complex stacks using repetition and conditions" xmlns:blck="http://www.smm.org/">
+	<bar name="Action blocks" color="0x993399">
+		<block name="move flipper %d" color="0x993399">
+      <dropdown>
+          <dds>LEFT</dds>
+          <dds>RIGHT</dds>
+      </dropdown>
+      <file>flip.blk</file>
+    </block>
+		<block name="move tail %d" color="0x993399">
+      <dropdown>
+          <dds>LEFT</dds>
+          <dds>RIGHT</dds>
+      </dropdown>
+      <file>tail.blk</file>
+    </block>
+		<block name="wriggle speed %d">
+			<dropdown>
+        <dds>STOP</dds>
+        <dds>SLOW</dds>
+        <dds>FAST</dds>
+      </dropdown>
+			<file>wriggle.blk</file>
+		</block>
+		<block name="play sound %d">
+      <dropdown>
+          <dds>NONE</dds>
+          <dds>GLUB</dds>
+          <dds>BUBBLE</dds>
+      </dropdown>
+			<file>playSound.blk</file>
+		</block>
+    <block name="blink %d" color="0x993399">
+      <dropdown>
+          <dds>FAST</dds>
+          <dds>SLOW</dds>
+      </dropdown>
+      <file>blink.blk</file>
+    </block>
+	</bar>
+	<bar name="Timing blocks" color="0xFF6600">
+		<block name="for %d seconds">
+			<type>c</type>
+			<cond>1</cond>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>10</ddhigh>
+            </dropdown>
+			<file>forSeconds.blk</file>
+		</block>
+		<block name="wait %d seconds">
+			<type>d</type>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>5</ddhigh>
+            </dropdown>
+			<file>delay.blk</file>
+		</block>
+		<block name="repeat %d times">
+			<cond>1</cond>
+      <dropdown>
+          <ddlow>0</ddlow>
+          <ddhigh>10</ddhigh>
+          <ddsteps>11</ddsteps>
+      </dropdown>
+			<file>repeat.blk</file>
+		</block>
+		<block name="forever">
+			<cond>1</cond>
+			<file>forever.blk</file>
+		</block>
+	</bar>
+	<bar name="Conditional blocks" color="896016">
+		<block name="if button pressed">
+			<cond>1</cond>
+			<file>ifBP.blk</file>
+		</block>
+    <block name="if sound is playing">
+        <cond>1</cond>
+        <file>playing.blk</file>
+    </block>
+    <block name="if flipper %d">
+        <cond>1</cond>
+        <dropdown>
+          <dds>LEFT</dds>
+          <dds>RIGHT</dds>
+        </dropdown>
+        <file>whileBP.blk</file>
+    </block>
+	</bar>
+</blocks>
+	

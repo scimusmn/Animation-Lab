@@ -1,0 +1,24 @@
+global(){
+	~int wrigPin=11;
+	~bool wriggle=false;
+	@int wrigSpeed=0;
+	@String wrigString;
+}
+
+setup(){
+	~pinMode(wrigPin,OUTPUT);
+}
+
+loop(){
+	wrigString="$dd[0].str";
+	if(wrigString.equals("FAST")) wrigSpeed = 255;
+	else if(wrigString.equals("MED")) wrigSpeed = 180;
+	else wrigSpeed= 90;
+	
+	analogWrite(wrigPin,wrigSpeed);
+}
+
+endLoop(){	
+}
+
+~ath

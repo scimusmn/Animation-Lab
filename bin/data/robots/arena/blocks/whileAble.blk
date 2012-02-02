@@ -1,0 +1,23 @@
+global(){
+  ~#include "AFMotor.h"
+	~#include "arenaRobot.h"
+}
+
+setup(){
+	~robot.setup();
+}
+
+start(){
+}
+
+loop(){
+	while(!robot.frontSensor(400)){
+    robot.doubleStep(2,BACKWARD,SINGLE);
+  }
+}
+
+end(){
+  ~robot.end();
+}
+
+~ath

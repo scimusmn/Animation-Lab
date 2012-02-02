@@ -1,0 +1,14 @@
+global(){
+}
+
+setup(){
+}
+
+loop(){
+	delay($dd[0].num *1000);
+}
+
+endLoop(){
+}
+
+~ath

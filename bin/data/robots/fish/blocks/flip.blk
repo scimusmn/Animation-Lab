@@ -1,0 +1,21 @@
+global(){
+@#include "fishMove.h"
+}
+
+setup(){
+	flipper.setup();
+}
+
+start(){
+  flipper.start();
+}
+
+loop(){
+	flipper.manual("$dd[0].str");
+}
+
+end(){
+  
+}
+
+~ath

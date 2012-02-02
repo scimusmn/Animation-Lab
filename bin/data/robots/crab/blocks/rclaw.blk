@@ -1,0 +1,22 @@
+global(){
+	~#include <Servo.h>
+	~#include "claws.h"
+}
+
+setup(){
+	~rightClaw.setup();
+}
+
+start(){
+	~rightClaw.start();
+}
+
+loop(){
+	rightClaw.manual("$dd[0].str");
+}
+
+end(){
+	~rightClaw.end();
+}
+
+~ath

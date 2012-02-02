@@ -1,0 +1,12 @@
+<base robot_number="101">
+	<block name="go forward %d inches" color="0xde8c3a">
+		<dropdown>
+			<ddlow>0</ddlow>
+			<ddhigh>12</ddhigh>
+			<ddsteps>7</ddsteps>
+			<selected>4</selected>
+		</dropdown>
+		<action>move:$dd[0].num()*$ppi</action>
+		<file>forward.blk</file>
+	</block>
+</base>

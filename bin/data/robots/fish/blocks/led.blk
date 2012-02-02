@@ -1,0 +1,21 @@
+global(){
+	@int ledState;
+	@String tempLed;
+}
+
+setup(){
+	@pinMode(13,OUTPUT);
+}
+
+loop(){
+	tempLed="$dd[0].str";
+	if(tempLed.equals("ON")) ledState = 1;
+	else ledState=0;
+	
+	digitalWrite(13,ledState);
+}
+
+endLoop(){	
+}
+
+~ath

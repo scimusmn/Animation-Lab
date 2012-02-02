@@ -1,0 +1,18 @@
+global(){
+	~#include<Servo.h>
+	~Servo flip;
+	~int flipPin=10;
+}
+
+setup(){
+	~flip.attach(flipPin);
+}
+
+loop(){
+	flip.write($dd[0].num +90);
+}
+
+endLoop(){
+}
+
+~ath

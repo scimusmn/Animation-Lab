@@ -1,0 +1,94 @@
+<blocks font="ArialNarrow.ttf" xmlns:blck="http://www.smm.org/">
+	<bar name="Action blocks" color="0x993399">
+		<block name="right eye %d" color="0x993399">
+      <dropdown>
+        <dds>BACK</dds>
+        <dds>FORTH</dds>
+      </dropdown>
+      <file>reye.blk</file>
+    </block>
+		<block name="left eye %d" color="0x993399">
+      <dropdown>
+        <dds>BACK</dds>
+        <dds>FORTH</dds>
+      </dropdown>
+      <file>leye.blk</file>
+    </block>
+		<block name="%d body" color="0x993399">
+      <dropdown>
+        <dds>EXTEND</dds>
+        <dds>RETRACT</dds>
+      </dropdown>
+      <file>scrunch.blk</file>
+    </block>
+    <block name="move tail %d" color="0x993399">
+      <dropdown>
+          <dds>STOP</dds>
+          <dds>SLOW</dds>
+          <dds>FAST</dds>
+      </dropdown>
+      <file>rattle.blk</file>
+    </block>
+		<block name="play sound %d" color="0x993399">
+      <dropdown>
+          <dds>NONE</dds>
+          <dds>RATTLE</dds>
+          <dds>HISS</dds>
+          <selected>HISS</selected>
+      </dropdown>
+      <file>playSound.blk</file>
+    </block>
+	</bar>
+	<bar name="Timing blocks" color="0xFF6600">
+		<block name="for %d seconds">
+			<type>c</type>
+			<cond>1</cond>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>10</ddhigh>
+            </dropdown>
+			<file>forSeconds.blk</file>
+		</block>
+		<block name="wait %d seconds">
+			<type>d</type>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>5</ddhigh>
+            </dropdown>
+			<file>delay.blk</file>
+		</block>
+		<block name="repeat %d times">
+			<type>F</type>
+			<cond>1</cond>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>10</ddhigh>
+                <ddsteps>11</ddsteps>
+            </dropdown>
+			<file>repeat.blk</file>
+		</block>
+		<block name="forever">
+			<cond>1</cond>
+			<file>forever.blk</file>
+		</block>
+	</bar>
+	<bar name="Conditional blocks" color="896016">
+		<block name="if button pressed">
+			<cond>1</cond>
+			<file>ifBP.blk</file>
+		</block>
+    <block name="if tail left">
+        <cond>1</cond>
+        <file>whileBP.blk</file>
+    </block>
+    <block name="if flipper %d">
+        <cond>1</cond>
+        <dropdown>
+          <dds>LEFT</dds>
+          <dds>RIGHT</dds>
+        </dropdown>
+        <file>whileBP.blk</file>
+    </block>
+	</bar>
+</blocks>
+	

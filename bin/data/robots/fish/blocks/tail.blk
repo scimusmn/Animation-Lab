@@ -1,0 +1,21 @@
+global(){
+	~#include "fishMove.h"
+}
+
+setup(){
+	~tail.setup();
+}
+
+start(){
+  ~tail.start();
+}
+
+loop(){
+	tail.manual("$dd[0].str");
+}
+
+end(){
+  ~tail.end();
+}
+
+~ath

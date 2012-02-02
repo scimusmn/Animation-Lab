@@ -1,0 +1,22 @@
+global(){
+	@int forTimer=0;
+}
+
+setup(){
+
+}
+
+start(){
+}
+
+loop(){
+	forTimer=millis()+$dd[0].num *1000;
+	while(forTimer>millis()){ 
+		$blockIn;
+	}
+}
+
+end(){
+}
+
+~ath

@@ -1,0 +1,18 @@
+global(){
+	@bool onceThru=false;
+}
+
+setup(){
+}
+
+loop(){
+	if(!onceThru){
+		$blockIn;
+		onceThru=true;
+	}
+}
+
+endLoop(){
+}
+
+~ath

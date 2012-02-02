@@ -1,0 +1,18 @@
+global(){
+	~#include <Wire.h>
+}
+
+setup(){
+	~Wire.begin();
+}
+
+loop(){
+		Wire.beginTransmission(4);
+		Wire.send(0);
+		Wire.endTransmission();
+}
+
+endLoop(){
+}
+
+~ath

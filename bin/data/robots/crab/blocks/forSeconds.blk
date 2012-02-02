@@ -1,0 +1,25 @@
+global(){
+	@#include "rbTimer.h"
+	@rbTimer forTimer;
+}
+
+setup(){
+
+}
+
+start(){
+	@forTimer.start();
+}
+
+loop(){
+	forTimer.set($dd[0].num *1000);
+	if(forTimer.isRunning()){
+		$blockIn;
+	}
+}
+
+end(){
+	@forTimer.end();
+}
+
+~ath

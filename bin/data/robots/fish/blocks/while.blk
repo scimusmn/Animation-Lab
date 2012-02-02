@@ -1,0 +1,16 @@
+global(){
+}
+
+setup(){
+}
+
+loop(){
+	while($blockIf){
+		$blockIn;
+	}
+}
+
+endLoop(){	
+}
+
+~ath

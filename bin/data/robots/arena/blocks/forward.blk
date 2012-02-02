@@ -1,0 +1,21 @@
+global(){
+  ~#include "AFMotor.h"
+	~#include "arenaRobot.h"
+}
+
+setup(){
+	~robot.setup();
+}
+
+start(){
+}
+
+loop(){
+	robot.forward($dd[0].num );
+}
+
+end(){
+  ~robot.end();
+}
+
+~ath

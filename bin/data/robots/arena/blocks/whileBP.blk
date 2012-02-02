@@ -1,0 +1,17 @@
+global(){
+}
+
+setup(){
+	~pinMode(2,INPUT);
+}
+
+loop(){
+	while(digitalRead(2)){
+		$blockIn;
+	}
+}
+
+endLoop(){	
+}
+
+~ath

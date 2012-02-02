@@ -1,0 +1,36 @@
+<base robot_number="169">
+	<block name="forever" color="1291754.0000000">
+		<bracket>1</bracket>
+		<file>forever.blk</file>
+		<action>repeat:$forever</action>
+		<blocksIn>
+			<block name="go forward %d inches" color="0xde8c3a">
+				<dropdown>
+					<ddlow>0</ddlow>
+					<ddhigh>12</ddhigh>
+					<ddsteps>7</ddsteps>
+					<selected>0</selected>
+				</dropdown>
+				<action>move:$dd[0].num()*$ppi</action>
+				<file>forward.blk</file>
+			</block>
+			<block name="if path in front is blocked" color="0x65c270">    
+				<bracket>1</bracket>
+				<file>pathBlocked.blk</file>
+				<action>if:!$front(4)</action>
+				<blocksIn>
+					<block name="go forward %d inches" color="0xde8c3a">
+						<dropdown>
+							<ddlow>0</ddlow>
+							<ddhigh>12</ddhigh>
+							<ddsteps>7</ddsteps>
+							<selected>0</selected>
+						</dropdown>
+						<action>move:$dd[0].num()*$ppi</action>
+						<file>forward.blk</file>
+					</block>
+				</blocksIn>
+			</block>
+		</blocksIn>
+	</block>
+</base>

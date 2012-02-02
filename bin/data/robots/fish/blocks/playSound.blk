@@ -1,0 +1,22 @@
+global(){
+	~#include <Wire.h>
+	~#include <sounds.h>
+}
+
+setup(){
+	~Sound.setup();
+}
+
+start(){
+  ~Sound.start();
+}
+
+loop(){
+	Sound.play($dd[0].ind); ;
+}
+
+end(){
+  ~Sound.end();
+}
+
+~ath

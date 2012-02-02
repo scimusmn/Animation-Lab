@@ -1,0 +1,23 @@
+global(){
+	~#include "claws.h"
+}
+
+setup(){
+	~leftClaw.setup();
+}
+
+start(){
+	~leftClaw.start();
+}
+
+loop(){
+	if(leftClaw.isOpen()){
+		$blockIn;
+	}
+}
+
+end(){
+	~leftClaw.end();
+}
+
+~ath
