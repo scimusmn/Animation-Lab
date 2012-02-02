@@ -84,6 +84,7 @@ protected:
   rootGroup sets;
   
   ofTimer changed;
+  ofTimer timeOut;
 public:
   double x,y,w,h;
   //controlBar();

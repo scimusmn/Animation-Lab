@@ -290,13 +290,13 @@ void controlBar::drawForeground(){
   }
   else if(serChk.drawForeground());
   else if(upload.drawForeground());
-  else if(bPluginChoice){
+  /*else if(bPluginChoice){
     ofSetColor(0, 0, 0,192);
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
     drawStyledBox(create.x-100, create.y-100, edit.w+200, ofGetHeight()/3+200);
     create.draw((ofGetWidth()-create.w)/2, ofGetHeight()/3);
     edit.draw((ofGetWidth()-edit.w)/2, 2*ofGetHeight()/3-edit.h);
-  }
+  }*/
   else if(bChooseLevel){
     ofSetColor(0, 0, 0,192);
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
@@ -327,8 +327,11 @@ void controlBar::update()
     }
   }
   if(serChk.justFoundDevice()){
-    bPluginChoice=true;
+    //bPluginChoice=true;
+    bChooseLevel=true;
   }
+  
+  if(timeOut.justExpired()) bChooseLevel=true,blocks->clear();
   
   /*if(testbed.turtleIsRunning()){
     testbed.idleTurtle();
@@ -341,6 +344,8 @@ void controlBar::update()
 bool controlBar::clickDown(int _x, int _y, int button)
 {
   if(!mouseLockout(button)){
+    timeOut.reset();
+    timeOut.run();
     if (clearBut.clickDown(_x, _y)) {
       blocks->clear();
     }
@@ -372,6 +377,7 @@ bool controlBar::clickDown(int _x, int _y, int button)
   }*/
   
   if(bChooseLevel||!mouseLockout(button)){
+    timeOut.set(60);
     if(sets.clickDown(_x,_y)&&!anim.isPlaying()){
       if(bChooseLevel){
         bChooseLevel=false;
@@ -382,7 +388,7 @@ bool controlBar::clickDown(int _x, int _y, int button)
     }
   }
   
-  if(bPluginChoice){
+  /*if(bPluginChoice){
     if(edit.clickDown(_x, _y)){
       bPluginChoice=false;
       ofxDirList dir;
@@ -400,7 +406,7 @@ bool controlBar::clickDown(int _x, int _y, int button)
       bChooseLevel=true;
       blocks->recordState();
     }
-  }
+  }*/
 
   if(!mouseLockout(button)&&upload.clickDown(_x, _y)){//||testbed.mouseLockout())
     blocks->saveXML("programs/"+serChk.deviceNumber()+".xml");

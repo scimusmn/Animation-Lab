@@ -46,36 +46,33 @@ baseBlock::baseBlock():block(){
   pad=15;
   
   butArea.x=max(uploadBut.w,testBut.w)+pad*2;
-  butArea.y=pad+uploadBut.h+pad+testBut.h+pad;
+  butArea.y=pad+uploadBut.h+pad;//+testBut.h+pad;
 }
 
 void baseBlock::setDrawTest(bool btest){
-  bDrawtest=btest;
+  //bDrawtest=btest;
 }
 
 void baseBlock::drawButtonArea(int _x, int _y)
 {
   ofSetColor(black);
-  if(bDrawtest){
-    ofBeginShape();
-    drawButtonSpace(x+w-butArea.x, _y, butArea.x, butArea.y,butArea.y-h);
-    ofEndShape();
-  }
+  ofBeginShape();
+  drawButtonSpace(x+w-butArea.x, _y, butArea.x, h,0);
+  ofEndShape();
+  
   
   ofSetColor(yellow);
   ofNoFill();
   ofSetLineWidth(2);
-  if(bDrawtest){
-    ofBeginShape();
-    drawButtonSpace(x+w-butArea.x, _y, butArea.x, butArea.y,butArea.y-h);
-    ofEndShape();
-  }
+  ofBeginShape();
+  drawButtonSpace(x+w-butArea.x, _y, butArea.x, h,0);
+  ofEndShape();
+  
   ofSetLineWidth(1);
   ofFill();
-  if(bDrawtest){
-    uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,_y+pad);
-    testBut.draw(x+w-butArea.x+(butArea.x-testBut.w)/2, uploadBut.y+uploadBut.h+pad);
-  }
+  
+  uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,y+(h-uploadBut.h)/2);
+    //testBut.draw(x+w-butArea.x+(butArea.x-testBut.w)/2, uploadBut.y+uploadBut.h+pad);
 }
 
 void baseBlock::draw(int _x, int _y)
@@ -85,14 +82,13 @@ void baseBlock::draw(int _x, int _y)
   //w=max(ttlSize.x, widthOn()+butArea.x);
   
   ofSetColor(black);
-  if(bDrawtest) drawBaseBlock(x, y, w, h,butArea.x,butArea.y);
-  else drawBaseBlock(x, y, w, h,0,h);
+  drawBaseBlock(x, y, w, h,0,h);
   
   ofSetColor(yellow);
   ofNoFill();
   ofSetLineWidth(2);
   ofLine(x+w-butArea.x, y, x+w-butArea.x, y+h);
-  if(bDrawtest) drawBaseBlock(x, y, w, h,butArea.x,butArea.y);
+  if(bDrawtest&&0) drawBaseBlock(x, y, w, h,butArea.x,butArea.y);
   else drawBaseBlock(x, y, w, h,0,h);
   ofSetLineWidth(1);
   ofFill();
@@ -108,14 +104,14 @@ void baseBlock::draw(int _x, int _y)
 		blocksIn[i].draw();
 	}
   
-  if(!bDrawtest) title="Program being tested";
+  if(!bDrawtest&&0) title="Program being tested";
   else title="Connect blocks here";
   ofSetColor(yellow);
   arialHeader.drawString(title, x+10, y+(h-arialHeader.stringHeight(title))/2);
   
   uploadBut.setTextSize(19);
   
-  if(bDrawtest){
+  if(bDrawtest&&0){
     testBut.draw(x+w-butArea.x+(butArea.x-testBut.w)/2, uploadBut.y+uploadBut.h+pad);
     uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,y+pad);
   }
