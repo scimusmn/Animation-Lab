@@ -34,7 +34,7 @@
 #
 # $Id$
 
-BASEDIR=$(dir $0)
+BASEDIR="$(dir $0)"
 
 TARGET = $(notdir $(CURDIR))
 INSTALL_DIR = ../../Arduino

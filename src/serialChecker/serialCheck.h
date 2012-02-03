@@ -52,7 +52,7 @@ protected:
 	int			waitForData;
 	unsigned char		data[3];
   
-  RFIDreader rfid;
+  //RFIDreader rfid;
   
   vector<serialDevice> devices;
   

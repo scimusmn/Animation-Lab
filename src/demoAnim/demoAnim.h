@@ -13,6 +13,8 @@
 
 #include "ofVMouse.h"
 
+#include "dallasEng.h"
+
 class demoAnim : public ofAnimation {
 protected:
   int animStep;
@@ -21,6 +23,12 @@ protected:
   
   bGroup * blocks;
   sbGroup * sideBar;
+  
+  dallasButton yes;
+  dallasButton no;
+  
+  bool bPrompt;
+  ofFont header;
 public:
   void setup(bGroup * bG, sbGroup * sbG);
   void animationStepRequested();
@@ -30,6 +38,12 @@ public:
   void changeAnimXML(ofXML & newXML);
   void update();
   void drawCursor();
+  void startPrompt();
+  void clearPrompt();
+  bool isPrompting();
+  void drawForeground();
+  bool clickDown(int x, int y);
+  bool clickUp();
   void play();
   bool isPlaying();
   void stop();

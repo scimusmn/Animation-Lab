@@ -305,6 +305,7 @@ void controlBar::drawForeground(){
     drawStyledBox(.5*ofGetWidth()/(sets.size())-(sets(0).w)/2-50, (ofGetHeight()-sets(0).h)/2-100, (sets.size()-1)*ofGetWidth()/(sets.size())+(sets(0).w)+100, sets(0).h+200);
     for (unsigned int i=0; i<sets.size(); i++) sets(i).draw((i+.5)*ofGetWidth()/(sets.size())-(sets(i).w)/2,(ofGetHeight()-sets(i).h)/2);
   }
+  else anim.drawForeground();
   //else testbed.drawForeground();
   
   anim.drawCursor();
@@ -331,7 +332,7 @@ void controlBar::update()
     bChooseLevel=true;
   }
   
-  if(timeOut.justExpired()) bChooseLevel=true,blocks->clear();
+  if(timeOut.justExpired()) bChooseLevel=true,blocks->clear(),anim.clearPrompt();
   
   /*if(testbed.turtleIsRunning()){
     testbed.idleTurtle();
@@ -372,6 +373,8 @@ bool controlBar::clickDown(int _x, int _y, int button)
     anim.stop();
   }
   
+  if(anim.isPrompting()) anim.clickDown(_x, _y);
+  
   /*if ((!mouseLockout(button)||testbed.mouseLockout())||(anim.isPlaying()&&button==VMOUSE_BUTTON)) {
     testbed.clickDown(_x, _y);
   }*/
@@ -381,32 +384,14 @@ bool controlBar::clickDown(int _x, int _y, int button)
     if(sets.clickDown(_x,_y)&&!anim.isPlaying()){
       if(bChooseLevel){
         bChooseLevel=false;
-        anim.play();
+        //anim.play();
+        anim.startPrompt();
       }
+      anim.startPrompt();
       if(sets.getSelected())
         loadBlocks((*sets.getSelected()));
     }
   }
-  
-  /*if(bPluginChoice){
-    if(edit.clickDown(_x, _y)){
-      bPluginChoice=false;
-      ofxDirList dir;
-      int nDir=0;
-      nDir = dir.listDir("programs");
-      //you can now iterate through the files as you like
-      for(int i = 0; i < nDir; i++){
-        if(serChk.deviceNumber()+".xml"==ofGetFilename(dir.getPath(i)))
-          blocks->loadFile(dir.getPath(i));
-      }
-      blocks->recordState();
-    }
-    if(create.clickDown(_x, _y)){
-      bPluginChoice=false;
-      bChooseLevel=true;
-      blocks->recordState();
-    }
-  }*/
 
   if(!mouseLockout(button)&&upload.clickDown(_x, _y)){//||testbed.mouseLockout())
     blocks->saveXML("programs/"+serChk.deviceNumber()+".xml");
@@ -426,6 +411,7 @@ bool controlBar::clickUp()
   //testbed.clickUp();
   edit.clickUp();
   create.clickUp();
+  anim.clickUp();
 }
 
 bool controlBar::mouseLockout(int button)
@@ -437,6 +423,7 @@ bool controlBar::mouseLockout(int button)
   ret|=!serChk.isAvailable();
   ret|=bChooseLevel;
   ret|=upload.isUploading();
+  ret|=anim.isPrompting();
   //ret|=testbed.mouseLockout();
   return ret;
 }

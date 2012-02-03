@@ -28,7 +28,7 @@ void uploadModule::upload()
   
   //--------- once we've generated the file, compile and upload with one of teh following scripts
 #if defined( TARGET_OSX ) || defined( TARGET_LINUX )
-  command.run(ofToDataPath("arduino_make/upload.sh"));
+  command.run("\""+ofToDataPath("arduino_make/upload.sh\""));
 #else
   command.run(ofToDataPath("\"data\\arduino_make\\build.bat\""));
 #endif
@@ -56,7 +56,7 @@ bool uploadModule::drawForeground()
     label.drawString(prog.report(), ofGetWidth()/2, ofGetHeight()*7/8.+60);
     label.setSize(70);
 	}
-  else if(uploaded.running()){
+  else if(0&&uploaded.running()){
     ret=true;
     ofSetColor(0, 0, 0,192);
     ofRect(0, 0, ofGetWidth(), ofGetHeight());

@@ -1,14 +1,22 @@
 global(){
+	~#include "animButton.h"
 }
 
 setup(){
+	~Button.setup(4,2);
+}
+
+start(){
 }
 
 loop(){
-	digitalRead(8)
+	if(Button.isPressed()){
+		$blockIn;
+	}
 }
 
-endLoop(){	
+end(){
+  Button.end();
 }
 
 ~ath

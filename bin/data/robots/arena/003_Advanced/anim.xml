@@ -94,7 +94,7 @@
   <step type="clickUp" time=".25" />
 #move to the upload button and click it.
   <step type="move" speed="2000">
-    <pos type="obj" where="test" x="w/2" y="h/2" />
+    <pos type="obj" where="upload" x="w/2" y="h/2" />
   </step>
   <step type="clickDown" time=".25" />
   <step type="clickUp" time=".25" />

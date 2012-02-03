@@ -10,6 +10,8 @@
 #include "demoAnim.h"
 #include "ofMain.h"
 
+extern ofColor black, yellow, white, gray;
+
 void demoAnim::setup(bGroup * bG, sbGroup * sbG)
 {
   blocks=bG;
@@ -18,6 +20,16 @@ void demoAnim::setup(bGroup * bG, sbGroup * sbG)
   anim.setup(this);
   animStep=0;
   pointer.loadImage("images/pointer.png");
+  
+  yes.setup("yes", 40);
+  no.setup("no",40);
+  
+  yes.w=no.w=max(yes.w,no.w);
+  
+  header.loadFont("fonts/DinC.ttf");
+  header.setSize(70);
+  header.setMode(OF_FONT_TOP);
+  header.setMode(OF_FONT_CENTER);
 }
 
 void demoAnim::changeAnimXML(ofXML & newXML)
@@ -217,6 +229,52 @@ void demoAnim::drawCursor()
   }
   pointer.draw(ofGetAppPtr()->mouseX-10, ofGetAppPtr()->mouseY, pointer.width*2,pointer.height*2);
 }
+
+void demoAnim::startPrompt()
+{
+  bPrompt=true;
+}
+
+void demoAnim::clearPrompt()
+{
+  bPrompt=false;
+}
+
+bool demoAnim::isPrompting()
+{
+  return bPrompt;
+}
+
+void demoAnim::drawForeground()
+{
+  if(bPrompt){
+    ofSetColor(black.opacity(.8));
+    ofRect(0,0,ofGetWidth(),ofGetHeight());
+    string head="View Demo?";
+    int w=max(double(header.stringWidth(head)),yes.w*2+50);
+    int h=header.stringHeight(head)+50+no.h;
+    ofRectangle r((ofGetWidth()-w)/2-50, (ofGetHeight()-h)/2-50, w+100, h+100);
+    drawStyledBox(r.x,r.y,r.width,r.height);
+    header.drawString(head, r.x+r.width/2, r.y+50);
+    yes.draw(r.x+r.width/2-yes.w-25, r.y+r.height-50-yes.h);
+    no.draw(r.x+r.width/2+25, r.y+r.height-50-no.h);
+  }
+}
+
+bool demoAnim::clickDown(int x, int y)
+{
+  if(bPrompt){
+    if(yes.clickDown(x, y)) play(),bPrompt=false;
+    if(no.clickDown(x, y)) bPrompt=false;
+  }
+}
+
+bool demoAnim::clickUp()
+{
+  yes.clickUp();
+  no.clickUp();
+}
+
 
 void demoAnim::play()
 {
