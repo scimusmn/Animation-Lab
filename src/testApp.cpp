@@ -12,16 +12,6 @@ extern bool tagAvailable;
 
 bool bCopy=false;
 
-struct movie {
-  int num;
-  string name;
-  movie(string nm)
-  {
-    name=nm;
-    num=1;
-  }
-};
-
 //--------------------------------------------------------------
 void testApp::setup(){
   
@@ -38,6 +28,7 @@ void testApp::setup(){
   
   //--------- Initialize the valid working space for the blocks
 	blocks.setup(sidebar.area.width,controls.h+topTitle.h,ofGetWidth()-sidebar.area.width,ofGetHeight()-(controls.h+topTitle.h));
+  blocks.setScrolling(false);
 }
 
 //--------------------------------------------------------------

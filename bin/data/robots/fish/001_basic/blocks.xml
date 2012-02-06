@@ -1,6 +1,6 @@
 <blocks font="ArialNarrow.ttf" title="FishBot" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
 	<bar name="Examples" color="883710">
-    <block name="move flipper %d" color="0x993399">
+    <block name="move flipper %d" color="0xde8c3a">
       <dropdown>
           <dds>LEFT</dds>
           <dds>RIGHT</dds>
@@ -8,7 +8,7 @@
       </dropdown>
       <file>flip.blk</file>
       <blocksOn>
-        <block name="wait %d second" color="0xFF6600">
+        <block name="wait %d second" color="0x13b5ea">
           <type>d</type>
           <dropdown>
             <ddlow>0</ddlow>
@@ -17,7 +17,7 @@
           </dropdown>
           <file>delay.blk</file>
         </block>
-        <block name="move flipper %d" color="0x993399">
+        <block name="move flipper %d" color="0xde8c3a">
           <type>p</type>
           <dropdown>
               <dds>LEFT</dds>
@@ -26,7 +26,7 @@
           </dropdown>
           <file>flip.blk</file>
         </block>
-        <block name="wait %d second" color="0xFF6600">
+        <block name="wait %d second" color="0x13b5ea">
           <type>d</type>
           <dropdown>
             <ddlow>0</ddlow>
@@ -37,7 +37,7 @@
         </block>
       </blocksOn>
     </block>
-    <block name="move tail %d" color="0x993399">
+    <block name="move tail %d" color="0xde8c3a">
       <type>p</type>
       <dropdown>
           <dds>LEFT</dds>
@@ -46,7 +46,7 @@
       </dropdown>
       <file>tail.blk</file>
       <blocksOn>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -55,7 +55,7 @@
 					</dropdown>
 					<file>delay.blk</file>
 				</block>
-				<block name="move tail %d" color="0x993399">
+				<block name="move tail %d" color="0xde8c3a">
           <type>p</type>
           <dropdown>
               <dds>LEFT</dds>
@@ -64,7 +64,7 @@
           </dropdown>
           <file>tail.blk</file>
         </block>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -75,7 +75,7 @@
 				</block>
 			</blocksOn>
 		</block>
-    <block name="wriggle speed %d" color="0x993399">
+    <block name="wriggle speed %d" color="0xde8c3a">
       <type>g</type>
       <dropdown>
         <dds>STOP</dds>
@@ -85,7 +85,7 @@
       </dropdown>
       <file>wriggle.blk</file>
       <blocksOn>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -94,7 +94,7 @@
 					</dropdown>
 					<file>delay.blk</file>
 				</block>
-				<block name="wriggle speed %d" color="0x993399">
+				<block name="wriggle speed %d" color="0xde8c3a">
           <type>g</type>
           <dropdown>
             <dds>STOP</dds>
@@ -106,7 +106,7 @@
         </block>
 			</blocksOn>
 		</block>
-    <block name="play sound %d" color="0x993399">
+    <block name="play sound %d" color="0xde8c3a">
       <dropdown>
           <dds>NONE</dds>
           <dds>GLUB</dds>
@@ -115,7 +115,7 @@
       </dropdown>
       <file>playSound.blk</file>
       <blocksOn>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -124,7 +124,7 @@
 					</dropdown>
 					<file>delay.blk</file>
 				</block>
-				<block name="play sound %d" color="0x993399">
+				<block name="play sound %d" color="0xde8c3a">
           <dropdown>
               <dds>NONE</dds>
               <dds>GLUB</dds>

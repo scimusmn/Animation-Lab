@@ -1,6 +1,6 @@
-<blocks font="ArialNarrow.ttf" title="Rockin Crustacean" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
-	<bar name="Instruction blocks" color="883710">
-    <block name="right claw %d" color="0x993399">
+<blocks font="ArialNarrow.ttf" title="Make a story with the Rockin Crustacean" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
+	<bar name="Instruction blocks" color="0x594072">
+    <block name="right claw %d" color="0xde8c3a">
       <type>p</type>
       <dropdown>
         <dds>OPEN</dds>
@@ -9,7 +9,7 @@
       </dropdown>
       <file>rclaw.blk</file>
       <blocksOn>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -18,7 +18,7 @@
 					</dropdown>
 					<file>delay.blk</file>
 				</block>
-				<block name="right claw %d" color="0x993399">
+				<block name="right claw %d" color="0xde8c3a">
 					<type>p</type>
 					<dropdown>
 						<dds>OPEN</dds>
@@ -29,7 +29,7 @@
 					<part>right claw click</part>
 					<part>if right claw open</part>
 				</block>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -40,7 +40,7 @@
 				</block>
 			</blocksOn>
 		</block>
-    <block name="left claw %d" color="0x993399">
+    <block name="left claw %d" color="0xde8c3a">
       <type>p</type>
       <dropdown>
         <dds>OPEN</dds>
@@ -49,7 +49,7 @@
       </dropdown>
       <file>lclaw.blk</file>
       <blocksOn>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -58,7 +58,7 @@
 					</dropdown>
 					<file>delay.blk</file>
 				</block>
-				<block name="left claw %d" color="0x993399">
+				<block name="left claw %d" color="0xde8c3a">
 					<type>p</type>
 					<dropdown>
 						<dds>OPEN</dds>
@@ -69,7 +69,7 @@
 					<part>left claw click</part>
 					<part>if left claw open</part>
 				</block>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -80,7 +80,7 @@
 				</block>
 			</blocksOn>
 		</block>
-    <block name="shake speed %d" color="0x993399">
+    <block name="shake speed %d" color="0xde8c3a">
       <dropdown>
         <dds>STOP</dds>
         <dds>SLOW</dds>
@@ -89,7 +89,7 @@
       </dropdown>
       <file>shake.blk</file>
       <blocksOn>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -98,7 +98,7 @@
 					</dropdown>
 					<file>delay.blk</file>
 				</block>
-				<block name="shake speed %d" color="0x993399">
+				<block name="shake speed %d" color="0xde8c3a">
           <dropdown>
             <dds>STOP</dds>
             <dds>SLOW</dds>
@@ -107,7 +107,7 @@
           </dropdown>
           <file>shake.blk</file>
         </block>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -118,7 +118,7 @@
 				</block>
 			</blocksOn>
 		</block>
-    <block name="eye color %d" color="0x993399">
+    <block name="eye color %d" color="0xde8c3a">
       <dropdown>
           <dds>RED</dds>
           <dds>GREEN</dds>
@@ -128,7 +128,7 @@
       </dropdown>
       <file>eyes.blk</file>
       <blocksOn>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
@@ -137,7 +137,7 @@
 					</dropdown>
 					<file>delay.blk</file>
 				</block>
-				<block name="eye color %d" color="0x993399">
+				<block name="eye color %d" color="0xde8c3a">
           <dropdown>
               <dds>RED</dds>
               <dds>GREEN</dds>
@@ -148,7 +148,7 @@
           <file>eyes.blk</file>
           <part>eye color shift</part>
         </block>
-				<block name="wait %d second" color="0xFF6600">
+				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>

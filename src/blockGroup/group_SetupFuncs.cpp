@@ -47,6 +47,11 @@ bGroup::~bGroup(){
 
 //------------------------ Utilities -------------------
 
+void bGroup::setScrolling(bool scrl)
+{
+  bScrolling=scrl;
+}
+
 void bGroup::setup(double _x, double _y,double wid,double hgt){
 	//blocks.reserve(100);
   bSequencePlay=bTesting=false;
@@ -67,6 +72,8 @@ void bGroup::setup(double _x, double _y,double wid,double hgt){
   
   label.loadFont("fonts/Din.ttf");
   label.setSize(19);
+  
+  bScrolling=true;
 }
 
 int bGroup::size(){

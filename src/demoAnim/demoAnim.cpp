@@ -21,8 +21,8 @@ void demoAnim::setup(bGroup * bG, sbGroup * sbG)
   animStep=0;
   pointer.loadImage("images/pointer.png");
   
-  yes.setup("yes", 40);
-  no.setup("no",40);
+  yes.setup("Yes", 40);
+  no.setup("No",40);
   
   yes.w=no.w=max(yes.w,no.w);
   

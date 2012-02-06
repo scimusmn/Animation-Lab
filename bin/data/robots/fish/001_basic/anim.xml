@@ -4,7 +4,7 @@
     <pos type="mouse" />
   </step>
 #move to the first sidebar and click it open
-  <step type="move" speed="500">
+  <step type="move" speed="2000">
     <pos type="obj" where="sidebar[0]" x="20" y="20" />
   </step>
   <step type="clickDown" time=".25" />
@@ -28,11 +28,11 @@
   </step>
   <step type="clickUp" time=".5" />
 #reorder some of the blocks
-  <step type="move" speed="500">
+  <step type="move" speed="2000">
     <pos type="obj" where="base[6]" x="20" y="20" />
   </step>
   <step type="clickDown" time=".25" />
-  <step type="move" speed="500">
+  <step type="move" speed="2000">
     <pos type="obj" where="base" x="20" y="h+30" />
   </step>
   <step type="clickUp" time=".5" />

@@ -71,7 +71,7 @@ void baseBlock::drawButtonArea(int _x, int _y)
   ofSetLineWidth(1);
   ofFill();
   
-  uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,y+(h-uploadBut.h)/2);
+  uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,_y+(h-uploadBut.h)/2);
     //testBut.draw(x+w-butArea.x+(butArea.x-testBut.w)/2, uploadBut.y+uploadBut.h+pad);
 }
 

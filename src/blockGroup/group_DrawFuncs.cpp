@@ -70,15 +70,17 @@ void bGroup::draw(int _x, int _y, int _w, int _h)
   draw();
   base.draw(x+(w-base.w)/2, y-bar.getScrollPosition());
   base.drawButtonArea(x+(w-base.w)/2, y);
-  ofSetColor(0, 0, 0,128);
-  bar.draw(x+w-bar.w,y);
-  if(bar.getScrollPosition()>50){
-    ofSetColor(yellow);
-    label.drawString("Program continues above\nuse scrollbar to view",base.x+ base.w+20, y+50);
-  }
-  if(bar.getScrollPosition()<bar.getFullSize()-(h+200)&&bar.available()){
-    ofSetColor(yellow);
-    label.drawString("Program continues below\nuse scrollbar to view",base.x+ base.w+20, y+h-label.stringHeight("Program\nuse")-20);
+  ofSetColor(black.opacity(.5));
+  if(bScrolling){
+    bar.draw(x+w-bar.w,y);
+    if(bar.getScrollPosition()>50){
+      ofSetColor(yellow);
+      label.drawString("Program continues above\nuse scrollbar to view",base.x+ base.w+20, y+50);
+    }
+    if(bar.getScrollPosition()<bar.getFullSize()-(h+200)&&bar.available()){
+      ofSetColor(yellow);
+      label.drawString("Program continues below\nuse scrollbar to view",base.x+ base.w+20, y+h-label.stringHeight("Program\nuse")-20);
+    }
   }
 }
 

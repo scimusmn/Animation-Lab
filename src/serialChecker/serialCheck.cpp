@@ -46,7 +46,7 @@ serialCheck::serialCheck()
   report.loadFont("fonts/DinC.ttf");
   report.setMode(OF_FONT_CENTER);
   report.setMode(OF_FONT_MID);
-  report.setSize(70);
+  report.setSize(60);
   
   //start();
 }

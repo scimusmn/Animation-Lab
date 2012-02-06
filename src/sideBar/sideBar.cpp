@@ -190,7 +190,7 @@ double sideBar::updateSize()
 {
 	for (unsigned int i=0; i<blocks.size(); i++) {
 		if (blocks[i].w>3*w/4) {
-			w=max(w,4*blocks[i].w/3);
+			w=max(w,blocks[i].w+40);
 		}
 	}
 	return w;
@@ -260,9 +260,6 @@ void sbGroup::setup(ofXML & xml,bGroup * destin)
   }
 	updateHeight();
 	if(bars.size()>=2) bars[0].bOpen=true;
-	for (unsigned int i=0; i<bars.size(); i++) {
-		//updateBlocks(i);
-	}
 }
 
 void sbGroup::clear()
@@ -314,7 +311,7 @@ void sbGroup::updateHeight(){
 		for (unsigned int j=0; j<bars[i].size(); j++) {
 			hgt+=bars[i][j].h+bars[i][j].newHeightOn()+20;
 		}
-		maxHeight=max(maxHeight,hgt);
+		maxHeight=max(maxHeight,max(hgt,ofGetHeight()/2.));
 		maxWid=max(maxWid,bars[i].updateSize());
 	}
 	sideBarSpace=maxHeight;

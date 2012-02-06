@@ -1,46 +1,47 @@
 <base robot_number="0">
-	<block name="forever" color="1291754.0000000">      
-		<bracket>1</bracket>
-		<file>forever.blk</file>
-		<action>repeat:$forever</action>
+	<block name="repeat %d times" color="1291754.0000000">      
+		<bracket/>
+		<dropdown>      
+			<ddlow>0</ddlow>
+			<ddhigh>10</ddhigh>
+			<ddsteps>11</ddsteps>
+			<selected>6</selected>
+		</dropdown>
+		<file>repeat.blk</file>
 		<blocksIn>
-			<block name="step forward" color="0xde8c3a">    
-				<file>stepForward.blk</file>
-				<action>move:2</action>
+			<block name="right eye %d" color="0xde8c3a">    
+				<dropdown>      
+					<dds>BACK</dds>
+					<dds>FORTH</dds>
+					<selected>FORTH</selected>
+				</dropdown>
+				<file>reye.blk</file>
 			</block>
-			<block name="if path in front is blocked" color="0x65c270">    
-				<bracket>1</bracket>
-				<file>pathBlocked.blk</file>
-				<action>if:!$front(5)</action>
-				<blocksIn>
-					<block name="if path on left is clear" color="0x65c270">    
-						<bracket>1</bracket>
-						<file>leftPathClear.blk</file>
-						<action>if:$leftPath(5)</action>
-						<blocksIn>
-							<block name="turn left %d degrees" color="0xde8c3a">    
-								<dropdown>      
-									<ddlow>0</ddlow>
-									<ddhigh>180</ddhigh>
-									<selected>180</selected>
-									<ddsteps>5</ddsteps>
-								</dropdown>
-								<action>turn:-$dd[0].num()</action>
-								<file>leftTurn.blk</file>
-							</block>
-						</blocksIn>
-					</block>
-					<block name="turn right %d degrees" color="0xde8c3a">    
-						<dropdown>      
-							<ddlow>0</ddlow>
-							<ddhigh>180</ddhigh>
-							<ddsteps>5</ddsteps>
-							<selected>90</selected>
-						</dropdown>
-						<action>turn:$dd[0].num()</action>
-						<file>rightTurn.blk</file>
-					</block>
-				</blocksIn>
+			<block name="wait %d seconds" color="1291754.0000000">            
+				<type>d</type>
+				<dropdown>            
+					<ddlow>0</ddlow>
+					<ddhigh>5</ddhigh>
+					<selected>0.5</selected>
+				</dropdown>
+				<file>delay.blk</file>
+			</block>
+			<block name="right eye %d" color="0xde8c3a">    
+				<dropdown>      
+					<dds>BACK</dds>
+					<dds>FORTH</dds>
+					<selected>BACK</selected>
+				</dropdown>
+				<file>reye.blk</file>
+			</block>
+			<block name="wait %d seconds" color="1291754.0000000">            
+				<type>d</type>
+				<dropdown>            
+					<ddlow>0</ddlow>
+					<ddhigh>5</ddhigh>
+					<selected>0.5</selected>
+				</dropdown>
+				<file>delay.blk</file>
 			</block>
 		</blocksIn>
 	</block>

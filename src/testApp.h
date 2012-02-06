@@ -20,7 +20,6 @@
  *    ofXML animXML::_ _ _ _ _ _ _ _ the xmlParser to hold the data for the current animation
  *    bGroup blocks::_ _ _ _ _ _ _ _ the block group, containing the base block and all the blocks which have been drag onto the stage
  *    sbGroup * sidebar::_ _ _ _ _ _ the sidebar bars and blocks
- *    ofImage background:: _ _ _ _ _ the background image, now used as sidebar image
  *    ofButton upBut:: _ _ _ _ _ _ _ the upload button, possibly should be migrated to the 'bGroup'
  *    ofButton clearBut::_ _ _ _ _ _ button to clear the workspace blocks
  *    ofButton redoBut:: _ _ _ _ _ _ button to redo any block action previously undone
@@ -31,7 +30,6 @@
  *    ofFont label:: _ _ _ _ _ _ _ _ font used to write on the base block. Should be migrated.
  *    ofSystemCall systemCall::_ _ _ system call thread, to run the upload script
  *    ofProgressSpinner spinner::_ _ spinner to indicate when the program is uploading
- *    ofVideoPlayer crabMovie::_ _ _ video player used to display the attract movie
  *    ofVMouse anim::_ _ _ _ _ _ _ _ virtual mouse class used to demonstrate
  *    ofImage pointer::_ _ _ _ _ _ _ pointer used by the mouse and by the virtualMouse
  *    ofButton demo::_ _ _ _ _ _ _ _ button to start the demo
@@ -70,8 +68,6 @@ class testApp : public ofBaseApp{
 	sbGroup sidebar;
   
   titleBar topTitle;
-
-	ofImage background;
 	
   rootGroup sets;
   

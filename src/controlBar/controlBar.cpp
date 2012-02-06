@@ -110,7 +110,7 @@ void controlBar::barSpacing()
   for(int i=0; i<3;i++)
     bHldr.push_back(buttonHolder());
   
-  bHldr[0].addObj(demo);
+  //bHldr[0].addObj(demo);
   bHldr[0].addObj(clearBut);
   bHldr[0].internalSpace(30);
   
@@ -351,9 +351,9 @@ bool controlBar::clickDown(int _x, int _y, int button)
       blocks->clear();
     }
     
-    if(demo.clickDown(_x, _y)){
-      anim.play();
-    }
+    //if(demo.clickDown(_x, _y)){
+    //  anim.play();
+    //}
     
     //--------- if we press the undo button, roll back the state of the blockGroup
     if (undoBut.clickDown(_x, _y)) {

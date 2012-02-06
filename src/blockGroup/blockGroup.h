@@ -75,6 +75,8 @@ class bGroup: public ofInterObj {
   dallasScroll bar;
   
   ofFont label;
+  
+  bool bScrolling;
 public:
   
   vector<block> blocks;
@@ -89,6 +91,8 @@ public:
 	bGroup();
 	
 	~bGroup();
+  
+  void setScrolling(bool scrl);
 	
 	void recordState();
 	

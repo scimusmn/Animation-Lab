@@ -1,5 +1,5 @@
-<blocks font="ArialNarrow.ttf" title="Rockin Crustacean" xmlns:blck="http://www.smm.org/">
-	<bar name="Action blocks" color="0x993399">
+<blocks font="ArialNarrow.ttf" title="Make a story with the Rockin Crustacean" subtitle="Advanced: Create interactive sequences with conditional statements" xmlns:blck="http://www.smm.org/">
+	<bar name="Action blocks" color="0xde8c3a">
 		<block name="right claw %d">
 			<type>p</type>
             <dropdown>
@@ -27,12 +27,12 @@
 			<file>shake.blk</file>
 		</block>
 		<block name="eye color %d">
-            <dropdown>
-                <dds>RED</dds>
-                <dds>GREEN</dds>
-                <dds>BLUE</dds>
-                <dds>OFF</dds>
-            </dropdown>
+      <dropdown>
+          <dds>RED</dds>
+          <dds>GREEN</dds>
+          <dds>BLUE</dds>
+          <dds>OFF</dds>
+      </dropdown>
 			<file>eyes.blk</file>
             <part>eye color shift</part>
 		</block>
@@ -45,7 +45,7 @@
       <file>playSound.blk</file>
     </block>
 	</bar>
-	<bar name="Timing blocks" color="0xFF6600">
+	<bar name="Timing blocks" color="0x13b5ea">
 		<block name="for %d seconds">
 			<type>c</type>
 			<bracket>1</bracket>
@@ -77,23 +77,21 @@
 			<file>forever.blk</file>
 		</block>
 	</bar>
-	<bar name="Conditional blocks" color="896016">
+	<bar name="Conditional blocks" color="0x65c270">
+    <block name="wait until button press">
+    </block>
 		<block name="if button pressed">
 			<bracket>1</bracket>
 			<file>ifBP.blk</file>
 		</block>
-    <block name="if right claw open">
-      <bracket>1</bracket>
-      <file>ifROpen.blk</file>
-			<part>right claw click</part>
-			<part>right claw</part>
-    </block>
-		<block name="if left claw open">
-      <bracket>1</bracket>\
-      <file>ifLOpen.blk</file>
-			<part>left claw click</part>
-			<part>left claw</part>
-    </block>
+    <block name="if button is not pressed">
+			<bracket>1</bracket>
+			<file>ifBP.blk</file>
+		</block>
+    <block name="while button pressed">
+			<bracket>1</bracket>
+			<file>ifBP.blk</file>
+		</block>
 	</bar>
 </blocks>
 	

@@ -1,5 +1,5 @@
-<blocks font="ArialNarrow.ttf" title="Rockin Crustacean" xmlns:blck="http://www.smm.org/">
-	<bar name="Action blocks" color="0x993399">
+<blocks font="ArialNarrow.ttf" title="Make a story with the Rockin Crustacean" subtitle="Intermediate: Assemble repeating sequences" xmlns:blck="http://www.smm.org/">
+	<bar name="Action blocks" color="0xde8c3a">
 		<block name="right claw %d">
 			<type>p</type>
             <dropdown>
@@ -38,10 +38,10 @@
             <part>eye color shift</part>
 		</block>
 	</bar>
-	<bar name="Timing blocks" color="0xFF6600">
+	<bar name="Timing blocks" color="0x13b5ea">
 		<block name="repeat %d times">
 			<type>F</type>
-			<cond>1</cond>
+			<bracket>1</bracket>
             <dropdown>
                 <ddlow>0</ddlow>
                 <ddhigh>10</ddhigh>

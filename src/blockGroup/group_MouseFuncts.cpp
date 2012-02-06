@@ -32,7 +32,8 @@ bool bGroup::clickDown(int _x, int _y)
     loseFocus();
   }
   else{
-    ret=bar.clickDown(_x, _y);
+    if(bScrolling)
+      ret=bar.clickDown(_x, _y);
     for (unsigned int i=0; i<blocks.size()&&!ret; i++) {
       if(!ret) ret=newHandleClick(blocks,i,_x,_y,true);
     }
@@ -112,7 +113,8 @@ bool bGroup::newClickUp(int _x, int _y)
   if(held.bGrabbed){
     held.newClickUp(_x,_y);
     if(!(held.x<x||held.x>x+w||held.y<y||held.y>y+h)){
-      if(processBlockDrop(held, base)) ret=true,bChanged=true;
+      if(base.newHeightOn()+held.newHeightIn()+held.newHeightOn()<h-y||(bScrolling))
+        if(processBlockDrop(held, base)) ret=true,bChanged=true;
       for (unsigned int i=0; i<blocks.size()&&!ret; i++){
         ret=processBlockDrop(held, blocks[i]);
         if(!ret && (ret=processBlockDrop(blocks[i],held,true)))
@@ -123,7 +125,7 @@ bool bGroup::newClickUp(int _x, int _y)
     recordState();
   }
   bGrabbed=inHand=false;
-  if(base.newHeightOn()+base.h+200!=bar.getFullSize()){
+  if(bScrolling&&base.newHeightOn()+base.h+200!=bar.getFullSize()){
     float perc=bar.getScrollPercent();
     bar.setup(60, h, OF_VERT);
     bar.registerArea(h,base.newHeightOn()+base.h+200);

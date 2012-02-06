@@ -1,27 +1,27 @@
-<blocks font="ArialNarrow.ttf" xmlns:blck="http://www.smm.org/">
-	<bar name="Action blocks" color="0x993399">
-		<block name="right eye %d" color="0x993399">
+<blocks font="ArialNarrow.ttf" title="Make a story using the Rattle Snail" subtitle="Intermediate: Assemble repeating sequences" xmlns:blck="http://www.smm.org/">
+	<bar name="Action blocks" color="0xde8c3a">
+		<block name="right eye %d" color="0xde8c3a">
       <dropdown>
         <dds>BACK</dds>
         <dds>FORTH</dds>
       </dropdown>
       <file>reye.blk</file>
     </block>
-		<block name="left eye %d" color="0x993399">
+		<block name="left eye %d" color="0xde8c3a">
       <dropdown>
         <dds>BACK</dds>
         <dds>FORTH</dds>
       </dropdown>
       <file>leye.blk</file>
     </block>
-		<block name="%d body" color="0x993399">
+		<block name="%d body" color="0xde8c3a">
       <dropdown>
         <dds>EXTEND</dds>
         <dds>RETRACT</dds>
       </dropdown>
       <file>scrunch.blk</file>
     </block>
-    <block name="move tail %d" color="0x993399">
+    <block name="move tail %d" color="0xde8c3a">
       <dropdown>
           <dds>STOP</dds>
           <dds>SLOW</dds>
@@ -29,7 +29,7 @@
       </dropdown>
       <file>rattle.blk</file>
     </block>
-		<block name="play sound %d" color="0x993399">
+		<block name="play sound %d" color="0xde8c3a">
       <dropdown>
           <dds>NONE</dds>
           <dds>RATTLE</dds>
@@ -39,9 +39,9 @@
       <file>playSound.blk</file>
     </block>
 	</bar>
-	<bar name="Timing blocks" color="0xFF6600">
+	<bar name="Timing blocks" color="0x13b5ea">
 		<block name="repeat %d times">
-			<cond>1</cond>
+			<bracket />
       <dropdown>
           <ddlow>0</ddlow>
           <ddhigh>10</ddhigh>

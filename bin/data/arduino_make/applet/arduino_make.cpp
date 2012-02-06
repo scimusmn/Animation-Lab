@@ -5,16 +5,6 @@ void loop();
 #define ROBOT_NUMBER 0x0C
 #define REQUEST_IDENT 0xff
 
-  #include "AFMotor.h"
-#include "arenaRobot.h"
-  #include "AFMotor.h"
-#include "arenaRobot.h"
-  #include "AFMotor.h"
-#include "arenaRobot.h"
-  #include <AFMotor.h>
-#include "arenaRobot.h"
-  #include <AFMotor.h>
-#include "arenaRobot.h"
 
 
 bool thru=false;
@@ -38,11 +28,6 @@ void changeRun(){
 void setup(){
   running=false;
   attachInterrupt(0, changeRun, RISING);
-	robot.setup();
-	robot.setup();
-	robot.setup();
-	robot.setup();
-	robot.setup();
 
 }
 
@@ -50,13 +35,8 @@ void loop(){
   if(change){
     
     if(running&&!thru){
-      while(robot.isRunning()){ 	robot.doubleStep(2,BACKWARD,SINGLE);
-	if(robot.frontSensor(500)){
-	  		if(!robot.leftSensor(300)){
-		  			robot.leftTurn(180 );
-		  }
-		robot.rightTurn(90 );
-	  }
+      for(int i=0; i<6; i++){	delay(0.5 *1000);
+	delay(0.5 *1000);
 }
 
       running=false;

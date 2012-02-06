@@ -77,7 +77,7 @@
   </step>
   <step type="clickDown" time=".25" />
   <step type="clickUp" time=".25" />
-  <step type="move" speed="500">
+  <step type="move" speed="2000">
     <pos type="obj" where="base[0][i1][i0][i0][d0]" x="w/2" y="h*4.5"/>
   </step>
   <step type="clickDown" time=".25" />

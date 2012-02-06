@@ -185,7 +185,8 @@ void block::parseTitle()
 		if(!titleSplit[i].compare("%d")){
 			if(ddNum<ddGroup.size()){
 				//-------- augment the relative position with the current total width
-				ddGroup[ddNum].relPos.x+=totalwidth-spSize;
+				if(i>0) ddGroup[ddNum].relPos.x+=totalwidth-spSize/2;
+        else ddGroup[ddNum].relPos.x+=totalwidth;
 				//-------- update total width
 				totalwidth+=ddGroup[ddNum].w+spSize*2;
 				//-------- if you have two dropdowns in a row, make sure they don't overlap
