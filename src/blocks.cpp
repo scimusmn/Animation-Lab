@@ -54,6 +54,7 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
 	//********* This is the method by which all of the blocks are first generated from the xml files in the data root.
 	//-------- TODO: get rid of the garbage with the color triples. blech.
 	//-------- load the font for the arialHeader, at 10 pt.
+	
 	origTag=cur;
   
 	arialHeader.loadFont(defaultFont);
@@ -110,6 +111,7 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
           break;
         case 6: // sibling
           //-- stores the name of the complement blocks
+			cout << "new sibling is " << node[1] << endl;
           sibling.push_back(node[1]);
           break;
         case 7: // num
@@ -165,14 +167,14 @@ void block::parseTitle()
 	//-------- assign a default value to the xdis of each dd
 	for (unsigned int i=0; i<ddGroup.size(); i++) {
 		ddGroup[i].relPos.x=0;
-    ddGroup[i].relPos.y=(ttlSize.y-ddGroup[i].h)/2;
-    ddGroup[i].setMode(false);
+		ddGroup[i].relPos.y=(ttlSize.y-ddGroup[i].h)/2;
+		ddGroup[i].setMode(false);
 	}
 	
 	//-------- change the font size if it is a statement block
 	if(type==BLK_VAL){
-    arialHeader.setSize(7);
-  }
+		arialHeader.setSize(7);
+	}
 	
 	//-------- split the title into words by looking for " ", and establish a baseline for the width with "."
 	titleSplit = ofSplitString(title, " ");
@@ -212,7 +214,7 @@ void block::parseTitle()
       if(i<titleSplit.size()-1) totalwidth+=spSize;
 		}
 	}
-	
+
 	title="";
 	ddNum=0;
 	for (unsigned int i=0; i<titleSplit.size(); i++) {
@@ -220,7 +222,7 @@ void block::parseTitle()
 			if(ddNum<ddGroup.size()){
 				sp=0;
 				int origWid = arialHeader.stringWidth(title);
-				while (arialHeader.stringWidth(title)+spSize*(sp+1)-origWid<ddGroup[ddNum].w) {
+				while (spSize*(sp+1)<ddGroup[ddNum].w) {
 					sp++;
 					title.append(" ");
 				}
@@ -238,7 +240,7 @@ void block::parseTitle()
 		else {
 			title.append(titleSplit[i].c_str());
 			for (int k=0; k<sp; k++) {
-				title.append(" ");
+				if(i<titleSplit.size()-1) title.append(" ");
 			}
 		}
 	}
@@ -332,6 +334,8 @@ void block::operator=(const block &t) {
 	filename=t.filename;
 	numBlocks=t.numBlocks;
 	
+	sibling=t.sibling;
+
 	ddGroup=t.ddGroup;
 	blocksOn=t.blocksOn;
 	blocksIn=t.blocksIn;

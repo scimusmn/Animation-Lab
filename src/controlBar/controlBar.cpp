@@ -153,7 +153,7 @@ void controlBar::setup(bGroup * bG, sbGroup * sbG)
 	undoBut.setup(64, 64, "images/undo.png","images/undo_active.png");
   demo.setup("View Demo", 19);
   skipBut.setup(300, 100, "images/skipBut.png");
-  
+
   anim.setup(blocks, sideBar);
   
   subtitle.loadFont("fonts/DinC.ttf");
@@ -167,10 +167,11 @@ void controlBar::setup(bGroup * bG, sbGroup * sbG)
   
   sets.load(ROOT_DIR);
   loadBlocks(sets[0]);
+
   
   sets[0].choice.setAvailable(false);
   
-  upload.setup(blocks);
+  upload.setup(blocks,&serChk);
   
   //testbed.setup(&blocks->base);
   
@@ -200,7 +201,6 @@ void controlBar::loadBlocks(blockGroup & bg){
     ROOT_TITLE=bg.title;
     sideBar->clear();
     sideBar->setup(bg.blockXML,blocks);
-    
     anim.changeAnimXML(bg.animXML);
   }
 }
@@ -333,7 +333,8 @@ void controlBar::update()
   }
   
   if(timeOut.justExpired()) bChooseLevel=true,blocks->clear(),anim.clearPrompt();
-  
+ 
+  upload.update();
   /*if(testbed.turtleIsRunning()){
     testbed.idleTurtle();
   }*/
@@ -344,11 +345,13 @@ void controlBar::update()
 
 bool controlBar::clickDown(int _x, int _y, int button)
 {
+	bool ret=false;
   if(!mouseLockout(button)){
     timeOut.reset();
     timeOut.run();
     if (clearBut.clickDown(_x, _y)) {
       blocks->clear();
+	  ret=true;
     }
     
     //if(demo.clickDown(_x, _y)){
@@ -358,22 +361,26 @@ bool controlBar::clickDown(int _x, int _y, int button)
     //--------- if we press the undo button, roll back the state of the blockGroup
     if (undoBut.clickDown(_x, _y)) {
       blocks->undoState();
+	  ret=true;
     }
     
     //--------- if we press the redo button, push the state forward
     if (redoBut.clickDown(_x, _y)) {
       blocks->redoState();
+	  ret=true;
     }
     
     //testbed.clickDown(_x, _y);
   }
+
   
   //--------- if we press the skip button while the anim is running, stop anim
   if(anim.isPlaying()&&skipBut.clickDown(_x, _y)&&button!=VMOUSE_BUTTON){
     anim.stop();
+	ret=true;
   }
   
-  if(anim.isPrompting()) anim.clickDown(_x, _y);
+  if(anim.isPrompting()) anim.clickDown(_x, _y),ret=true;
   
   /*if ((!mouseLockout(button)||testbed.mouseLockout())||(anim.isPlaying()&&button==VMOUSE_BUTTON)) {
     testbed.clickDown(_x, _y);
@@ -382,6 +389,7 @@ bool controlBar::clickDown(int _x, int _y, int button)
   if(bChooseLevel||!mouseLockout(button)){
     timeOut.set(60);
     if(sets.clickDown(_x,_y)&&!anim.isPlaying()){
+		ret=true;
       if(bChooseLevel){
         bChooseLevel=false;
         //anim.play();
@@ -393,11 +401,13 @@ bool controlBar::clickDown(int _x, int _y, int button)
     }
   }
 
-  if(!mouseLockout(button)&&upload.clickDown(_x, _y)){//||testbed.mouseLockout())
+  if(!mouseLockout(button)&&upload.clickDown(_x, _y)){
     blocks->saveXML("programs/"+serChk.deviceNumber()+".xml");
     //testbed.resetTurtle();
     //testbed.stopTesting();
+	ret=true;
   }
+  return ret;
 }
 
 bool controlBar::clickUp()
@@ -412,6 +422,7 @@ bool controlBar::clickUp()
   edit.clickUp();
   create.clickUp();
   anim.clickUp();
+  return false;
 }
 
 bool controlBar::mouseLockout(int button)

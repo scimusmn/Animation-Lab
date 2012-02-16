@@ -11,9 +11,9 @@
 
 #include "../sideBar/sideBar.h"
 
-#include "ofVMouse.h"
+#include "ofExtended.h"
 
-#include "dallasEng.h"
+#include "../../../dallasEng/dallasEng.h"
 
 class demoAnim : public ofAnimation {
 protected:

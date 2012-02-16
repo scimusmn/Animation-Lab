@@ -9,14 +9,18 @@
 
 #pragma once
 
-#include "/Library/Frameworks/Phidget21.framework/Headers/phidget21.h"
-
 #include "ofMain.h"
 #include "ofExtended.h"
 
+#ifdef TARGET_OSX
+#include "/Library/Frameworks/Phidget21.framework/Headers/phidget21.h"
+#endif
+
 class RFIDreader {
 protected:
+#ifdef TARGET_OSX
   CPhidgetRFIDHandle rfid;
+#endif
 public:
   RFIDreader();
   ~RFIDreader();

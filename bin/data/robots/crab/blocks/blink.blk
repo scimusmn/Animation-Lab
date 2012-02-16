@@ -1,0 +1,23 @@
+global(){
+	~#include "blink.h"
+}
+
+setup(){
+	~blink1.setup();
+}
+
+start(){
+	~blink1.start();
+}
+
+loop(){
+	String blinkTemp="$dd[0].str";
+	if(blinkTemp.equals("FAST")) blink1.call(200);
+	blink1.call(1000);
+}
+
+end(){
+	~blink1.end();
+}
+
+~ath

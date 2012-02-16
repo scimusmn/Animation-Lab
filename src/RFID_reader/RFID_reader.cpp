@@ -11,6 +11,7 @@
 
 string tagVal="default";
 bool tagAvailable=false;
+#if defined( TARGET_OSX )
 
 int CCONV AttachHandler(CPhidgetHandle RFID, void *userptr)
 {
@@ -71,8 +72,13 @@ int CCONV TagLostHandler(CPhidgetRFIDHandle RFID, void *usrptr, unsigned char *T
 	return 0;
 }
 
+#else
+#endif
+
 RFIDreader::RFIDreader()
 {
+#if defined( TARGET_OSX )
+
   int result;
 	const char *err;
   tagAvailable=false;
@@ -107,12 +113,17 @@ RFIDreader::RFIDreader()
 	}
   
   CPhidgetRFID_setAntennaOn(rfid, 1);
+#else
+#endif
 }
 
 RFIDreader::~RFIDreader()
 {
-  CPhidget_close((CPhidgetHandle)rfid);
+#if defined( TARGET_OSX )
+	CPhidget_close((CPhidgetHandle)rfid);
 	CPhidget_delete((CPhidgetHandle)rfid);
+#else
+#endif
 }
 
 bool RFIDreader::available()

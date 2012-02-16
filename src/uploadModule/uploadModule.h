@@ -9,22 +9,24 @@
 
 #pragma once
 
-#include "blockGroup.h"
-#include "ofxSystemCall.h"
-#include "progressReader.h"
+#include "../blockGroup/blockGroup.h"
+#include "../compiler/compiler.h"
+#include "../serialChecker/serialCheck.h"
 
 class uploadModule {
 protected:
   bGroup * blocks;
-  ofSystemCall command;
+  serialCheck * serChk;
 	ofProgressSpinner spinner;
   ofFont label;
-  progRead prog;
   bool bRunning;
   ofTimer uploaded;
+
+  compiler cmplr;
 public:
-  void setup(bGroup * blks);
+  void setup(bGroup * blks, serialCheck * srCk);
   void upload();
+  void update();
   bool drawForeground();
   bool isUploading();
   void stopUpload();

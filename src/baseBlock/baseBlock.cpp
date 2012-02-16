@@ -8,7 +8,7 @@
  */
 
 #include "baseBlock.h"
-#include "blockDraw.h"
+#include "../blockDraw.h"
 
 extern ofColor white, black, blue, yellow, gray;
 
@@ -123,12 +123,12 @@ void baseBlock::draw(int _x, int _y)
 
 bool baseBlock::clickDown(int _x, int _y)
 {
-  uploadBut.clickDown(_x, _y);
+  return uploadBut.clickDown(_x, _y);
 }
 
 bool baseBlock::newClickUp( int _x, int _y)
 {
-  uploadBut.clickUp();
+  return uploadBut.clickUp();
 }
 
 void baseBlock::setup(bGroup * grp)

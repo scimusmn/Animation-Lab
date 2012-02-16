@@ -1,5 +1,12 @@
 <blocks font="ArialNarrow.ttf" title="Make a story with the Rockin Crustacean" subtitle="Advanced: Create interactive sequences with conditional statements" xmlns:blck="http://www.smm.org/">
 	<bar name="Action blocks" color="0xde8c3a">
+    <block name="blink %d">
+      <dropdown>
+          <dds>SLOW</dds>
+          <dds>FAST</dds>
+      </dropdown>
+			<file>blink.blk</file>
+		</block>
 		<block name="right claw %d">
 			<type>p</type>
             <dropdown>

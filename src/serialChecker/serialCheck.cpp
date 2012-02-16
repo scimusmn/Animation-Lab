@@ -8,7 +8,7 @@
  */
 
 #include "serialCheck.h"
-#include "dallasEng.h"
+#include "../../../dallasEng/dallasEng.h"
 
 int CURRENT_ROBOT_NUMBER=0;
 
@@ -48,6 +48,7 @@ serialCheck::serialCheck()
   report.setMode(OF_FONT_MID);
   report.setSize(60);
   
+  bRunning=false;
   //start();
 }
 
@@ -85,6 +86,11 @@ bool serialCheck::drawForeground()
   return ret;
 }
 
+string serialCheck::portName()
+{
+	return portNm;
+}
+
 void serialCheck::checkAvailability()
 {
   if(checkTimer.expired()){
@@ -92,24 +98,21 @@ void serialCheck::checkAvailability()
     if(serial.numDevices()!=numDevices){
       if(numDevices<serial.numDevices()&&!bAvailable){
         numDevices=serial.numDevices();
-        cout << "Checking for robots:\n";
   #if defined( TARGET_OSX )
         for (int i=0; i<serial.numDevices(); i++) {
           if(serial.deviceNameByNumber(i).substr(0,7) == "tty.usb" ){
+			portNm=serial.deviceNameByNumber(i);
             bAvailable=true;
             bJustFound=true;
           }
         }
   #elif defined( TARGET_WIN32 )
         for (int i=0; i<serial.numDevices(); i++) {
-          serial.setup(serial.deviceNameByNumber(i), 9600);
-          if(getDeviceNumber()){
-            lock();
+          if(serial.deviceNameByNumber(i).length()){
+			portNm=serial.deviceNameByNumber(i);
             bAvailable=true;
             bJustFound=true;
-            unlock();
           }
-          serial.close();
         }
   #endif
       
@@ -132,12 +135,14 @@ void serialCheck::checkAvailability()
       }
     }
     checkTimer.reset();
+	checkTimer.run();
+	//stop();
   }
 }
 
 bool serialCheck::getDeviceNumber()
 {
-  
+  return 0;
 }
 
 void serialCheck::addDevice(string prtNm)
@@ -157,7 +162,7 @@ string serialCheck::deviceNumber()
 
 void serialCheck::threadCheckAvailability()
 {
-  if (checkTimer.expired()) {
+  if (!bRunning&&checkTimer.expired()) {
     start();
   }
 }
@@ -181,7 +186,7 @@ void serialCheck::threadedFunction(){
   //while( isThreadRunning() != 0 ){
     //if( lock() ){
     checkAvailability();
-    stop();
+    //stop();
     //  unlock();
     //}
   //}

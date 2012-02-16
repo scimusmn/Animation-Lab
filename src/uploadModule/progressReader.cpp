@@ -19,8 +19,11 @@ progRead::progRead()
 
 progRead::~progRead()
 {
+#if defined( TARGET_OSX ) || defined( TARGET_LINUX )
   close(fd);
   stop();
+#else
+#endif
 }
 
 void progRead::reset()
@@ -47,13 +50,15 @@ int readByteFromPipe(int fd)
   unsigned char tmpByte[1];
 	memset(tmpByte, 0, 1);
   
+#if defined( TARGET_OSX ) || defined( TARGET_LINUX )
   int nRead = read(fd, tmpByte, 1);
   if(nRead < 0){
     return -1;
   }
   if(nRead == 0)
     return 0;
-  
+#else
+#endif
   return (int)(tmpByte[0]);
 }
 
@@ -75,6 +80,7 @@ void progRead::threadedFunction(){
 
 void progRead::checkFile()
 {
+#if defined( TARGET_OSX ) || defined( TARGET_LINUX )
   if(!fd) fd = open(ofToDataPath("arduino_make/progress").c_str(), O_RDONLY);
   int t[1];
   
@@ -102,4 +108,6 @@ void progRead::checkFile()
       rep="Preparing chip.";
     }
   }
+#else
+#endif
 }

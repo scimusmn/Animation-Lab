@@ -161,6 +161,7 @@ bool bGroup::processBlockDrop(block & drop,block & target,bool reverse)
 
 bool bGroup::pushBlocks(block & dropped, vector<block> & into, int i, bool top)
 {
+  bool ret=false;
   dropped.bGrabbed=false;
   if(top) into.insert(into.begin()+i,dropped);
   else{
@@ -168,5 +169,7 @@ bool bGroup::pushBlocks(block & dropped, vector<block> & into, int i, bool top)
     dropped.blocksOn.clear();
     into.insert(into.begin()+i,dropped);
     if(k.size()) into.insert(into.begin()+i+1,k.begin(),k.end());
+	ret=true;
   }
+  return ret;
 }

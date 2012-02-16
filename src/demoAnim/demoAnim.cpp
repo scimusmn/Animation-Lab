@@ -42,18 +42,21 @@ ofTag moveTag(string speed,string obj="", string x="", string y=""){
   ret.addAttribute("type", obj);
   ret.addAttribute("x", x);
   ret.addAttribute("y", y);
+  return ret;
 }
 
 ofTag clickDownTag(){
   ofTag ret("step");
   ret.addAttribute("type","clickDown");
   ret.addAttribute("time", ".25");
+  return ret;
 }
 
 ofTag clickUpTag(){
   ofTag ret("step");
   ret.addAttribute("type","clickUp");
   ret.addAttribute("time", ".25");
+  return ret;
 }
 
 void demoAnim::handleAnimStep(ofTag tag)
@@ -106,7 +109,7 @@ void demoAnim::handleAnimStep(ofTag tag)
     if(!duration){ //-- if we haven't yet set the duration, use the speed to determine duration
       int xtmp=((object)?object->x+xint:xint);
       int ytmp=((object)?object->y+yint:yint);
-      double dist= sqrt((xtmp-anim.x)*(xtmp-anim.x)+(ytmp-anim.y)*(ytmp-anim.y));
+      double dist= sqrt(double((xtmp-anim.x)*(xtmp-anim.x)+(ytmp-anim.y)*(ytmp-anim.y)));
       duration=dist/speed;
     }
     
@@ -263,16 +266,19 @@ void demoAnim::drawForeground()
 
 bool demoAnim::clickDown(int x, int y)
 {
+	bool ret=false;
   if(bPrompt){
-    if(yes.clickDown(x, y)) play(),bPrompt=false;
-    if(no.clickDown(x, y)) bPrompt=false;
+    if(yes.clickDown(x, y)) play(),bPrompt=false,ret=true;
+    if(no.clickDown(x, y)) bPrompt=false,ret=true;
   }
+  return ret;
 }
 
 bool demoAnim::clickUp()
 {
   yes.clickUp();
   no.clickUp();
+  return false;
 }
 
 

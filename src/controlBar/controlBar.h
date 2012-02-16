@@ -11,14 +11,15 @@
 
 #include "ofMain.h"
 #include "ofExtended.h"
-#include "demoAnim.h"
-#include "blockLoad.h"
+#include "../demoAnim/demoAnim.h"
+#include "../blockLoad.h"
 
-#include "serialCheck.h"
-#include "uploadModule.h"
+#include "../serialChecker/serialCheck.h"
+#include "../uploadModule/uploadModule.h"
 #include "../screenTest/screenTest.h"
 #include "../../../dallasEng/dallasEng.h"
-#include "RFID_reader.h"
+#include "../RFID_reader/RFID_reader.h"
+#include "../compiler/compiler.h"
 
 class buttonHolder : public ofInterObj {
 protected:
@@ -85,6 +86,8 @@ protected:
   
   ofTimer changed;
   ofTimer timeOut;
+
+  compiler cmplr;
 public:
   double x,y,w,h;
   //controlBar();

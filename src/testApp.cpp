@@ -16,16 +16,17 @@ bool bCopy=false;
 void testApp::setup(){
   
 	//--------- Load font for drawing on screen
-  
   topTitle.loadFont("fonts/DinC.ttf", 35);
 
   
 	ofHideCursor();
   
-  mapps.loadImage("maps/map_2.jpg");
+  //mapps.loadImage("maps/map_2.jpg");
   
   controls.setup(&blocks, &sidebar);
   
+  cout << "hello?\n";
+
   //--------- Initialize the valid working space for the blocks
 	blocks.setup(sidebar.area.width,controls.h+topTitle.h,ofGetWidth()-sidebar.area.width,ofGetHeight()-(controls.h+topTitle.h));
   blocks.setScrolling(false);

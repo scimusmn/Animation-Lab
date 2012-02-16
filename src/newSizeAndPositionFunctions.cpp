@@ -25,8 +25,9 @@ int block::newHeightIn()
   int ret=0;
   for (unsigned int i=0; i<blocksIn.size(); i++) {
     blocksIn[i].newUpdateHeight();
+	ret+=blocksIn[i].h;
   }
-  
+  return ret;
 }
 
 int block::newUpdateHeight()

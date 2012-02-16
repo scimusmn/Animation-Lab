@@ -33,6 +33,9 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 	
 	bool printed=printList->find(title)->second;
 	bool siblingP=siblingWritten(printList);
+
+	//if(siblingP) cout << "sibling to " +title+ " has been written\n";
+	//else cout << "sibling to " + title + " not written\n";
 	
 	//-------- init the buffer, the pos counters and the end flag
 	string buffer;
@@ -52,6 +55,7 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 		}
 		//-------- if the buffer is not a single '}', then parse the line; otherwise, it indicates the end of the section
 		if(buffer.compare("}")){
+			bool skipNewline=false;
 			//-------- init the foundTab var, and start stepping through the buffer
 			int foundTab=0;
 			for (unsigned int i=0; i<buffer.length(); i++) {
@@ -141,12 +145,12 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 				}
 				//-------- if the buff line is preceded by a '@', print the line only if the block has not already appeared
 				else if(buffer[i]=='@'){
-					if (printed) i=buffer.length();
+					if (printed) i=buffer.length(),skipNewline=true;
 				}
 				//-------- if the buffer at the current pos is '~', print only if the block or a complement block
 				//-------- has not been printed before
 				else if(buffer[i]=='~'){
-					if (siblingP) i=buffer.length();
+					if (siblingP) i=buffer.length(),skipNewline=true;
 				}
 				//-------- increment the foundtab count if we find a '\t'
 				else if(buffer[i]=='\t'){
@@ -158,7 +162,7 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 			}
 			//-------- newline after buffer if it was not a value block
 			//-------- TODO: figure out why no new line if printed already
-			if(type!=BLK_VAL) *fOut << '\n';
+			if(type!=BLK_VAL&&!skipNewline) *fOut << '\n';
 		}
 		else {
 			//-------- if we found a '}' by itself, end.
@@ -191,6 +195,7 @@ bool block::siblingWritten(map<string,bool> * printed)
 	bool ret=false;
 	map<string,bool>::iterator it;
 	for (unsigned int i=0; i<sibling.size(); i++) {
+		//cout << sibling[i]+":"+title+":" << endl;
 		it=printed->find(sibling[i]);
 		if(it!=printed->end()){
 			ret=ret||it->second;
@@ -222,16 +227,16 @@ bool block::siblingWritten(map<string,bool> * printed)
  */
 
 
-void block::printData(string sibling,ofstream* k,int t,map<string,bool> * printed, bool printIn){
+void block::printData(string sblng,ofstream* k,int t,map<string,bool> * printed, bool printIn){
 	string buffer;
-	cout << filename << " is the base filename" << endl;
+	//cout << filename << " is the base filename" << endl;
 	if(filename.compare("null")){
 		//-------- open the file where the end routines are located
 		ifstream f(ofToDataPath(ROOT_DIR+"/blocks/"+filename).c_str());
 		//-------- burn the buffer until we find the start of the end
 		bool found=false;
 		while(f.peek()!=EOF&&!found){
-			if (buffer.compare(sibling)) {
+			if (buffer.compare(sblng)) {
 				getline(f,buffer);
 			}
 			else {
@@ -241,23 +246,23 @@ void block::printData(string sibling,ofstream* k,int t,map<string,bool> * printe
 		if(found){
 			//-------- printout the code for the start routines
 			printOut(k,&f,t,printed);
-			//-------- set the printed flag for the block and close the input 
+			//-------- set the printed flag for the block and close the input
 			(*printed)[title]=true;
 			f.close();
 			
 			//-------- print the start routines for the blocks on and in
 			if(printIn)
 				for (unsigned int i=0; i<blocksIn.size(); i++) {
-					blocksIn[i].printData(sibling,k,t,printed,printIn);
+					blocksIn[i].printData(sblng,k,t,printed,printIn);
 				}
 			for (unsigned int i=0; i<blocksOn.size(); i++) {
-				blocksOn[i].printData(sibling,k,t,printed,printIn);
+				blocksOn[i].printData(sblng,k,t,printed,printIn);
 			}
 		}
 	}
 	else {
 		for (unsigned int i=0; i<blocksOn.size(); i++) {
-			blocksOn[i].printData(sibling,k,t,printed,printIn);
+			blocksOn[i].printData(sblng,k,t,printed,printIn);
 		}
 	}
 
@@ -280,7 +285,7 @@ ofTag block::saveTag(){
     if(t.getNumTags("selected")==0) t.addNode("selected");
     
     t.getNode("selected").setValue(ddGroup[i].getString());
-    cout <<  t.getNode("selected").getValue() << " vs " << ddGroup[i].getIndex() << endl;
+    //cout <<  t.getNode("selected").getValue() << " vs " << ddGroup[i].getIndex() << endl;
   }
   if(ret.getAttribute("color").length()==0) ret.addAttribute("color", ofToString(color.r*65536+color.g*256+color.b));
   return ret;

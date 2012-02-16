@@ -46,8 +46,8 @@ public:
 	double space;
 	//int textNum;
 	sideBar();
-	sideBar(int x,int y,int w,int h,string file="",ofColor col=ofColor(255,255,255));
-  sideBar(string title="",ofColor col=ofColor(255,255,255));
+	sideBar(int x,int y,int w,int h,string file,ofColor col);
+	sideBar(string title,ofColor col);
 	~sideBar();
 	void update(double spc);
 	

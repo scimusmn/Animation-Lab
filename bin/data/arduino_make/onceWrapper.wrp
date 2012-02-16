@@ -1,43 +1,21 @@
-#define IS_ROBOT 0x06
-#define ROBOT_NUMBER 0x0C
-#define REQUEST_IDENT 0xff
+#include "WProgram.h"
+void setup();
+void loop();
 
 $blocks.global()
 
 bool thru=false;
-bool running=false;
-bool bInit=false;
-unsigned long lastChange=0;
-
-bool change=false;
-
-void changeRun(){
-  if(millis()>lastChange+250){
-    lastChange=millis();
-    robot.toggleRun();
-    running=robot.isRunning();
-    if(!running) robot.end();
-    thru=false;
-    change=true;
-  }
-}
 
 void setup(){
-  running=false;
-  attachInterrupt(0, changeRun, RISING);
+  thru=false;
 	$blocks.setup()
 }
 
 void loop(){
-  if(change){
+  if(!thru){
     $blocks.start()
-    if(running&&!thru){
-      $blocks.loop()
-      running=false;
-      robot.end();
-    }
+    $blocks.loop()
     $blocks.end()
-    if(!running) thru=true;
-    change=false;
+    thru=true;
   }
 }

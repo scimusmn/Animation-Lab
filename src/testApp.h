@@ -6,7 +6,6 @@
 #include "sideBar/sideBar.h"
 
 #include "controlBar/controlBar.h"
-#include "turtle.h"
 
 /*****************************************************************
  * class testApp : public ofBaseApp

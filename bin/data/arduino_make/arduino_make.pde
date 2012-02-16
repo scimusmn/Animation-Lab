@@ -1,46 +1,27 @@
-#define IS_ROBOT 0x06
-#define ROBOT_NUMBER 0x0C
-#define REQUEST_IDENT 0xff
+#include "WProgram.h"
+void setup();
+void loop();
 
+#include "blink.h"
 
 
 bool thru=false;
-bool running=false;
-bool bInit=false;
-unsigned long lastChange=0;
-
-bool change=false;
-
-void changeRun(){
-  if(millis()>lastChange+250){
-    lastChange=millis();
-    robot.toggleRun();
-    running=robot.isRunning();
-    if(!running) robot.end();
-    thru=false;
-    change=true;
-  }
-}
 
 void setup(){
-  running=false;
-  attachInterrupt(0, changeRun, RISING);
+  thru=false;
+	blink1.setup();
 
 }
 
 void loop(){
-  if(change){
+  if(!thru){
     
-    if(running&&!thru){
-      for(int i=0; i<6; i++){	delay(0.5 *1000);
-	delay(0.5 *1000);
+    while(1){	String blinkTemp="SLOW";
+	if(blinkTemp.equals("FAST")) blink1.call(200);
+	blink1.call(1000);
 }
 
-      running=false;
-      robot.end();
-    }
     
-    if(!running) thru=true;
-    change=false;
+    thru=true;
   }
 }
