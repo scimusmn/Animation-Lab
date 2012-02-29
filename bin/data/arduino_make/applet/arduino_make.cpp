@@ -1,27 +1,27 @@
 #include "WProgram.h"
-void setup();
-void loop();
-
-#include "blink.h"
+#include "Servo.h"
+#include "fishMoves.h"
 
 
 bool thru=false;
 
 void setup(){
-  thru=false;
-	blink1.setup();
-
+	thru=false;
+	Flippers.setup();
+	
 }
 
 void loop(){
-  if(!thru){
-    
-    while(1){	String blinkTemp="SLOW";
-	if(blinkTemp.equals("FAST")) blink1.call(200);
-	blink1.call(1000);
-}
+Flippers.start();
+	
+	if(!thru){
+		Flippers.manual(0);
+		delay(1 *1000);
+		Flippers.manual(1);
+		delay(1 *1000);
 
-    
-    thru=true;
-  }
+		thru=true;
+	}
+	Flippers.end();
+	
 }

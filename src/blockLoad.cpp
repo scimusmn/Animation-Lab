@@ -129,8 +129,8 @@ void rootGroup::load(string dir)
     vector<string> spl= ofSplitString(DIR.getPath(i), "/");
     vector<string> spl2= ofSplitString(spl.back(), ".");
     if(spl2.size()==1){
-      if(spl2[0]!="blocks")
-        set.push_back(blockGroup(DIR.getPath(i)));
+		if(atoi(spl2[0].substr(0,3).c_str()))
+			set.push_back(blockGroup(DIR.getPath(i)));
     }
   }
 }

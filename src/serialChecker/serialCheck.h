@@ -57,6 +57,8 @@ protected:
   
   vector<serialDevice> devices;
   
+  vector<string> excludedPorts;
+
   ofFont report;
   string portNm;
 public:
@@ -65,6 +67,7 @@ public:
   bool isAvailable();
   bool justFoundDevice();
   bool justLostDevice();
+  void excludeDevice(string prtNm);
   void addDevice(string prtNm);
   void deviceRemoved();
   void checkAvailability();

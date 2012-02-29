@@ -8,13 +8,9 @@
 #include "ofExtended.h"
 #include "ofxSystemCall.h"
 #include "ofxDirList.h"
+#include "../serialChecker/serialCheck.h"
 
 #pragma once
-
-struct compile_config {
-	string mcu,freq,programmer,rootDir,file,addonLib,baud;
-	void load(string cfgFile);
-};
 
 class command {
 private:
@@ -24,35 +20,62 @@ private:
 public:
 	void newCommand();
 	void addArgument(string arg);
-	void execute();
+	void execute(bool echoToTerminal=false);
 	bool isExecuting();
 	bool justExecuted();
 	int linesOfOutput();
 	string operator[](int i);
 	string lastLine();
+	bool isThereOutput();
+};
+
+struct Object {
+	string filePath;
+	string rootDir;
+	string baseName;
+	Object();
+	Object(string filename);
+	void setFilePath(string path);
+	vector<string> paths;
+	void addInclude(string path);
+	int size();
+	string operator[](int i);
 };
 
 class compiler {
 private:
-	enum compMode { WAIT, DONE, COMPILER_ERROR, COMPILE, ASSEMBLE_ELF, ASSEMBLE_HEX, UPLOAD };
+	enum compMode { WAIT, DONE, COMPILER_ERROR, COMPILE, COMPILE_OBJS, LINK_LIB, LINK, ASSEMBLE, UPLOAD };
 	compMode mode;
 	command cmd;
-	vector<string> includeFiles;
-	vector<string> includePaths;
-	compile_config conf;
-	ofxDirList dir;
-	string rootDir,file,fileRoot,addonLib,toolDir,port;
+	bool bSkipStep;
+	string rootDir,addonLib,toolDir,port;
+	string mcu,freq,programmer,baud;
 	string rep;
 	float percent;
+	serialCheck * serChk;
+	Object mainObj;
+	vector<Object> objects;
+	int currentObj;
+	string appletDir;
+	bool bVerbose;
 public:
 	compiler();
-	void compile(string filename,string prt);
-	void update();
+	void setup(serialCheck * srChk);
+	void mainCompile(string fileName);
+	void compile(Object & obj);
+
+	void compile(string filename);
+	void compileDepends();
+	void linkLibraries();
+	void link();
 	void assemble();
 	void upload(string port);
+
+	void update();
 	void configure(string cfgFile);
-	void checkForInclude(string & line);
-	void findIncludeFolder(string & line);
+	void findIncludeFolder(string & line,Object & obj);
+	string searchFolder(string & include, string startPosition, Object & obj);
+	void computeDependencies(Object & obj);
 	bool isCompiling();
 	string report();
 	float percentDone();

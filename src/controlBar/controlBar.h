@@ -101,4 +101,5 @@ public:
   bool clickDown(int x, int y, int button=0);
   bool clickUp();
   bool mouseLockout(int button);
+  void resize();
 };

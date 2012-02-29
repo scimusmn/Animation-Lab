@@ -1,39 +1,6 @@
 #include "compiler.h"
 
-void compile_config::load(string cfgFile)
-{
-	//cFilename=cfgFile;
-	ifstream config(ofToDataPath(cfgFile).c_str());
-	while (config.peek()!=EOF) {
-		string nextLine;
-		getline(config, nextLine);
-		vector<string> token=ofSplitString(nextLine, "=");
-		if(token.size()){
-			if(token[0]=="MCU") mcu=token[1];
-			if(token[0]=="TRANSFER_RATE") baud=token[1];
-			else if(token[0]=="PROGRAMMER") programmer=token[1];
-			else if(token[0]=="F_CPU"){
-				if(token[1]=="16M") freq="16000000L";
-				else if(token[1]=="8M") freq="8000000L";
-				else if(token[1]=="20M") freq="20000000L";
-				else freq=token[1];
-			}
-			else if(token[0]=="BOARD"){
-				if(token[1]=="UNO") mcu="atmega328p", programmer="arduino", freq="16000000L",baud="115200";
-				else if(token[1]=="DUEM") mcu="atmega328p", programmer="stk500v1", freq="16000000L",baud="57600";
-			}
-			else if(token[0]=="INSTALL_DIR");
-			else if(token[0]=="PERIPHERAL"){
-#if defined TARGET_OSX
-				addonLib=token[1];
-#else
-				addonLib=de_UnixPath(token[1]);
-#endif
-			}
-		}
-	}
-	config.close();
-}
+extern string ROOT_DIR;
 
 void command::addArgument(string arg)
 {
@@ -45,7 +12,7 @@ void command::newCommand()
 	args.clear();
 }
 
-void command::execute()
+void command::execute(bool echo)
 {
 	string com="";
 	for(unsigned int i=0; i<args.size(); i++){
@@ -57,9 +24,10 @@ void command::execute()
 #ifdef TARGET_WIN32
 	com=de_UnixPath(com);
 #endif
+	if(echo) cout << com << endl;
 	//cout << com << " is the command being run\n";
 	bExecuting=true;
-	call.run(com);
+	call.run(com,echo);
 }
 
 bool command::isExecuting()
@@ -92,38 +60,117 @@ string command::lastLine()
 	return ret;
 }
 
+bool command::isThereOutput()
+{
+	return !call.noOutput();
+}
+
+///////////////////////////////////////////////////////////////////////
+////////////////// compiler beyond this point /////////////////////////
+
+Object::Object()
+{
+}
+
+Object::Object(string fileNm)
+{
+	setFilePath(fileNm);
+}
+
+void Object::setFilePath(string path)
+{
+	filePath=ofToDataPath(path);
+	baseName=filePath.substr(filePath.find_last_of('/')+1,filePath.find_last_of('.')-(filePath.find_last_of('/')+1));
+	rootDir=filePath.substr(0,filePath.find_last_of('/'))+"/";
+}
+
+void Object::addInclude(string path)
+{
+	bool found=false;
+	for(unsigned int i=0; i<paths.size(); i++){
+		if(paths[i]==path){
+			found=true;
+			break;
+		}
+	}
+	if(!found) paths.push_back(path);
+}
+
+int Object::size()
+{
+	return paths.size();
+}
+
+string Object::operator[](int i)
+{
+	return paths[i];
+}
+
 compiler::compiler()
 {
-	configure("arduino_make/config.txt");
 #ifdef TARGET_OSX
-	rootDir=ofToDataPath("../Arduino/");
+	rootDir=ofToDataPath("../Arduino/",true);
 #else
 	rootDir=ofToDataPath("../Arduino_win32/");
 #endif
 	toolDir=rootDir+"hardware/tools/avr/bin/";
 
-	addonLib=conf.addonLib;
+	//addonLib=conf.addonLib;
 	mode=WAIT;
 
 }
 
+void compiler::setup(serialCheck * srChk)
+{
+	bVerbose=false;
+	serChk=srChk;
+	configure("arduino_make/config.txt");
+	objects.reserve(30);
+}
+
 void compiler::update()
 {
-	if(cmd.justExecuted()){
+	if(cmd.justExecuted()||bSkipStep){
+		bSkipStep=false;
 		switch(mode){
 			case COMPILE:
-				assemble();
-				rep="Assembling...";
-				percent=.1;
+				if(!cmd.isThereOutput()){
+					currentObj=0;
+					compileDepends();
+					currentObj++;
+					rep="Assembling...";
+					percent=.1;
+				}
+				else {
+					string err;
+					for(unsigned int i=0; i<cmd.linesOfOutput(); i++){
+						if(cmd[i].find_last_of(":")!=cmd[i].npos){
+							err=cmd[i].substr(cmd[i].find_last_of(":"));
+						}
+					}
+					rep="Error Compiling"+err;
+				}
 				break;
-			case ASSEMBLE_ELF:
+			case COMPILE_OBJS:
+				if(currentObj>=objects.size()){
+					currentObj=0;
+					link();
+					rep="Linking...";
+					percent=.15;
+				}
+				else {
+					compileDepends();
+					currentObj++;
+				}
+				break;
+			case LINK:
 				assemble();
 				rep="Making .hex...";
-				percent=.20;
+				percent=.25;
 				break;
-			case ASSEMBLE_HEX:
+			case ASSEMBLE:
 				rep="Contacting Programmer...";
-				upload(port);
+				upload(serChk->portName());
 				percent=.30;
 				break;
 			case UPLOAD:
@@ -136,8 +183,6 @@ void compiler::update()
 		}
 	}
 	if(mode==UPLOAD){
-		//if(cmd.linesOfOutput()>3&&cmd.linesOfOutput()!=lastLines) cout << cmd[cmd.linesOfOutput()-2] << endl;
-		//lastLines=cmd.linesOfOutput();
 		int avrdudes=0;
 		for(unsigned int i=0; i<cmd.linesOfOutput(); i++){
 			if(cmd[i].substr(0,7)=="avrdude") avrdudes++;
@@ -157,36 +202,90 @@ void compiler::update()
 	}
 }
 
-void compiler::compile(string filename, string prt)
+void compiler::computeDependencies(Object & obj)
 {
-	port=prt;
-	file=ofToDataPath(filename);
-	fileRoot=file.substr(0,file.find_last_of('.'));
-	ifstream base(file.c_str());
+	ifstream base(obj.filePath.c_str());
 	while (base.peek()!=EOF) {
 		string nextLine;
 		getline(base, nextLine);
-		checkForInclude(nextLine);
+		vector<string> spl=ofSplitString(nextLine," #<>\"");
+		if(spl.size()>1&&spl[0]=="include"){
+			findIncludeFolder(spl[1], obj);
+		}
 	}
 	base.close();
-	includePaths.push_back(rootDir+"hardware/arduino/cores/arduino"); // change this to work with tinyX5;
+}
+
+void compiler::findIncludeFolder(string & line,Object & obj)
+{
+	int nDir=0;
+	string inc = line.substr(0,line.find_last_of('.'));
+	vector<string> spl = ofSplitString(line,".");
+	//nDir=dir.listDir(rootDir+"libraries");
+	string folder=searchFolder(spl[0],rootDir+"libraries/",obj);
+	if(folder.length()==0) folder=searchFolder(spl[0],addonLib,obj);
+}
+
+string compiler::searchFolder(string & incl, string startPosition,Object & obj)
+{
+	string ret="";
+	ofxDirList dir;
+	//cout << startPosition << " is the start pos\n";
+	int nDir=dir.listDir(startPosition);
+	bool found=false;
+	for(int i = 0; i < nDir; i++){
+		string fl=dir.getName(i);
+		if(fl==incl+".h"){
+			found=true;
+			obj.addInclude(startPosition);
+		}
+		//if(fl.substr(fl.find_last_of('.'))==".cpp") objects.push_back(Object(dir.getPath(i)));
+		else if(fl==incl+".cpp"||fl==incl+".c"){
+			bool foundC=false;
+			for(unsigned int j=0; j<objects.size()&&!found; j++){
+				if(objects[j].filePath==dir.getPath(i)) foundC=true;
+			}
+			if(!foundC){
+				objects.push_back(Object(dir.getPath(i)));
+				computeDependencies(objects.back());
+			}
+		}
+		else if(fl.find_last_of('.')==fl.npos&&!found&&fl!="Makefile"&&fl!="examples"){
+			ret=searchFolder(incl,dir.getPath(i),obj);
+			found=ret.length();
+		}
+	}
+	return ret;
+}
+
+void compiler::compile(Object & obj)
+{
+	string file=obj.filePath;
+	string base=obj.baseName;
+	string root=obj.rootDir;
+	bool isCpp=file.substr(file.find_last_of('.'))==".cpp";
+	computeDependencies(obj);
+	obj.addInclude(rootDir+"hardware/arduino/cores/arduino"); // change this to work with tinyX5;
+	obj.addInclude(ofToDataPath(ROOT_DIR+"/include"));
 
 	cmd.newCommand();
-	cmd.addArgument(toolDir+"avr-g++");
-	cmd.addArgument("-c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections");
-	cmd.addArgument("-DF_CPU="+conf.freq+"L");
+	if(isCpp) cmd.addArgument(toolDir+"avr-g++");
+	else cmd.addArgument(toolDir+"avr-gcc");
+	cmd.addArgument("-c -g -Os -w");
+	if(isCpp) cmd.addArgument("-fno-exceptions");
+	cmd.addArgument("-ffunction-sections -fdata-sections");
+	cmd.addArgument("-DF_CPU="+freq+"L");
 	cmd.addArgument("-DARDUINO=22");
-	for(unsigned int i=0; i<includePaths.size(); i++){
-		cmd.addArgument("-I"+includePaths[i]);
+	for(unsigned int i=0; i<obj.size(); i++){
+		cmd.addArgument("-I"+obj[i]);
 	}
-	cmd.addArgument("-mmcu="+conf.mcu);
-	cmd.addArgument(fileRoot+".cpp");
-	cmd.addArgument("-o " + fileRoot + ".o");
+	cmd.addArgument("-mmcu="+mcu);
+	if(isCpp) cmd.addArgument(root+base+".cpp");
+	else cmd.addArgument(root+base+".c");
+	cmd.addArgument("-o " + appletDir+base+ ".o");
 
-	mode=COMPILE;
-	rep="Compiling...";
 	percent=0;
-	cmd.execute();
+	cmd.execute(bVerbose);
 
 	/*
 	path/to/avr-g++ -c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -DF_CPU=processor_speed
@@ -194,32 +293,78 @@ void compiler::compile(string filename, string prt)
 	*/
 }
 
-//"data\..\Arduino_win32\hardware\tools\avr\bin\avrdude" -V -F -C "data\..\Arduino_win32\hardware\tools\avr\bin\..\etc\avrdude.conf" -p atmega328p -P COM7 -c stk500v1 -b 57600 -U flash:w:data\arduino_make\applet\arduino_make.hex
+void compiler::compile(string filename)
+{
+	mainObj.setFilePath(filename);
+	bSkipStep=false;
+	mode=COMPILE;
+	objects.clear();
+	rep="Compiling...";
+	appletDir=mainObj.filePath.substr(0,mainObj.filePath.find_last_of('/'))+"/";
+	compile(mainObj);
+	currentObj=0;
+}
+
+void compiler::compileDepends()
+{
+	mode=COMPILE_OBJS;
+	if(objects.size()&&currentObj<objects.size()){
+		ofxDirList dir;
+    //cout << appletDir << endl;
+		int nDir=dir.listDir(appletDir);
+		rep="Compiling " + objects[currentObj].baseName + "...";
+		bool exists=false;
+		for(int i=0; i<nDir; i++){
+			if(dir.getName(i)==objects[currentObj].baseName+".o") exists=true;
+		}
+		if(!exists) compile(objects[currentObj]);
+		else bSkipStep=true;
+	}
+	else bSkipStep=true,currentObj=objects.size();
+}
+
+void compiler::linkLibraries()
+{
+	mode=LINK_LIB;
+	if(currentObj<objects.size()){
+		cmd.newCommand();
+		cmd.addArgument(toolDir+"avr-ar");
+		cmd.addArgument("rcs");
+		cmd.addArgument(appletDir+"core.a");
+		cmd.addArgument(appletDir+objects[currentObj].baseName+".o");
+
+		cmd.execute(bVerbose);
+	}
+	else bSkipStep=true;
+}
+	
+void compiler::link()
+{
+	mode=LINK;
+	cmd.newCommand();
+	cmd.addArgument(toolDir+"avr-gcc");
+	cmd.addArgument("-Os -lm -Wl,--gc-sections");
+	cmd.addArgument("-mmcu="+mcu);
+	cmd.addArgument("-o "+appletDir+mainObj.baseName+".elf");
+	cmd.addArgument(appletDir+mainObj.baseName+".o");
+	for(unsigned int i=0; i<objects.size(); i++){
+		cmd.addArgument(appletDir+objects[i].baseName+".o");
+	}
+	cmd.addArgument(appletDir+"core.a");
+
+	cmd.execute(bVerbose);
+}
+
 void compiler::assemble()
 {
-	if(mode==COMPILE){
-		mode=ASSEMBLE_ELF;
-		cmd.newCommand();
-		cmd.addArgument(toolDir+"avr-gcc");
-		cmd.addArgument("-Os -lm -Wl,--gc-sections");
-		cmd.addArgument("-mmcu="+conf.mcu);
-		cmd.addArgument("-o "+fileRoot+".elf");
-		cmd.addArgument(fileRoot+".o");
-		cmd.addArgument(fileRoot.substr(0,fileRoot.find_last_of("/"))+"/core.a");
+	mode=ASSEMBLE;
+	cmd.newCommand();
+	cmd.addArgument(toolDir+"avr-objcopy");
+	cmd.addArgument("-O ihex -R .eeprom");
+	cmd.addArgument(appletDir+mainObj.baseName+".elf");
+	cmd.addArgument(appletDir+mainObj.baseName+".hex");
 
-		cmd.execute();
-	}
-
-	else if(mode==ASSEMBLE_ELF){
-		mode=ASSEMBLE_HEX;
-		cmd.newCommand();
-		cmd.addArgument(toolDir+"avr-objcopy");
-		cmd.addArgument("-O ihex -R .eeprom");
-		cmd.addArgument(fileRoot+".elf");
-		cmd.addArgument(fileRoot+".hex");
-
-		cmd.execute();
-	}
+	cmd.execute(bVerbose);
 
 	/*
 
@@ -234,22 +379,20 @@ void compiler::assemble()
 	*/
 }
 
-//"data\..\Arduino_win32\hardware\tools\avr\bin\avrdude" -V -F -C "data\..\Arduino_win32\tool/avr/etc/avrdude.conf" -p atmega328p -P COM7 -c stk500v1 -b 57600 -U flash:w:data\arduino_make/applet/arduino_make.hex
-
 void compiler::upload(string port)
 {
 	mode=UPLOAD;
 	cmd.newCommand();
-	cmd.addArgument(toolDir+"avrdude.exe");
+	cmd.addArgument(toolDir+"avrdude");
 	cmd.addArgument("-V -F -C");
 	cmd.addArgument(toolDir+"../etc/avrdude.conf");
-	cmd.addArgument("-p "+conf.mcu);
+	cmd.addArgument("-p "+mcu);
 	cmd.addArgument("-P "+port);
-	cmd.addArgument("-c "+conf.programmer);
-	cmd.addArgument("-b "+conf.baud);
-	cmd.addArgument("-U flash:w:"+fileRoot+".hex");
+	cmd.addArgument("-c "+programmer);
+	cmd.addArgument("-b "+baud);
+	cmd.addArgument("-U flash:w:"+appletDir+mainObj.baseName+".hex");
 
-	cmd.execute();
+	cmd.execute(bVerbose);
 
 	/*
 	To upload to the mcu
@@ -258,59 +401,45 @@ void compiler::upload(string port)
 		-b transfer_rate -U flash:w:path/to/target.hex
 	*/
 }
-
-void compiler::checkForInclude(string & line)
-{
-	for(unsigned int i=0; i<line.length(); i++){
-		if(line[i]=='#'){
-			vector<string> spl=ofSplitString(line," #<>\"");
-			if(spl.size()>1&&spl[0]=="include"){
-				//includeFiles.push_back(spl[1]);
-				findIncludeFolder(spl[1]);
-				//cout << spl[1] << endl;
-			}
-		}
-	}
-}
-
-void compiler::findIncludeFolder(string & line)
-{
-	int nDir=0;
-	string inc = line.substr(0,line.find_last_of('.'));
-	vector<string> spl = ofSplitString(line,".");
-	nDir=dir.listDir(rootDir+"libraries");
-	bool found=false;
-	for(int i = 0; i < nDir; i++){
-		if(dir.getName(i)==spl[0]){
-			found=true;
-			includePaths.push_back(dir.getPath(i));
-			ofxDirList dir2;
-			int nDir2=dir2.listDir(dir.getPath(i));
-			for(int j=0; j<nDir2; j++){
-				if(dir2.getName(j)=="utility") includePaths.push_back(dir2.getPath(j));
-			}
-		}
-	}
-	if(!found){
-		nDir=dir.listDir(addonLib);
-		for(int i = 0; i < nDir; i++){
-			if(dir.getName(i)==spl[0]){
-				found=true;
-				includePaths.push_back(dir.getPath(i));
-				ofxDirList dir2;
-				int nDir2=dir2.listDir(dir.getPath(i));
-				for(int j=0; j<nDir2; j++){
-					if(dir2.getName(i)=="utility") includePaths.push_back(dir2.getPath(j));
-				}
-			}
-		}
-	}
-	if(!found) includePaths.push_back(addonLib);
-}
 	
 void compiler::configure(string cfgFile)
 {
-	conf.load(cfgFile);
+	ifstream config(ofToDataPath(cfgFile).c_str());
+	while (config.peek()!=EOF) {
+		string nextLine;
+		getline(config, nextLine);
+		vector<string> token=ofSplitString(nextLine, "=\r\n");
+		if(token.size()){
+			if(token[0]=="MCU") mcu=token[1];
+			if(token[0]=="TRANSFER_RATE") baud=token[1];
+			else if(token[0]=="PROGRAMMER") programmer=token[1];
+			else if(token[0]=="F_CPU"){
+				if(token[1]=="16M") freq="16000000L";
+				else if(token[1]=="8M") freq="8000000L";
+				else if(token[1]=="20M") freq="20000000L";
+				else freq=token[1];
+			}
+			else if(token[0]=="BOARD"){
+				if(token[1]=="UNO") mcu="atmega328p", programmer="arduino", freq="16000000L",baud="115200";
+				else if(token[1]=="DUEM") mcu="atmega328p", programmer="stk500v1", freq="16000000L",baud="57600";
+			}
+			else if(token[0]=="EXCLUDE_PORT"){
+				serChk->excludeDevice(token[1]);
+				cout << token[1] << " will be excluded"<<endl;
+			}
+			else if(token[0]=="INSTALL_DIR"){
+				rootDir=ofToDataPath(token[1]);
+				toolDir=rootDir+"hardware/tools/avr/bin/";
+			}
+			else if(token[0]=="PERIPHERAL"){
+				addonLib=ofToDataPath(token[1]);
+			}
+			else if(token[0]=="VERBOSE"){
+				bVerbose=ofToInt(token[1]);
+			}
+		}
+	}
+	config.close();
 }
 
 bool compiler::isCompiling()

@@ -1,0 +1,22 @@
+global(){
+	~#include "fetController.h"
+	~#include "snailEye.h"
+}
+
+setup(){
+	@leftEye.setup();
+}
+
+start(){
+	@leftEye.start();
+}
+
+loop(){
+	leftEye.manual("$dd[0].str");
+}
+
+end(){
+	@leftEye.end();
+}
+
+~ath

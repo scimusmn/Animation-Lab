@@ -19,6 +19,7 @@ void uploadModule::setup(bGroup * blks, serialCheck * srCk)
   label.setSize(70);
   label.setMode(OF_FONT_CENTER);
   uploaded.pause();
+  cmplr.setup(serChk);
 }
 
 void uploadModule::update()
@@ -31,7 +32,7 @@ void uploadModule::upload()
   //--------- Generate the file which we will compile and upload to the arduino
   blocks->writeFile("arduino_make/applet/arduino_make.cpp");
   
-  cmplr.compile("arduino_make/applet/arduino_make.cpp",serChk->portName());
+  cmplr.compile("arduino_make/applet/arduino_make.cpp");
   //--------- once we've generated the file, compile and upload with one of teh following scripts
   
   //--------- unpress the upload button

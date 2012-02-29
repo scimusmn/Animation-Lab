@@ -11,7 +11,6 @@
 #define _button_
 
 #include "WProgram.h"
-#include "Servo.h"
 
 class button {
 	int pin;
@@ -20,12 +19,12 @@ class button {
 public:
 	button(){
 	}
-	void setup(int pn,lghtPn){
+	void setup(int pn, int lghtPn){
 		pin=pn;
-    lPin=lghtPn;
-    pinMode(pin,INPUT);
-    pinMode(lPin,OUTPUT);
-    digitalWrite(lPin,HIGH);
+		lPin=lghtPn;
+		pinMode(pin,INPUT);
+		pinMode(lPin,OUTPUT);
+		digitalWrite(lPin,HIGH);
 	}
 	void start(){
 	}
@@ -33,6 +32,6 @@ public:
 		digitalWrite(lPin,LOW);
 	}
 	bool isPressed(){ return digitalRead(pin); }
-}button Button;
+} Button;
 
 #endif

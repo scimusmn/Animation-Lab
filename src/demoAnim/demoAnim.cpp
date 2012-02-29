@@ -24,7 +24,7 @@ void demoAnim::setup(bGroup * bG, sbGroup * sbG)
   yes.setup("Yes", 40);
   no.setup("No",40);
   
-  yes.w=no.w=max(yes.w,no.w);
+  yes.w=no.w=max(yes.w*1.5,no.w*1.5);
   
   header.loadFont("fonts/DinC.ttf");
   header.setSize(70);

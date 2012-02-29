@@ -91,6 +91,11 @@ string serialCheck::portName()
 	return portNm;
 }
 
+void serialCheck::excludeDevice(string prtNm)
+{
+	excludedPorts.push_back(prtNm);
+}
+
 void serialCheck::checkAvailability()
 {
   if(checkTimer.expired()){
@@ -100,20 +105,33 @@ void serialCheck::checkAvailability()
         numDevices=serial.numDevices();
   #if defined( TARGET_OSX )
         for (int i=0; i<serial.numDevices(); i++) {
-          if(serial.deviceNameByNumber(i).substr(0,7) == "tty.usb" ){
-			portNm=serial.deviceNameByNumber(i);
+          bool excluded=false;
+          for(unsigned int j=0; j<excludedPorts.size(); j++){
+            if(excludedPorts[j]==serial.deviceNameByNumber(i))
+              excluded=true,cout << serial.deviceNameByNumber(i) << " has been excluded\n";
+          }
+          if((!excluded||excludedPorts.size()==0)&&serial.deviceNameByNumber(i).substr(0,7)=="tty.usb"){
+            portNm="/dev/"+serial.deviceNameByNumber(i);
+            cout << "Robot is on port " << portNm << endl;
             bAvailable=true;
             bJustFound=true;
           }
         }
   #elif defined( TARGET_WIN32 )
         for (int i=0; i<serial.numDevices(); i++) {
-          if(serial.deviceNameByNumber(i).length()){
-			portNm=serial.deviceNameByNumber(i);
+          bool excluded=false;
+          for(unsigned int j=0; j<excludedPorts.size(); j++){
+            if(excludedPorts[j]==serial.deviceNameByNumber(i))
+              excluded=true,cout << serial.deviceNameByNumber(i) << " has been excluded\n";
+          }
+          if(!excluded||excludedPorts.size()==0){
+            portNm=serial.deviceNameByNumber(i);
+            cout << "Robot is on port " << portNm << endl;
             bAvailable=true;
             bJustFound=true;
           }
         }
+
   #endif
       
       }
@@ -134,9 +152,9 @@ void serialCheck::checkAvailability()
           //cout << serial.deviceNameByNumber(i) << endl;
       }
     }
-    checkTimer.reset();
+    checkTimer.set(1);
 	checkTimer.run();
-	//stop();
+	stop();
   }
 }
 

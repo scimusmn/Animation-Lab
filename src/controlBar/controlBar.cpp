@@ -149,8 +149,8 @@ void controlBar::setup(bGroup * bG, sbGroup * sbG)
   changed.pause();
   
   clearBut.setup("Clear blocks", 19);
-  redoBut.setup(64, 64, "images/redo.png","images/redo_active.png");
-	undoBut.setup(64, 64, "images/undo.png","images/undo_active.png");
+  redoBut.setup(64, OF_VERT, "images/redo.png","images/redo_active.png");
+	undoBut.setup(64, OF_VERT, "images/undo.png","images/undo_active.png");
   demo.setup("View Demo", 19);
   skipBut.setup(300, 100, "images/skipBut.png");
 
@@ -163,7 +163,7 @@ void controlBar::setup(bGroup * bG, sbGroup * sbG)
   subBar.height=subtitle.stringHeight("Kjhg")*1.5;
   subBar.width=ofGetWidth();
   
-  ROOT_DIR=config("config.cfg");
+  ROOT_DIR=config("robots/config.cfg");
   
   sets.load(ROOT_DIR);
   loadBlocks(sets[0]);
@@ -280,7 +280,7 @@ void controlBar::drawForeground(){
   if(changed.running()){
     ofSetColor(0, 0, 0,192);
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
-    subtitle.setSize(70);
+    subtitle.setSize(50);
     subtitle.setMode(OF_FONT_CENTER);
     int wid=subtitle.stringWidth("Program changes not uploaded");
     drawStyledBox((ofGetWidth()-wid)/2-50, ofGetHeight()/3-50, wid+100, ofGetHeight()/2-ofGetHeight()/3+150);
@@ -290,20 +290,28 @@ void controlBar::drawForeground(){
   }
   else if(serChk.drawForeground());
   else if(upload.drawForeground());
-  /*else if(bPluginChoice){
-    ofSetColor(0, 0, 0,192);
-    ofRect(0, 0, ofGetWidth(), ofGetHeight());
-    drawStyledBox(create.x-100, create.y-100, edit.w+200, ofGetHeight()/3+200);
-    create.draw((ofGetWidth()-create.w)/2, ofGetHeight()/3);
-    edit.draw((ofGetWidth()-edit.w)/2, 2*ofGetHeight()/3-edit.h);
-  }*/
   else if(bChooseLevel){
-    ofSetColor(0, 0, 0,192);
-    ofRect(0, 0, ofGetWidth(), ofGetHeight());
+    //ofSetColor(0, 0, 0,192);
+    //ofRect(0, y, ofGetWidth(), ofGetHeight());
     for (unsigned int i=0; i<sets.size(); i++) sets(i).w=sets(i).h=200,sets(i).setAvailable(true);
     
-    drawStyledBox(.5*ofGetWidth()/(sets.size())-(sets(0).w)/2-50, (ofGetHeight()-sets(0).h)/2-100, (sets.size()-1)*ofGetWidth()/(sets.size())+(sets(0).w)+100, sets(0).h+200);
-    for (unsigned int i=0; i<sets.size(); i++) sets(i).draw((i+.5)*ofGetWidth()/(sets.size())-(sets(i).w)/2,(ofGetHeight()-sets(i).h)/2);
+	subtitle.setSize(50);
+	subtitle.setMode(OF_FONT_CENTER);
+	subtitle.setMode(OF_FONT_TOP);
+	string title1="Select a programmer level";
+	string title2="to begin.";
+	double boxWid=(sets.size()-1)*ofGetWidth()/(sets.size())+(sets(0).w)+100;
+	boxWid=max(boxWid,double(subtitle.stringWidth(title1)));
+
+	double stringHgt=subtitle.stringHeight(title1)*2+50;
+	double boxHgt=sets(0).h+stringHgt+150;
+
+	drawStyledBox(0, y, ofGetWidth(),ofGetHeight()-y);
+    //drawStyledBox((ofGetWidth()-boxWid)/2, ofGetHeight()/2-stringHgt-50, boxWid,boxHgt);
+	ofSetColor(yellow);
+	subtitle.drawString(title1,ofGetWidth()/2,ofGetHeight()/2-stringHgt);
+	subtitle.drawString(title2,ofGetWidth()/2,ofGetHeight()/2-stringHgt+(stringHgt)/2);
+    for (unsigned int i=0; i<sets.size(); i++) sets(i).draw((i+.5)*ofGetWidth()/(sets.size())-(sets(i).w)/2,ofGetHeight()/2+50);
   }
   else anim.drawForeground();
   //else testbed.drawForeground();
@@ -380,7 +388,10 @@ bool controlBar::clickDown(int _x, int _y, int button)
 	ret=true;
   }
   
-  if(anim.isPrompting()) anim.clickDown(_x, _y),ret=true;
+	if(anim.isPrompting()){
+		if(anim.clickDown(_x, _y)) blocks->recordState();
+		ret=true;
+	}
   
   /*if ((!mouseLockout(button)||testbed.mouseLockout())||(anim.isPlaying()&&button==VMOUSE_BUTTON)) {
     testbed.clickDown(_x, _y);
@@ -444,4 +455,11 @@ void controlBar::setAvailableButtons()
   redoBut.setAvailable(blocks->redoAvailable());
 	undoBut.setAvailable(blocks->undoAvailable());
   demo.setAvailable(!anim.isPlaying());
+}
+
+void controlBar::resize()
+{
+	bHldr.clear();
+	subBar.width=ofGetWidth();
+	barSpacing();
 }

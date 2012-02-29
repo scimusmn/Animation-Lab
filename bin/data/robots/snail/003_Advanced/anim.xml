@@ -53,7 +53,7 @@
   <step type="clickUp" time=".25" />
 #move to the first block
   <step type="move" speed="2000">
-    <pos type="obj" where="sidebar[0][0]" x="20" y="20"/>
+    <pos type="obj" where="sidebar[0][2]" x="20" y="20"/>
   </step>
 #click and drag to the inside of the repeat block
   <step type="clickDown" time=".25" />
@@ -74,7 +74,7 @@
   <step type="clickUp" time=".5" />
 #move back to the sidebar and click the block again
   <step type="move" speed="2000">
-    <pos type="obj" where="sidebar[0][0]" x="20" y="20"/>
+    <pos type="obj" where="sidebar[0][2]" x="20" y="20"/>
   </step>
   <step type="clickDown" time=".25" />
 #drag the block into the second cond statement

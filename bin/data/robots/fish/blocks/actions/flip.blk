@@ -1,0 +1,22 @@
+global(){
+~#include "Servo.h"
+~#include "fishMoves.h"
+}
+
+setup(){
+	@Flippers.setup();
+}
+
+start(){
+	@Flippers.start();
+}
+
+loop(){
+	Flippers.manual($dd[0].ind);
+}
+
+end(){
+	@Flippers.end();
+}
+
+~ath

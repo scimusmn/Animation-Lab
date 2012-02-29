@@ -64,7 +64,7 @@
   <step type="clickDown" time=".25" />
 #drag the block back onto the previous block
   <step type="move" speed="2000">
-    <pos type="obj" where="base[0][i0]" x="20" y="h+10" />
+    <pos type="obj" where="base[0][i0]" x="20" y="h+20" />
   </step>
   <step type="clickUp" time=".25" />
 #click open the second sidebar
@@ -80,7 +80,7 @@
   <step type="clickDown" time=".25" />
 #drop it below the first block on the base
   <step type="move" speed="2000">
-    <pos type="obj" where="base[0][i0]" x="20" y="h+10" />
+    <pos type="obj" where="base[0][i0]" x="20" y="h+20" />
   </step>
   <step type="clickUp" time=".25" />
 #move to the dropdown on the first block on the base
@@ -101,7 +101,7 @@
   <step type="clickDown" time=".25" />
 #drop it under the third block on the base
   <step type="move" speed="2000">
-    <pos type="obj" where="base[0][i2]" x="20" y="h+10" />
+    <pos type="obj" where="base[0][i2]" x="20" y="h+20" />
   </step>
   <step type="clickUp" time=".25" />
 #move to the dropdown on the first block on the base
@@ -121,4 +121,7 @@
   </step>
   <step type="clickDown" time=".25" />
   <step type="clickUp" time=".25" />
+  <step type="move" speed="2000">
+    <pos type="mouse" />
+  </step>
 </animation>

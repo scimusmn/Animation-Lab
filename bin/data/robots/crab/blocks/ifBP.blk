@@ -1,23 +1,23 @@
 global(){
+~#include "animButton.h"
 }
 
 setup(){
-	~pinMode(2,INPUT);
+	~Button.setup(2,13);
 }
 
 start(){
-
+	~Button.start();
 }
 
 loop(){
-	if(digitalRead(2)){
+	if(Button.isPressed()){
 		$blockIn;
 	}
 }
 
-
 end(){
-
+	~Button.end();
 }
 
 ~ath

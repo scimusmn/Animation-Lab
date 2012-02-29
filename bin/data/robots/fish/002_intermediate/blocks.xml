@@ -1,55 +1,52 @@
-<blocks font="ArialNarrow.ttf" title="FishBot" subtitle="Intermediate: Stack your own instructions" xmlns:blck="http://www.smm.org/">
+<blocks font="ArialNarrow.ttf" title="Make a story with the FishBot" subtitle="Intermediate: Assemble repeating sequences" xmlns:blck="http://www.smm.org/">
 	<bar name="Action blocks" color="0xde8c3a">
 		<block name="move flipper %d" color="0xde8c3a">
-      <dropdown>
-          <dds>LEFT</dds>
-          <dds>RIGHT</dds>
-          <selected>LEFT</selected>
-      </dropdown>
-      <file>flip.blk</file>
-    </block>
+			<dropdown>
+				<dds>LEFT</dds>
+				<dds>RIGHT</dds>
+			</dropdown>
+			<file>actions/flip.blk</file>
+		</block>
 		<block name="move tail %d" color="0xde8c3a">
-      <dropdown>
-          <dds>LEFT</dds>
-          <dds>RIGHT</dds>
-          <selected>LEFT</selected>
-      </dropdown>
-      <file>tail.blk</file>
-    </block>
+			<dropdown>
+				<dds>LEFT</dds>
+				<dds>RIGHT</dds>
+			</dropdown>
+			<file>actions/tail.blk</file>
+		</block>
 		<block name="wriggle speed %d">
 			<dropdown>
-        <dds>STOP</dds>
-        <dds>SLOW</dds>
-        <dds>FAST</dds>
-      </dropdown>
-			<file>wriggle.blk</file>
+				<dds>STOP</dds>
+				<dds>SLOW</dds>
+				<dds>FAST</dds>
+			</dropdown>
+			<file>actions/wriggle.blk</file>
 		</block>
 		<block name="play sound %d">
-      <dropdown>
-          <dds>NONE</dds>
-          <dds>GLUB</dds>
-          <dds>BUBBLE</dds>
-      </dropdown>
-			<file>playSound.blk</file>
+			<dropdown>
+				<dds>NONE</dds>
+				<dds>GLUB</dds>
+				<dds>BUBBLE</dds>
+			</dropdown>
+			<file>actions/playSound.blk</file>
 		</block>
 	</bar>
 	<bar name="Timing blocks" color="0x13b5ea">
 		<block name="repeat %d times">
-			<cond>1</cond>
-      <dropdown>
-          <ddlow>0</ddlow>
-          <ddhigh>10</ddhigh>
-          <ddsteps>11</ddsteps>
-      </dropdown>
-			<file>repeat.blk</file>
+			<bracket />
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>10</ddhigh>
+                <ddsteps>11</ddsteps>
+            </dropdown>
+			<file>timing/repeat.blk</file>
 		</block>
-    <block name="wait %d seconds">
-      <dropdown>
-          <ddlow>0</ddlow>
-          <ddhigh>2</ddhigh>
-          <ddsteps>5</ddsteps>
-      </dropdown>
-			<file>delay.blk</file>
+		<block name="wait %d second">
+			<dropdown>
+				<ddlow>0</ddlow>
+				<ddhigh>5</ddhigh>
+			</dropdown>
+			<file>timing/delay.blk</file>
 		</block>
 	</bar>
 	

@@ -111,7 +111,6 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
           break;
         case 6: // sibling
           //-- stores the name of the complement blocks
-			cout << "new sibling is " << node[1] << endl;
           sibling.push_back(node[1]);
           break;
         case 7: // num
@@ -188,11 +187,11 @@ void block::parseTitle()
 			if(ddNum<ddGroup.size()){
 				//-------- augment the relative position with the current total width
 				if(i>0) ddGroup[ddNum].relPos.x+=totalwidth-spSize/2;
-        else ddGroup[ddNum].relPos.x+=totalwidth;
+				else ddGroup[ddNum].relPos.x+=totalwidth;
 				//-------- update total width
 				totalwidth+=ddGroup[ddNum].w+spSize*2;
 				//-------- if you have two dropdowns in a row, make sure they don't overlap
-				if(i==titleSplit.size()-1||(i==titleSplit.size()-2&&!titleSplit[i+1].compare("%d"))){
+				if((i==titleSplit.size()-2&&!titleSplit[i+1].compare("%d"))){
 					ddGroup[ddNum].relPos.x+=spSize;
 				}
 				ddNum++;
@@ -222,7 +221,7 @@ void block::parseTitle()
 			if(ddNum<ddGroup.size()){
 				sp=0;
 				int origWid = arialHeader.stringWidth(title);
-				while (spSize*(sp+1)<ddGroup[ddNum].w) {
+				while (spSize*sp<ddGroup[ddNum].w) {
 					sp++;
 					title.append(" ");
 				}

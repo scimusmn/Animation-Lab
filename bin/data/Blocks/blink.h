@@ -22,14 +22,23 @@ public:
     blinking=false;
   }
   void end(){
-    if(blinking){
-      digitalWrite(pin,(millis()/speed)%2);
-    }
-    else digitalWrite(pin,0);
+    digitalWrite(pin,0);
   }
   void call(int spd){
     speed=spd;
     blinking=true;
+	if(blinking) digitalWrite(pin,(millis()/speed)%2);
+  }
+  void on(){
+	  digitalWrite(pin,1);
+  }
+  void off(){
+	  digitalWrite(pin,0);
+  }
+  void call(String spd){
+	  String blinkTemp=spd;
+	  if(blinkTemp.equals("FAST")) call(200);
+	  else call(1000);
   }
 } blink1;
     

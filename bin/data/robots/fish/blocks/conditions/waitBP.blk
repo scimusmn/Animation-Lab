@@ -1,0 +1,21 @@
+global(){
+~#include "animButton.h"
+}
+
+setup(){
+	~Button.setup(7,6);
+}
+
+start(){
+	~Button.start();
+}
+
+loop(){
+	while(!Button.isPressed());
+}
+
+end(){
+	~Button.end();
+}
+
+~ath

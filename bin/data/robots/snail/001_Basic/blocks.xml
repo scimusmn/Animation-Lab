@@ -1,143 +1,159 @@
-<blocks font="ArialNarrow.ttf" title="Make a story using the Rattle Snail" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
-	<bar name="Instruction blocks" color="883710">
-    <block name="right eye %d" color="0xde8c3a">
+<blocks font="ArialNarrow.ttf" title="Make a story with the Rockin Crustacean" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
+	<bar name="Instruction blocks" color="0x594072">
+    <block name="right claw %d" color="0xde8c3a">
       <dropdown>
-        <dds>BACK</dds>
-        <dds>FORTH</dds>
-        <selected>BACK</selected>
+        <dds>OPEN</dds>
+        <dds>CLOSE</dds>
+        <selected>OPEN</selected>
       </dropdown>
-      <file>reye.blk</file>
+      <file>actions/rclaw.blk</file>
       <blocksOn>
 				<block name="wait %d second" color="0x13b5ea">
-					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
-						<ddhigh>5</ddhigh>
+						<ddhigh>1</ddhigh>
 						<selected>1</selected>
 					</dropdown>
-					<file>delay.blk</file>
+					<file>timing/delay.blk</file>
 				</block>
-				<block name="right eye %d" color="0xde8c3a">
+				<block name="right claw %d" color="0xde8c3a">
 					<dropdown>
-						<dds>BACK</dds>
-						<dds>FORTH</dds>
-						<selected>FORTH</selected>
+						<dds>OPEN</dds>
+						<dds>CLOSE</dds>
+						<selected>CLOSE</selected>
 					</dropdown>
-					<file>reye.blk</file>
+					<file>actions/rclaw.blk</file>
+					<part>right claw click</part>
+					<part>if right claw open</part>
 				</block>
 				<block name="wait %d second" color="0x13b5ea">
-					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
-						<ddhigh>5</ddhigh>
+						<ddhigh>1</ddhigh>
 						<selected>1</selected>
 					</dropdown>
-					<file>delay.blk</file>
+					<file>timing/delay.blk</file>
 				</block>
 			</blocksOn>
 		</block>
-    <block name="left eye %d" color="0xde8c3a">
+    <block name="left claw %d" color="0xde8c3a">
       <dropdown>
-        <dds>BACK</dds>
-        <dds>FORTH</dds>
-        <selected>BACK</selected>
+        <dds>OPEN</dds>
+        <dds>CLOSE</dds>
+        <selected>OPEN</selected>
       </dropdown>
-      <file>leye.blk</file>
+      <file>actions/lclaw.blk</file>
       <blocksOn>
 				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
-						<ddhigh>5</ddhigh>
+						<ddhigh>1</ddhigh>
 						<selected>1</selected>
 					</dropdown>
-					<file>delay.blk</file>
+					<file>timing/delay.blk</file>
 				</block>
-				<block name="left eye %d" color="0xde8c3a">
+				<block name="left claw %d" color="0xde8c3a">
+					<type>p</type>
 					<dropdown>
-						<dds>BACK</dds>
-						<dds>FORTH</dds>
-						<selected>FORTH</selected>
+						<dds>OPEN</dds>
+						<dds>CLOSE</dds>
+						<selected>CLOSE</selected>
 					</dropdown>
-					<file>leye.blk</file>
+					<file>actions/lclaw.blk</file>
+					<part>left claw click</part>
+					<part>if left claw open</part>
 				</block>
 				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
-						<ddhigh>5</ddhigh>
+						<ddhigh>1</ddhigh>
 						<selected>1</selected>
 					</dropdown>
-					<file>delay.blk</file>
+					<file>timing/delay.blk</file>
 				</block>
 			</blocksOn>
 		</block>
-    
-    <block name="%d body" color="0xde8c3a">
+    <block name="shake speed %d" color="0xde8c3a">
       <dropdown>
-        <dds>EXTEND</dds>
-        <dds>RETRACT</dds>
-        <selected>EXTEND</selected>
+        <dds>STOP</dds>
+        <dds>SLOW</dds>
+        <dds>FAST</dds>
+        <selected>FAST</selected>
       </dropdown>
-      <file>scrunch.blk</file>
+      <file>actions/shake.blk</file>
       <blocksOn>
 				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
-						<ddhigh>5</ddhigh>
+						<ddhigh>1</ddhigh>
 						<selected>1</selected>
 					</dropdown>
-					<file>delay.blk</file>
+					<file>timing/delay.blk</file>
 				</block>
-				<block name="%d body" color="0xde8c3a">
+				<block name="shake speed %d" color="0xde8c3a">
           <dropdown>
-            <dds>EXTEND</dds>
-            <dds>RETRACT</dds>
-            <selected>RETRACT</selected>
+            <dds>STOP</dds>
+            <dds>SLOW</dds>
+            <dds>FAST</dds>
+            <selected>STOP</selected>
           </dropdown>
-          <file>scrunch.blk</file>
+          <file>actions/shake.blk</file>
         </block>
 				<block name="wait %d second" color="0x13b5ea">
 					<type>d</type>
 					<dropdown>
 						<ddlow>0</ddlow>
-						<ddhigh>5</ddhigh>
+						<ddhigh>1</ddhigh>
 						<selected>1</selected>
 					</dropdown>
-					<file>delay.blk</file>
+					<file>timing/delay.blk</file>
 				</block>
 			</blocksOn>
 		</block>
-    <block name="play sound %d" color="0xde8c3a">
+    <block name="eye color %d" color="0xde8c3a">
       <dropdown>
-          <dds>NONE</dds>
-          <dds>RATTLE</dds>
-          <dds>HISS</dds>
-          <selected>HISS</selected>
+          <dds>RED</dds>
+          <dds>GREEN</dds>
+          <dds>BLUE</dds>
+          <dds>OFF</dds>
+          <selected>RED</selected>
       </dropdown>
-      <file>playSound.blk</file>
+      <file>actions/eyes.blk</file>
       <blocksOn>
-        <block name="wait %d second" color="0x13b5ea">
-          <type>d</type>
+				<block name="wait %d second" color="0x13b5ea">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>timing/delay.blk</file>
+				</block>
+				<block name="eye color %d" color="0xde8c3a">
           <dropdown>
-            <ddlow>0</ddlow>
-            <ddhigh>5</ddhigh>
-            <selected>2</selected>
+              <dds>RED</dds>
+              <dds>GREEN</dds>
+              <dds>BLUE</dds>
+              <dds>OFF</dds>
+              <selected>OFF</selected>
           </dropdown>
-          <file>delay.blk</file>
+          <file>actions/eyes.blk</file>
+          <part>eye color shift</part>
         </block>
-        <block name="play sound %d" color="0xde8c3a">
-          <dropdown>
-              <dds>NONE</dds>
-              <dds>RATTLE</dds>
-              <dds>HISS</dds>
-              <selected>NONE</selected>
-          </dropdown>
-          <file>playSound.blk</file>
-        </block>
-      </blocksOn>
-    </block>
+				<block name="wait %d second" color="0x13b5ea">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>timing/delay.blk</file>
+				</block>
+			</blocksOn>
+		</block>
 	</bar>
 </blocks>
 	

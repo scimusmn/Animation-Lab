@@ -12,14 +12,16 @@
 #include "ofMain.h"
 #include "ofExtended.h"
 
-#ifdef TARGET_OSX
+#if defined( TARGET_OSX )
 #include "/Library/Frameworks/Phidget21.framework/Headers/phidget21.h"
+#else
 #endif
 
 class RFIDreader {
 protected:
-#ifdef TARGET_OSX
+#if defined( TARGET_OSX )
   CPhidgetRFIDHandle rfid;
+#else
 #endif
 public:
   RFIDreader();

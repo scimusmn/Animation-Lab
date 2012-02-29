@@ -24,6 +24,8 @@ void resetList(block & t, map<string,bool> & used)
 	}
 }
 
+int tabsPrinted=0;
+
 //-------------------------- block Print functions-------------------------------------
 
 void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * printList){
@@ -50,11 +52,16 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 		strtPos=endPos=0;
 		
 		//-------- write t amount of tabs to fOut
-		for (int i=0; i<t&&buffer.compare("}"); i++) {
+		/*for (int i=0; i<t&&buffer!="}"; i++) {
 			*fOut << "\t";
+			tabsPrinted++;
+		}*/
+		while(tabsPrinted<t&&buffer!="}"){
+			*fOut << "\t";
+			tabsPrinted++;
 		}
 		//-------- if the buffer is not a single '}', then parse the line; otherwise, it indicates the end of the section
-		if(buffer.compare("}")){
+		if(buffer!="}"){
 			bool skipNewline=false;
 			//-------- init the foundTab var, and start stepping through the buffer
 			int foundTab=0;
@@ -87,7 +94,7 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 					map<string,int> list;
 					list["dd.num"]=0;
 					list["dd.str"]=1;
-          list["dd.ind"]=2;
+					list["dd.ind"]=2;
 					list["blockOn"]=3;
 					list["blockIn"]=4;
 					list["blockIf"]=5;
@@ -100,7 +107,7 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 							//-------- if temp=="dd.str" write the string of the value stored in the dd[pos]
 							*fOut << ddGroup[pos].getString();
 							break;
-            case 2:
+						case 2:
 							//-------- if temp=="dd.ind" write the index of the value stored in the dd[pos]
 							*fOut << ddGroup[pos].getIndex();
 							break;
@@ -114,13 +121,11 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 							//-------- if temp==blockIn, printout the loop for each of the blocks inside
 							int outP=fOut->tellp();
 							fOut->seekp(outP-2);
+							tabsPrinted--;
 							for(unsigned int i=0; i<blocksIn.size(); i++){
 								blocksIn[i].printData("loop(){",fOut,t+1,printList,false);
 							}
 							resetList(*this, *printList);
-							for(unsigned int i=0; i<blocksIn.size(); i++){
-								//blocksIn[i].printData("end(){",fOut,t+1,printList);
-							}
 							outP=fOut->tellp();
 							fOut->seekp(outP-1);
 							break;
@@ -162,7 +167,7 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 			}
 			//-------- newline after buffer if it was not a value block
 			//-------- TODO: figure out why no new line if printed already
-			if(type!=BLK_VAL&&!skipNewline) *fOut << '\n';
+			if(type!=BLK_VAL&&!skipNewline) *fOut << '\n',tabsPrinted=0;
 		}
 		else {
 			//-------- if we found a '}' by itself, end.

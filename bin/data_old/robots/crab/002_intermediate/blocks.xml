@@ -1,0 +1,63 @@
+<blocks font="ArialNarrow.ttf" title="Make a story with the Rockin Crustacean" subtitle="Intermediate: Assemble repeating sequences" xmlns:blck="http://www.smm.org/">
+	<bar name="Action blocks" color="0xde8c3a">
+		<block name="right claw %d">
+			<type>p</type>
+            <dropdown>
+                <dds>OPEN</dds>
+                <dds>CLOSE</dds>
+            </dropdown>
+			<file>rclaw.blk</file>
+			<part>right claw click</part>
+			<part>if right claw open</part>
+		</block>
+		<block name="left claw %d">
+            <dropdown>
+                <dds>OPEN</dds>
+                <dds>CLOSE</dds>
+            </dropdown>
+			<file>lclaw.blk</file>
+			<part>left claw click</part>
+		</block>
+		<block name="shake speed %d">
+			<dropdown>
+				<dds>STOP</dds>
+                <dds>SLOW</dds>
+				<dds>MED</dds>
+				<dds>FAST</dds>
+            </dropdown>
+			<file>shake.blk</file>
+		</block>
+		<block name="eye color %d">
+            <dropdown>
+                <dds>RED</dds>
+                <dds>GREEN</dds>
+                <dds>BLUE</dds>
+                <dds>OFF</dds>
+            </dropdown>
+			<file>eyes.blk</file>
+            <part>eye color shift</part>
+		</block>
+	</bar>
+	<bar name="Timing blocks" color="0x13b5ea">
+		<block name="repeat %d times">
+			<type>F</type>
+			<bracket>1</bracket>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>10</ddhigh>
+                <ddsteps>11</ddsteps>
+            </dropdown>
+			<file>repeat.blk</file>
+		</block>
+		<block name="wait %d second">
+			<type>d</type>
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>5</ddhigh>
+            </dropdown>
+			<file>delay.blk</file>
+		</block>
+	</bar>
+	
+</blocks>
+	

@@ -1,0 +1,22 @@
+global(){
+	~#include <Wire.h>
+	~#include "Sound.h"
+}
+
+setup(){
+	~Sound.setup();
+}
+
+start(){
+}
+
+loop(){
+	while(Sound.isPlaing()){
+		$blockIn;
+	}
+}
+
+end(){
+}
+
+~ath
