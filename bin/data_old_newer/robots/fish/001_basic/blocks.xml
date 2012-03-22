@@ -1,0 +1,140 @@
+<blocks font="ArialNarrow.ttf" title="Make a story with the FishBot" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
+	<bar name="Examples" color="883710">
+    <block name="move flipper %d" color="0xde8c3a">
+      <dropdown>
+          <dds>LEFT</dds>
+          <dds>RIGHT</dds>
+          <selected>LEFT</selected>
+      </dropdown>
+      <file>actions/flip.blk</file>
+      <blocksOn>
+        <block name="wait %d second" color="0x13b5ea">
+          <type>d</type>
+          <dropdown>
+            <ddlow>0</ddlow>
+            <ddhigh>5</ddhigh>
+            <selected>1</selected>
+          </dropdown>
+          <file>timing/delay.blk</file>
+        </block>
+        <block name="move flipper %d" color="0xde8c3a">
+          <type>p</type>
+          <dropdown>
+              <dds>LEFT</dds>
+              <dds>RIGHT</dds>
+              <selected>RIGHT</selected>
+          </dropdown>
+          <file>actions/flip.blk</file>
+        </block>
+        <block name="wait %d second" color="0x13b5ea">
+          <type>d</type>
+          <dropdown>
+            <ddlow>0</ddlow>
+            <ddhigh>5</ddhigh>
+            <selected>1</selected>
+          </dropdown>
+          <file>timing/delay.blk</file>
+        </block>
+      </blocksOn>
+    </block>
+    <block name="move tail %d" color="0xde8c3a">
+      <type>p</type>
+      <dropdown>
+          <dds>LEFT</dds>
+          <dds>RIGHT</dds>
+          <selected>LEFT</selected>
+      </dropdown>
+      <file>actions/tail.blk</file>
+      <blocksOn>
+				<block name="wait %d second" color="0x13b5ea">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>timing/delay.blk</file>
+				</block>
+				<block name="move tail %d" color="0xde8c3a">
+          <type>p</type>
+          <dropdown>
+              <dds>LEFT</dds>
+              <dds>RIGHT</dds>
+              <selected>RIGHT</selected>
+          </dropdown>
+          <file>actions/tail.blk</file>
+        </block>
+				<block name="wait %d second" color="0x13b5ea">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>timing/delay.blk</file>
+				</block>
+			</blocksOn>
+		</block>
+    <block name="wriggle speed %d" color="0xde8c3a">
+      <type>g</type>
+      <dropdown>
+        <dds>STOP</dds>
+        <dds>SLOW</dds>
+        <dds>FAST</dds>
+        <selected>FAST</selected>
+      </dropdown>
+      <file>actions/wriggle.blk</file>
+      <blocksOn>
+				<block name="wait %d second" color="0x13b5ea">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>1</ddhigh>
+						<selected>1</selected>
+					</dropdown>
+					<file>timing/delay.blk</file>
+				</block>
+				<block name="wriggle speed %d" color="0xde8c3a">
+          <type>g</type>
+          <dropdown>
+            <dds>STOP</dds>
+            <dds>SLOW</dds>
+            <dds>FAST</dds>
+            <selected>STOP</selected>
+          </dropdown>
+          <file>actions/wriggle.blk</file>
+        </block>
+			</blocksOn>
+		</block>
+    <block name="play sound %d" color="0xde8c3a">
+      <dropdown>
+          <dds>NONE</dds>
+          <dds>GLUB</dds>
+          <dds>BUBBLE</dds>
+          <selected>GLUB</selected>
+      </dropdown>
+      <file>actions/playSound.blk</file>
+      <blocksOn>
+				<block name="wait %d second" color="0x13b5ea">
+					<type>d</type>
+					<dropdown>
+						<ddlow>0</ddlow>
+						<ddhigh>5</ddhigh>
+						<selected>2</selected>
+					</dropdown>
+					<file>timing/delay.blk</file>
+				</block>
+				<block name="play sound %d" color="0xde8c3a">
+          <dropdown>
+              <dds>NONE</dds>
+              <dds>GLUB</dds>
+              <dds>BUBBLE</dds>
+              <selected>NONE</selected>
+          </dropdown>
+          <file>actions/playSound.blk</file>
+        </block>
+			</blocksOn>
+		</block>
+	</bar>
+</blocks>
+	

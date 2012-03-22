@@ -1,0 +1,22 @@
+global(){
+	~#include "fetController.h"
+	~#include "Wriggle.h"
+}
+
+setup(){
+	@Wriggle.setup();
+}
+
+start(){
+	@Wriggle.start();
+}
+
+loop(){
+	Wriggle.manual("$dd[0].str");
+}
+
+end(){
+	@Wriggle.end();
+}
+
+~ath

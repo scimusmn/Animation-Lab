@@ -38,10 +38,13 @@ class eyes {
 public:
 	eyes(){
 		on=rSet=gSet=bSet=false;
-		rPin=5,gPin=6,bPin=11;
+		rPin=11,gPin=6,bPin=5;
 	}
 	void setup(){
 		on=false;
+		pinMode(rPin,OUTPUT);
+		pinMode(gPin,OUTPUT);
+		pinMode(bPin,OUTPUT);
 	}
 	void start(){
 		on=false;
@@ -65,6 +68,8 @@ public:
 		else if(eyeColor.equals("GREEN")) col.g=255;
 		else if(eyeColor.equals("BLUE")) col.b=255;
 		else on=col.r=col.g=col.b=0;
+
+		end();
 	}
 	void autoColor(){
 		on=true;

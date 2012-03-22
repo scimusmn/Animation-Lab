@@ -179,3 +179,5 @@ public:
   void loseFocus();
   
 };
+
+//bGroup & blocks();

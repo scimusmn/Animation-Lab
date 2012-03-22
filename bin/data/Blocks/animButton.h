@@ -31,7 +31,7 @@ public:
 	void end(){
 		digitalWrite(lPin,LOW);
 	}
-	bool isPressed(){ return digitalRead(pin); }
+	bool isPressed(){ return digitalRead(pin)&&millis()>500; }
 } Button;
 
 #endif

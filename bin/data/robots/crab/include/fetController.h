@@ -30,7 +30,7 @@ public:
 		bRunning=false;
 	}
 	void end(){
-		if(bRunning) off();
+		off();
 	}
 	void setSpeed(String speed){
 		bRunning=true;

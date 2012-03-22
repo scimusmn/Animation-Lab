@@ -36,6 +36,6 @@ public:
 	void manual(String state){
 		skin.setSpeed(state);
 	}
-} Wriggle(17);
+} Wriggle(11);
 
 #endif

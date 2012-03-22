@@ -1,0 +1,90 @@
+<blocks font="ArialNarrow.ttf" title="PROGRAM THE ROBOT TO NAVIGATE THE MAZE" subtitle="Intermediate: Tell the robot which direction to turn when its path is blocked" xmlns:blck="http://www.smm.org/">
+	<bar name="Manual blocks" color="0xde8c3a">
+#0
+		<block name="go forward %d inches" color="0xde8c3a">
+      <dropdown>
+          <ddlow>0</ddlow>
+          <ddhigh>12</ddhigh>
+          <ddsteps>7</ddsteps>
+          <selected>2</selected>
+      </dropdown>
+      <file>forward.blk</file>
+      <action>move:$dd[0].num()*$ppi</action>
+    </block>
+#1
+    <block name="step forward" color="0xde8c3a">
+      <file>stepForward.blk</file>
+      <action>move:2</action>
+    </block>
+#2
+    <block name="go backward %d inches" color="0xde8c3a">
+      <dropdown>
+          <ddlow>0</ddlow>
+          <ddhigh>12</ddhigh>
+          <ddsteps>7</ddsteps>
+          <selected>2</selected>
+      </dropdown>
+      <file>backward.blk</file>
+      <action>move:-$dd[0].num()*$ppi</action>
+    </block>
+#3 right turn
+		<block name="turn right %d degrees" color="0xde8c3a">
+      <dropdown>
+          <ddlow>0</ddlow>
+          <ddhigh>180</ddhigh>
+          <ddsteps>5</ddsteps>
+          <selected>90</selected>
+      </dropdown>
+      <action>turn:$dd[0].num()</action>
+      <file>rightTurn.blk</file>
+    </block>
+#4 left turn
+    <block name="turn left %d degrees" color="0xde8c3a">
+      <dropdown>
+          <ddlow>0</ddlow>
+          <ddhigh>180</ddhigh>
+          <selected>90</selected>
+          <ddsteps>5</ddsteps>
+      </dropdown>
+      <action>turn:-$dd[0].num()</action>
+      <file>leftTurn.blk</file>
+    </block>
+#5 right step
+    <block name="turn right one step" color="0xde8c3a">
+      <action>turn:1</action>
+      <file>leftStep.blk</file>
+    </block>
+#6 left step
+    <block name="turn left one step" color="0xde8c3a">
+      <action>turn:-1</action>
+      <file>leftStep.blk</file>
+    </block>
+	</bar>
+#1 sidebar
+  <bar name="Automatic blocks" color="0x65c270">
+#0
+		<block name="while path in front is clear" color="0x65c270">
+      <bracket>1</bracket>
+      <file>pathClear.blk</file>
+      <action>while:$front(5)</action>
+    </block>
+#1
+    <block name="if path on left is clear" color="0x65c270">
+      <bracket>1</bracket>
+      <file>leftPathClear.blk</file>
+      <action>if:$leftPath(5)</action>
+    </block>
+#2
+    <block name="if path in front is blocked" color="0x65c270">
+      <bracket>1</bracket>
+      <file>pathBlocked.blk</file>
+      <action>if:!$front(5)</action>
+    </block>
+#3
+    <block name="while able, step forward" color="0x65c270">
+      <file>whileAble.blk</file>
+      <action>while:$front(5){move:2}</action>
+    </block>
+	</bar>
+</blocks>
+	

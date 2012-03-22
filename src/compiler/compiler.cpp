@@ -1,6 +1,5 @@
 #include "compiler.h"
-
-extern string ROOT_DIR;
+#include "../robotConfig.h"
 
 void command::addArgument(string arg)
 {
@@ -12,7 +11,7 @@ void command::newCommand()
 	args.clear();
 }
 
-void command::execute(bool echo)
+void command::execute()
 {
 	string com="";
 	for(unsigned int i=0; i<args.size(); i++){
@@ -24,10 +23,10 @@ void command::execute(bool echo)
 #ifdef TARGET_WIN32
 	com=de_UnixPath(com);
 #endif
-	if(echo) cout << com << endl;
+	if(cfg().verbose) cout << com << endl;
 	//cout << com << " is the command being run\n";
 	bExecuting=true;
-	call.run(com,echo);
+	call.run(com,cfg().verbose);
 }
 
 bool command::isExecuting()
@@ -109,11 +108,11 @@ string Object::operator[](int i)
 compiler::compiler()
 {
 #ifdef TARGET_OSX
-	rootDir=ofToDataPath("../Arduino/",true);
+	cfg().rootDir=ofToDataPath("../Arduino/",true);
 #else
-	rootDir=ofToDataPath("../Arduino_win32/");
+	cfg().rootDir=ofToDataPath("../Arduino_win32/");
 #endif
-	toolDir=rootDir+"hardware/tools/avr/bin/";
+	cfg().toolDir=cfg().rootDir+"hardware/tools/avr/bin/";
 
 	//addonLib=conf.addonLib;
 	mode=WAIT;
@@ -122,9 +121,9 @@ compiler::compiler()
 
 void compiler::setup(serialCheck * srChk)
 {
-	bVerbose=false;
+	//bVerbose=false;
 	serChk=srChk;
-	configure("arduino_make/config.txt");
+	//configure("arduino_make/config.txt");
 	objects.reserve(30);
 }
 
@@ -210,6 +209,7 @@ void compiler::computeDependencies(Object & obj)
 		getline(base, nextLine);
 		vector<string> spl=ofSplitString(nextLine," #<>\"");
 		if(spl.size()>1&&spl[0]=="include"){
+			if(cfg().verbose) cout << "looking for " + spl[1] << endl;
 			findIncludeFolder(spl[1], obj);
 		}
 	}
@@ -222,8 +222,8 @@ void compiler::findIncludeFolder(string & line,Object & obj)
 	string inc = line.substr(0,line.find_last_of('.'));
 	vector<string> spl = ofSplitString(line,".");
 	//nDir=dir.listDir(rootDir+"libraries");
-	string folder=searchFolder(spl[0],rootDir+"libraries/",obj);
-	if(folder.length()==0) folder=searchFolder(spl[0],addonLib,obj);
+	string folder=searchFolder(spl[0],cfg().rootDir+"libraries/",obj);
+	if(folder.length()==0) folder=searchFolder(spl[0],cfg().addonLib,obj);
 }
 
 string compiler::searchFolder(string & incl, string startPosition,Object & obj)
@@ -237,6 +237,7 @@ string compiler::searchFolder(string & incl, string startPosition,Object & obj)
 		string fl=dir.getName(i);
 		if(fl==incl+".h"){
 			found=true;
+      if(cfg().verbose) cout << "found " + incl + " in " + startPosition<<endl; 
 			obj.addInclude(startPosition);
 		}
 		//if(fl.substr(fl.find_last_of('.'))==".cpp") objects.push_back(Object(dir.getPath(i)));
@@ -265,27 +266,27 @@ void compiler::compile(Object & obj)
 	string root=obj.rootDir;
 	bool isCpp=file.substr(file.find_last_of('.'))==".cpp";
 	computeDependencies(obj);
-	obj.addInclude(rootDir+"hardware/arduino/cores/arduino"); // change this to work with tinyX5;
-	obj.addInclude(ofToDataPath(ROOT_DIR+"/include"));
+	obj.addInclude(cfg().rootDir+"hardware/arduino/cores/arduino"); // change this to work with tinyX5;
+	obj.addInclude(ofToDataPath(cfg().robotRoot+"/include"));
 
 	cmd.newCommand();
-	if(isCpp) cmd.addArgument(toolDir+"avr-g++");
-	else cmd.addArgument(toolDir+"avr-gcc");
+	if(isCpp) cmd.addArgument(cfg().toolDir+"avr-g++");
+	else cmd.addArgument(cfg().toolDir+"avr-gcc");
 	cmd.addArgument("-c -g -Os -w");
 	if(isCpp) cmd.addArgument("-fno-exceptions");
 	cmd.addArgument("-ffunction-sections -fdata-sections");
-	cmd.addArgument("-DF_CPU="+freq+"L");
+	cmd.addArgument("-DF_CPU="+cfg().freq+"L");
 	cmd.addArgument("-DARDUINO=22");
 	for(unsigned int i=0; i<obj.size(); i++){
 		cmd.addArgument("-I"+obj[i]);
 	}
-	cmd.addArgument("-mmcu="+mcu);
+	cmd.addArgument("-mmcu="+cfg().mcu);
 	if(isCpp) cmd.addArgument(root+base+".cpp");
 	else cmd.addArgument(root+base+".c");
 	cmd.addArgument("-o " + appletDir+base+ ".o");
 
 	percent=0;
-	cmd.execute(bVerbose);
+	cmd.execute();
 
 	/*
 	path/to/avr-g++ -c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -DF_CPU=processor_speed
@@ -328,12 +329,12 @@ void compiler::linkLibraries()
 	mode=LINK_LIB;
 	if(currentObj<objects.size()){
 		cmd.newCommand();
-		cmd.addArgument(toolDir+"avr-ar");
+		cmd.addArgument(cfg().toolDir+"avr-ar");
 		cmd.addArgument("rcs");
 		cmd.addArgument(appletDir+"core.a");
 		cmd.addArgument(appletDir+objects[currentObj].baseName+".o");
 
-		cmd.execute(bVerbose);
+		cmd.execute();
 	}
 	else bSkipStep=true;
 }
@@ -342,9 +343,9 @@ void compiler::link()
 {
 	mode=LINK;
 	cmd.newCommand();
-	cmd.addArgument(toolDir+"avr-gcc");
+	cmd.addArgument(cfg().toolDir+"avr-gcc");
 	cmd.addArgument("-Os -lm -Wl,--gc-sections");
-	cmd.addArgument("-mmcu="+mcu);
+	cmd.addArgument("-mmcu="+cfg().mcu);
 	cmd.addArgument("-o "+appletDir+mainObj.baseName+".elf");
 	cmd.addArgument(appletDir+mainObj.baseName+".o");
 	for(unsigned int i=0; i<objects.size(); i++){
@@ -352,19 +353,19 @@ void compiler::link()
 	}
 	cmd.addArgument(appletDir+"core.a");
 
-	cmd.execute(bVerbose);
+	cmd.execute();
 }
 
 void compiler::assemble()
 {
 	mode=ASSEMBLE;
 	cmd.newCommand();
-	cmd.addArgument(toolDir+"avr-objcopy");
+	cmd.addArgument(cfg().toolDir+"avr-objcopy");
 	cmd.addArgument("-O ihex -R .eeprom");
 	cmd.addArgument(appletDir+mainObj.baseName+".elf");
 	cmd.addArgument(appletDir+mainObj.baseName+".hex");
 
-	cmd.execute(bVerbose);
+	cmd.execute();
 
 	/*
 
@@ -383,16 +384,16 @@ void compiler::upload(string port)
 {
 	mode=UPLOAD;
 	cmd.newCommand();
-	cmd.addArgument(toolDir+"avrdude");
+	cmd.addArgument(cfg().toolDir+"avrdude");
 	cmd.addArgument("-V -F -C");
-	cmd.addArgument(toolDir+"../etc/avrdude.conf");
-	cmd.addArgument("-p "+mcu);
-	cmd.addArgument("-P "+port);
-	cmd.addArgument("-c "+programmer);
-	cmd.addArgument("-b "+baud);
+	cmd.addArgument(cfg().toolDir+"../etc/avrdude.conf");
+	cmd.addArgument("-p "+cfg().mcu);
+	cmd.addArgument("-P "+serChk->portName());
+	cmd.addArgument("-c "+cfg().programmer);
+	cmd.addArgument("-b "+cfg().baud);
 	cmd.addArgument("-U flash:w:"+appletDir+mainObj.baseName+".hex");
 
-	cmd.execute(bVerbose);
+	cmd.execute();
 
 	/*
 	To upload to the mcu
@@ -402,7 +403,7 @@ void compiler::upload(string port)
 	*/
 }
 	
-void compiler::configure(string cfgFile)
+/*void compiler::configure(string cfgFile)
 {
 	ifstream config(ofToDataPath(cfgFile).c_str());
 	while (config.peek()!=EOF) {
@@ -440,7 +441,7 @@ void compiler::configure(string cfgFile)
 		}
 	}
 	config.close();
-}
+}*/
 
 bool compiler::isCompiling()
 {

@@ -9,6 +9,9 @@
 
 #include "serialCheck.h"
 #include "../../../dallasEng/dallasEng.h"
+#include "../robotConfig.h"
+
+#include "../RFID_reader/RFID_reader.h"
 
 int CURRENT_ROBOT_NUMBER=0;
 
@@ -48,8 +51,18 @@ serialCheck::serialCheck()
   report.setMode(OF_FONT_MID);
   report.setSize(60);
   
+  bIdent=false;
   bRunning=false;
+  setUp=false;
   //start();
+}
+
+void serialCheck::setup(){
+	rfid().setup();
+	setUp=true;
+	for(unsigned int i=0; i<cfg().excludedPort.size(); i++){
+		excludeDevice(cfg().excludedPort[i]);
+	}
 }
 
 serialCheck::~serialCheck(){
@@ -61,7 +74,8 @@ bool serialCheck::isAvailable()
 {
   bool ret=0;
   if(lock()){
-    ret=bAvailable;//&&rfid.available();
+    ret=bAvailable;
+	if(cfg().test) ret&=rfid().available();
     unlock();
   }
   return ret;
@@ -74,8 +88,8 @@ bool serialCheck::drawForeground()
     ofSetColor(0, 0, 0,196);
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
     string printOut="Connect the robot to begin";
-    //if(bAvailable) printOut="Place robot on platform";
-    //if(bIdent) printOut="Identifying: Do not unplug";
+    if(bAvailable&&cfg().test) printOut="Place robot on platform";
+    if(bIdent&&cfg().test) printOut="Identifying: Do not unplug";
     
     drawStyledBox((ofGetWidth()-report.stringWidth(printOut))/2-50, (ofGetHeight()-report.stringHeight(printOut))/2-50, report.stringWidth(printOut)+100, report.stringHeight(printOut)+100);
     
@@ -98,7 +112,7 @@ void serialCheck::excludeDevice(string prtNm)
 
 void serialCheck::checkAvailability()
 {
-  if(checkTimer.expired()){
+  if(checkTimer.expired()&&setUp){
     serial.enumerateDevices();
     if(serial.numDevices()!=numDevices){
       if(numDevices<serial.numDevices()&&!bAvailable){
@@ -175,7 +189,7 @@ void serialCheck::deviceRemoved()
 
 string serialCheck::deviceNumber()
 {
-  return "default";//rfid.getSerialNumber();
+  return ((cfg().test)?rfid().getSerialNumber():"default");
 }
 
 void serialCheck::threadCheckAvailability()
@@ -187,8 +201,12 @@ void serialCheck::threadCheckAvailability()
 
 bool serialCheck::justFoundDevice()
 {
-  bool ret=bJustFound&&isAvailable();//&&rfid.available();
-  bJustFound=false;
+  bool ret=bJustFound&&isAvailable();//&&rfid().available();
+  if(cfg().test){
+	  ret&=rfid().available();
+	  if(ret) bJustFound=false;
+  }
+  else bJustFound=false;
   return ret;
 }
 

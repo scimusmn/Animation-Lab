@@ -1,0 +1,23 @@
+global(){
+  ~#include "AFMotor.h"
+	~#include "arenaRobot.h"
+}
+
+setup(){
+	~robot.setup();
+}
+
+start(){
+}
+
+loop(){
+	if(!robot.leftSensor(300)){
+    $blockIn;
+  }
+}
+
+end(){
+  ~robot.end();
+}
+
+~ath

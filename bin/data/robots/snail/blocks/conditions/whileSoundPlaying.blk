@@ -11,7 +11,7 @@ start(){
 }
 
 loop(){
-	while(Sound.isPlaing()){
+	while(Sound.isPlaying()){
 		$blockIn;
 	}
 }

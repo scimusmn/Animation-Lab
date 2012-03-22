@@ -30,5 +30,6 @@ public:
   bool newClickUp( int _x, int _y);
   void setup(bGroup * grp);
   void setDrawTest(bool bDraw);
+  bool beneath(block & blockToCheck,signed int spaceBelow=-1);
   int widthOn();
 };

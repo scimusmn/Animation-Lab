@@ -1,8 +1,8 @@
 #include "testApp.h"
+#include "robotConfig.h"
+
 
 string curDir="basic";
-extern string ROOT_TITLE;
-extern string ROOT_DIR;
 
 extern int pixPerInch;
 
@@ -14,10 +14,10 @@ bool bCopy=false;
 
 //--------------------------------------------------------------
 void testApp::setup(){
+	cfg().setup();
   
 	//--------- Load font for drawing on screen
   topTitle.loadFont("fonts/DinC.ttf", 35);
-
   
 	ofHideCursor();
   
@@ -29,7 +29,7 @@ void testApp::setup(){
 
   //--------- Initialize the valid working space for the blocks
 	blocks.setup(sidebar.area.width,controls.h+topTitle.h,ofGetWidth()-sidebar.area.width,ofGetHeight()-(controls.h+topTitle.h));
-  blocks.setScrolling(false);
+	blocks.setScrolling(cfg().scroll);
 }
 
 //--------------------------------------------------------------
@@ -57,7 +57,7 @@ void testApp::draw(){
   
   controls.draw(0, topTitle.h);
 
-  topTitle.draw(ROOT_TITLE,0,0);
+  topTitle.draw(cfg().robotTitle,0,0);
   
   //********************** Draw the blocks which are being held by the mouse ********
   

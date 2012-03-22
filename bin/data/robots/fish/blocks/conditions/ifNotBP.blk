@@ -3,7 +3,7 @@ global(){
 }
 
 setup(){
-	~Button.setup(7,6);
+	~Button.setup(2,5);
 }
 
 start(){

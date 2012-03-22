@@ -76,3 +76,5 @@ public:
   
   bool clickUp();
 };
+
+robotTest & test();

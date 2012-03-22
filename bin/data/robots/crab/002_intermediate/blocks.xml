@@ -37,6 +37,17 @@
 			<file>actions/eyes.blk</file>
             <part>eye color shift</part>
 		</block>
+		<block name="play sound %d">
+			<dropdown>
+				<dds>OFF</dds>
+				<dds>CLICK</dds>
+				<dds>BOING</dds>
+			</dropdown>
+			<file>actions/playSound.blk</file>
+		</block>
+		<block name="stop sound">
+			<file>actions/stopSound.blk</file>
+		</block>
 	</bar>
 	<bar name="Timing blocks" color="0x13b5ea">
 		<block name="repeat %d times">

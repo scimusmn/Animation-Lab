@@ -16,7 +16,7 @@
 
 #include "../serialChecker/serialCheck.h"
 #include "../uploadModule/uploadModule.h"
-#include "../screenTest/screenTest.h"
+//#include "../screenTest/screenTest.h"
 #include "../../../dallasEng/dallasEng.h"
 #include "../RFID_reader/RFID_reader.h"
 #include "../compiler/compiler.h"

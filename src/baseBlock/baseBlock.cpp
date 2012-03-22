@@ -9,6 +9,7 @@
 
 #include "baseBlock.h"
 #include "../blockDraw.h"
+#include "../robotConfig.h"
 
 extern ofColor white, black, blue, yellow, gray;
 
@@ -25,11 +26,19 @@ baseBlock::baseBlock():block(){
 	arialHeader.loadFont("fonts/DinC.ttf");
 	arialHeader.setSize(21);
   arialHeader.setMode(OF_FONT_TOP);
+  //arialHeader.setMode(OF_FONT_MID);
+
+  testBut.setup("Test program", 20);
+  uploadBut.setup("Upload program",20);
+  pad=15;
   
-  title="Connect blocks here";
+  butArea.x=max(uploadBut.w,testBut.w)+pad*2;
+  butArea.y=pad+uploadBut.h+pad+testBut.h+pad;
+  
+  title="Drag and drop blocks here";
   type=BLK_BASE;
 	bGrabbed=0;
-	w=max(w,double(arialHeader.stringWidth(title)+20));
+	w=max(w,double(arialHeader.stringWidth(title)+20)+butArea.x);
 	ddOpen=false;
 	titlePos.x=10;
 	color=ofColor(yellow);
@@ -40,13 +49,9 @@ baseBlock::baseBlock():block(){
   ttlSize.x=w;
   
   //uploadBut.setup( 128,128,"images/upload2.png");
-  testBut.setup("Test program", 20);
-  uploadBut.setup("Upload program",20);
   
-  pad=15;
   
-  butArea.x=max(uploadBut.w,testBut.w)+pad*2;
-  butArea.y=pad+uploadBut.h+pad;//+testBut.h+pad;
+  //else butArea.y=pad+uploadBut.h+pad;//+testBut.h+pad;
 }
 
 void baseBlock::setDrawTest(bool btest){
@@ -57,7 +62,8 @@ void baseBlock::drawButtonArea(int _x, int _y)
 {
   ofSetColor(black);
   ofBeginShape();
-  drawButtonSpace(x+w-butArea.x, _y, butArea.x, h,0);
+  if(cfg().test) drawButtonSpace(x+w-butArea.x, _y, butArea.x, butArea.y,butArea.y-h);
+  else drawButtonSpace(x+w-butArea.x, _y, butArea.x, h,0);
   ofEndShape();
   
   
@@ -65,14 +71,21 @@ void baseBlock::drawButtonArea(int _x, int _y)
   ofNoFill();
   ofSetLineWidth(2);
   ofBeginShape();
-  drawButtonSpace(x+w-butArea.x, _y, butArea.x, h,0);
+  if(cfg().test) drawButtonSpace(x+w-butArea.x, _y, butArea.x, butArea.y,butArea.y-h);
+  else drawButtonSpace(x+w-butArea.x, _y, butArea.x, h,0);
   ofEndShape();
   
   ofSetLineWidth(1);
   ofFill();
+
+  uploadBut.setTextSize(19);
   
-  uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,_y+(h-uploadBut.h)/2);
-    //testBut.draw(x+w-butArea.x+(butArea.x-testBut.w)/2, uploadBut.y+uploadBut.h+pad);
+  if(cfg().test){
+	uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,_y+pad);
+	testBut.draw(x+w-butArea.x+(butArea.x-testBut.w)/2, uploadBut.y+uploadBut.h+pad);
+  }
+  else uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,_y+(h-uploadBut.h)/2);
+
 }
 
 void baseBlock::draw(int _x, int _y)
@@ -83,15 +96,6 @@ void baseBlock::draw(int _x, int _y)
   
   ofSetColor(black);
   drawBaseBlock(x, y, w, h,0,h);
-  
-  ofSetColor(yellow);
-  ofNoFill();
-  ofSetLineWidth(2);
-  ofLine(x+w-butArea.x, y, x+w-butArea.x, y+h);
-  if(bDrawtest&&0) drawBaseBlock(x, y, w, h,butArea.x,butArea.y);
-  else drawBaseBlock(x, y, w, h,0,h);
-  ofSetLineWidth(1);
-  ofFill();
   
   //-------- Draw the blocks below
   int hOn=0;
@@ -104,19 +108,30 @@ void baseBlock::draw(int _x, int _y)
 		blocksIn[i].draw();
 	}
   
-  if(!bDrawtest&&0) title="Program being tested";
-  else title="Connect blocks here";
+  if(!bDrawtest) title="Program being tested";
+  else title="Drag and drop blocks here";
   ofSetColor(yellow);
+  
   arialHeader.drawString(title, x+10, y+(h-arialHeader.stringHeight(title))/2);
-  
-  uploadBut.setTextSize(19);
-  
-  if(bDrawtest&&0){
-    testBut.draw(x+w-butArea.x+(butArea.x-testBut.w)/2, uploadBut.y+uploadBut.h+pad);
-    uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,y+pad);
+
+  ofSetColor(yellow);
+  ofNoFill();
+  ofSetLineWidth(2);
+  drawBaseBlock(x, y, w, h,0,h);
+  ofSetLineWidth(1);
+  ofFill();
+
+  if(!blocksOn.size()){
+	if((ofGetElapsedTimeMillis()%1000)<500)
+		ofSetColor(blue.opacity((ofGetElapsedTimeMillis()%500)/500.));
+	else ofSetColor(blue.opacity(1-(ofGetElapsedTimeMillis()%500)/500.));
+	//drawBaseBlock(x, y, w, h,0,h);
+	int sz=TITLE_HEIGHT/4;
+	ofRect(x+10,y+3*h/4-10,w-20-butArea.x,10);
+	ofRect(x+3*sz-4,y+3*h/4,8,h/4-10);
+
+	ofTriangle(x+2*sz-10,y+h-10,x+3*sz,y+h+sz,x+4*sz+10,y+h-10);
   }
-  else uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,y+(h-uploadBut.h)/2);
-  
   
   drawOpenDD();
 }
@@ -134,6 +149,25 @@ bool baseBlock::newClickUp( int _x, int _y)
 void baseBlock::setup(bGroup * grp)
 {
   group=grp;
+}
+
+bool baseBlock::beneath(block & chk,signed int blw)
+{
+  if(blw<ttlSize.y/2-5&&blocksOn.size()){
+    blw=ttlSize.y;
+  }
+  else if(blw<ttlSize.y/2-5&&!blocksOn.size()){
+	  blw=150;
+  }
+  else blw+=ttlSize.y;
+  int midLine=y+h-ttlSize.y/2;
+  
+  if(type==BLK_BRACKET){
+    midLine=y+(interior.y+interior.height+bottomBar/2);
+    blw=blw+(y+h)-midLine;
+  }
+  
+  return (chk.inBounds(x, midLine, fullWidth(), blw));
 }
 
 

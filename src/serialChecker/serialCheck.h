@@ -14,7 +14,6 @@
 #include "ofxDirList.h"
 
 #include "ofxThread.h"
-#include "../RFID_reader/RFID_reader.h"
 
 #define IS_ROBOT 0x06
 #define ROBOT_NUMBER 0x0C
@@ -61,9 +60,11 @@ protected:
 
   ofFont report;
   string portNm;
+  bool setUp;
 public:
   serialCheck();
   ~serialCheck();
+  void setup();
   bool isAvailable();
   bool justFoundDevice();
   bool justLostDevice();
@@ -90,3 +91,5 @@ public:
   }
   void threadedFunction();
 };
+
+//serialCheck & serChk();

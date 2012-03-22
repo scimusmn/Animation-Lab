@@ -9,6 +9,7 @@
 
 
 #include "blockGroup.h"
+#include "../robotConfig.h"
 
 extern int CURRENT_ROBOT_NUMBER;
 
@@ -97,7 +98,7 @@ void bGroup::writeFile(ofstream *k){
 		
 		//-------- open the path to the wrapper file, which contains general program structure.
 		string buffer;
-		ifstream f(ofToDataPath("arduino_make/onceWrapper.wrp").c_str());
+		ifstream f(ofToDataPath(cfg().wrapperFile).c_str());
 		while ((f).peek()!=EOF) {
 			//-------- read the next line into the buffer and init the position keepers and the tab count
 			getline((f),buffer);

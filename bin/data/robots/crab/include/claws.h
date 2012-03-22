@@ -55,6 +55,6 @@ public:
 		claw.write(closeAng+openAng*open);
 	}
 	bool isOpen(){ return open; }
-} leftClaw(8,-65,130), rightClaw(4,50,10);
+} leftClaw(16,-65,65), rightClaw(17,-65,130);
 
 #endif

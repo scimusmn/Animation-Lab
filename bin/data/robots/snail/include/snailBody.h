@@ -42,11 +42,16 @@ public:
 		open=0;
 		bod.write(closeAng);
 	}
+	void setByIndex(int ind){
+		open=ind;
+		if(open) extend();
+		else retract();
+	}
 	void manual(String state){
 		open=state.equals("EXTEND");
 		bod.write(closeAng+openAng*open);
 	}
 	bool isOpen(){ return open; }
-} Body(16,-65,130);
+} Body(16,85,0);
 
 #endif

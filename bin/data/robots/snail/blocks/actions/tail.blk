@@ -12,7 +12,7 @@ start(){
 }
 
 loop(){
-	Tail.manual("$dd[0].str");
+	Tail.setByInd($dd[0].ind);
 }
 
 end(){

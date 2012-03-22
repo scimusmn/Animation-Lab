@@ -1,0 +1,22 @@
+global(){
+	~#include "fetController.h"
+	@#include "snailTail.h"
+}
+
+setup(){
+	@Tail.setup();
+}
+
+start(){
+	@Tail.start();
+}
+
+loop(){
+	Tail.manual("$dd[0].str");
+}
+
+end(){
+	@Tail.end();
+}
+
+~ath

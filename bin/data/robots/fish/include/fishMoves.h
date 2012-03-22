@@ -51,6 +51,6 @@ public:
 		else close();
 	}
 	bool isOpen(){ return bOpen; }
-} Flippers(3,-65,130), Tail(4,130,-65);
+} Flippers(3,-65,170), Tail(4,130,-65);
 
 #endif

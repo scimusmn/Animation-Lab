@@ -12,6 +12,12 @@
 
 extern int pixPerInch;
 
+//static bGroup blcks;
+
+//bGroup & blocks(){
+//	return blcks;
+//}
+
 /****************************************************************
  *********************BlockGroup*********************************/
 
@@ -166,6 +172,7 @@ void bGroup::update()
 }
 
 void bGroup::resize(int _x, int _y, int _w ,int _h){
+	h=_h;
   bar.setup(60, h, OF_VERT);
   bar.registerArea(h,base.newHeightOn()+base.h+200);
   bar.changePadding();

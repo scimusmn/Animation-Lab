@@ -15,17 +15,19 @@
 #if defined( TARGET_OSX )
 #include "/Library/Frameworks/Phidget21.framework/Headers/phidget21.h"
 #else
+#include "phidgets/phidget21.h"
 #endif
 
 class RFIDreader {
 protected:
-#if defined( TARGET_OSX )
   CPhidgetRFIDHandle rfid;
-#else
-#endif
+
 public:
   RFIDreader();
+  void setup();
   ~RFIDreader();
   bool available();
   string getSerialNumber();
 };
+
+RFIDreader & rfid();

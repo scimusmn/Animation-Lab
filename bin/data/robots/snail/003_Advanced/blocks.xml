@@ -24,7 +24,6 @@
 		<block name="move tail %d" color="0xde8c3a">
 			<dropdown>
 				<dds>STOP</dds>
-				<dds>SLOW</dds>
 				<dds>FAST</dds>
 			</dropdown>
 			<file>actions/tail.blk</file>
@@ -32,8 +31,8 @@
 		<block name="play sound %d" color="0xde8c3a">
 			<dropdown>
 				<dds>NONE</dds>
-				<dds>RATTLE</dds>
 				<dds>HISS</dds>
+				<dds>RATTLE</dds>
 				<selected>HISS</selected>
 			</dropdown>
 			<file>actions/playSound.blk</file>
@@ -87,8 +86,12 @@
 			<sibling>if button pressed</sibling>
 		</block>
 		<block name="while button pressed">
-			<bracket>1</bracket>
+			<bracket />
 			<file>conditions/ifBP.blk</file>
+		</block>
+		<block name="while sound is playing">
+			<bracket />
+			<file>conditions/whileSoundPlaying.blk</file>
 		</block>
 	</bar>
 </blocks>

@@ -29,6 +29,10 @@ public:
 	void end(){
 		tail.end();
 	}
+	void setByInd(int ind){
+		if(ind)tail.on();
+		else tail.off();
+	}
 	void manual(String state){
 		if(state.equals("ON")) tail.on();
 		else tail.off();

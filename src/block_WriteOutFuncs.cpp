@@ -8,8 +8,7 @@
  */
 
 #include "blocks.h"
-extern string curDir;
-extern string ROOT_DIR;
+#include "robotConfig.h"
 
 void resetList(block & t, map<string,bool> & used)
 {
@@ -237,7 +236,7 @@ void block::printData(string sblng,ofstream* k,int t,map<string,bool> * printed,
 	//cout << filename << " is the base filename" << endl;
 	if(filename.compare("null")){
 		//-------- open the file where the end routines are located
-		ifstream f(ofToDataPath(ROOT_DIR+"/blocks/"+filename).c_str());
+		ifstream f(ofToDataPath(cfg().robotRoot+"/blocks/"+filename).c_str());
 		//-------- burn the buffer until we find the start of the end
 		bool found=false;
 		while(f.peek()!=EOF&&!found){

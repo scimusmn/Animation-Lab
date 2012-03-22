@@ -12,7 +12,7 @@ start(){
 }
 
 loop(){
-	Body.manual("$dd[0].str");
+	Body.setByIndex($dd[0].ind);
 }
 
 end(){

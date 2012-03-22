@@ -8,7 +8,7 @@
  */
 
 #include "turtleAction.h"
-#include "blocks.h"
+#include "../../blocks.h"
 
 #include "../turtle/turtle.h"
 
@@ -19,8 +19,6 @@ extern int pixPerInch;
 extern ofTimer actionTimer;
 
 extern block * currentBlock;
-
-extern 
 
 turtleAction::turtleAction(block * prnt, ofTurtle * bdy)
 {

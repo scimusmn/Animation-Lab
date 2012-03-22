@@ -1,0 +1,23 @@
+global(){
+~#include "animButton.h"
+}
+
+setup(){
+	~Button.setup(7,6);
+}
+
+start(){
+	~Button.start();
+}
+
+loop(){
+	if(Button.isPressed()){
+		$blockIn;
+	}
+}
+
+end(){
+	~Button.end();
+}
+
+~ath

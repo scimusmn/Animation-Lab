@@ -170,7 +170,7 @@ public:
   
   void newUpdatePositions();
   
-  bool beneath(block & blockToCheck,signed int spaceBelow=-1);
+  virtual bool beneath(block & blockToCheck,signed int spaceBelow=-1);
   
   bool inside(block & t);
   

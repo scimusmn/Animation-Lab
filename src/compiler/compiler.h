@@ -10,6 +10,7 @@
 #include "ofxDirList.h"
 #include "../serialChecker/serialCheck.h"
 
+
 #pragma once
 
 class command {
@@ -20,7 +21,7 @@ private:
 public:
 	void newCommand();
 	void addArgument(string arg);
-	void execute(bool echoToTerminal=false);
+	void execute();
 	bool isExecuting();
 	bool justExecuted();
 	int linesOfOutput();
@@ -48,8 +49,8 @@ private:
 	compMode mode;
 	command cmd;
 	bool bSkipStep;
-	string rootDir,addonLib,toolDir,port;
-	string mcu,freq,programmer,baud;
+	//string rootDir,addonLib,toolDir,port;
+	//string mcu,freq,programmer,baud;
 	string rep;
 	float percent;
 	serialCheck * serChk;
@@ -57,7 +58,7 @@ private:
 	vector<Object> objects;
 	int currentObj;
 	string appletDir;
-	bool bVerbose;
+	//bool bVerbose;
 public:
 	compiler();
 	void setup(serialCheck * srChk);
@@ -72,7 +73,7 @@ public:
 	void upload(string port);
 
 	void update();
-	void configure(string cfgFile);
+	//void configure(string cfgFile);
 	void findIncludeFolder(string & line,Object & obj);
 	string searchFolder(string & include, string startPosition, Object & obj);
 	void computeDependencies(Object & obj);

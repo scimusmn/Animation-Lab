@@ -8,6 +8,7 @@
  */
 
 #include "blockGroup.h"
+#include "../robotConfig.h"
 
 extern ofColor yellow,red,black,white,blue,gray;
 
@@ -75,11 +76,13 @@ void bGroup::draw(int _x, int _y, int _w, int _h)
     bar.draw(x+w-bar.w,y);
     if(bar.getScrollPosition()>50){
       ofSetColor(yellow);
-      label.drawString("Program continues above\nuse scrollbar to view",base.x+ base.w+20, y+50);
+      if(!cfg().portraitMode) label.drawString("Program continues above\nuse scrollbar to view",base.x+ base.w+20, y+50);
+	  else label.drawString("Program continues above\nuse scrollbar to view",base.x+ base.w-base.butArea.x, y+base.h+50);
     }
     if(bar.getScrollPosition()<bar.getFullSize()-(h+200)&&bar.available()){
       ofSetColor(yellow);
-      label.drawString("Program continues below\nuse scrollbar to view",base.x+ base.w+20, y+h-label.stringHeight("Program\nuse")-20);
+      if(!cfg().portraitMode) label.drawString("Program continues below\nuse scrollbar to view",base.x+ base.w+20, y+h-label.stringHeight("Program\nuse")-20);
+	  else label.drawString("Program continues below\nuse scrollbar to view",base.x+ base.w-base.butArea.x, y+h-label.stringHeight("Program\nuse")-20);
     }
   }
 }

@@ -16,6 +16,13 @@ ofTimer actionTimer;
 
 block * currentBlock=0;
 
+static robotTest testScreen;
+
+robotTest & test()
+{
+	return testScreen;
+}
+
 void robotTest::setup(baseBlock * t)
 {
   turtle.setup("maps/map_end.jpg");
@@ -235,9 +242,15 @@ bool robotTest::mouseLockout()
 
 bool robotTest::clickDown(int _x, int _y)
 {
+	bool ret=0;
   if (isTesting()) {
-    if(endBut.clickDown(_x, _y))
-      pauseTurtle(),resetTurtle(),stopTesting(),base->setDrawTest(true);
+    if(endBut.clickDown(_x, _y)){
+      pauseTurtle();
+	  resetTurtle();
+	  stopTesting();
+	  base->setDrawTest(true);
+	  ret=true;
+	}
     if(resetBut.clickDown(_x, _y)){
       if(turtleCrashed()||turtle.completedMaze()||turtleIsRunning()||finishedActions()){
         resetTurtle();
@@ -248,6 +261,7 @@ bool robotTest::clickDown(int _x, int _y)
         startTurtle();
         resetBut.setTitle("Reset virtual robot");
       }
+	  ret=true;
     }
   }
   else{
@@ -255,8 +269,10 @@ bool robotTest::clickDown(int _x, int _y)
       startTesting(base);
       startTurtle();
       base->setDrawTest(false);
+	  ret=true;
     }
   }
+  return ret;
 }
 
 
@@ -265,5 +281,6 @@ bool robotTest::clickUp()
   endBut.clickUp();
   resetBut.clickUp();
   base->testBut.clickUp();
+  return false;
 }
 

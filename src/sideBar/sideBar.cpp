@@ -8,6 +8,7 @@
  */
 
 #include "sideBar.h"
+#include "../robotConfig.h"
 
 extern string defaultFont;
 
