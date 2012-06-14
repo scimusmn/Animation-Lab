@@ -85,12 +85,10 @@
 		<block name="if button pressed">
 			<bracket />
 			<file>conditions/ifBP.blk</file>
-			<sibling>if button is not pressed</sibling>
 		</block>
 		<block name="if button is not pressed">
 			<bracket />
 			<file>conditions/ifNotBP.blk</file>
-			<sibling>if button pressed</sibling>
 		</block>
 		<block name="while button pressed">
 			<bracket>1</bracket>

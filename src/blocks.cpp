@@ -2,7 +2,7 @@
  *  blocks.cpp
  *  robotBlocks_redux
  *
- *  Created by Exhibits on 1/31/2554.
+ *  Created by Aaron Heidgerken-Greene on 1/31/2011.
  *  Copyright 2011 Science Museum of Minnesota. All rights reserved.
  *
  */
@@ -24,6 +24,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include "robotConfig.h"
 
 int pixPerInch=25;
 
@@ -50,7 +51,8 @@ string defaultFont="fonts/HelveticaBold.otf";
  *
  */
 
-block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
+void block::setup(ofTag & cur,ofColor col){
+	w=150;
 	//********* This is the method by which all of the blocks are first generated from the xml files in the data root.
 	//-------- TODO: get rid of the garbage with the color triples. blech.
 	//-------- load the font for the arialHeader, at 10 pt.
@@ -59,7 +61,7 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
   
 	arialHeader.loadFont(defaultFont);
   arialHeader.setMode(OF_FONT_MID);
-	arialHeader.setSize(14);
+	arialHeader.setSize(cfg().blockFontSize);
 	insertSpace=0;
   bGrabbed=false;
 	//-------- color initialization
@@ -69,6 +71,9 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
 	
 	//-------- load name from the name of the xmlNode
 	title=cur.getAttribute("name");
+
+	h=TITLE_HEIGHT=arialHeader.stringHeight("Kjhg")*2;
+
   ttlSize.x=w;
   ttlSize.y=TITLE_HEIGHT;
   ddSelected=false;
@@ -101,7 +106,111 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
         case 1: //-- bracket
           //-------- set type to bracket, and change size
           type=BLK_BRACKET;
-          h=105;
+          h=2*ttlSize.y+25;
+          w=200;
+          titlePos.x=30;
+          break;
+        case 5: // file
+          //-- definitely not deprecated, used to store value of which file to write from
+          filename=node[1];
+          break;
+        case 6: // sibling
+          //-- stores the name of the complement blocks
+          sibling.push_back(node[1]);
+          break;
+        case 7: // num
+          //-- set the statement block flag
+          type=BLK_VAL;
+          titlePos.x=0;
+          ttlSize.x=w=90;
+          ttlSize.y=h=20;
+          break;
+        case 8: // dropdown
+          //-- add a new dropdown menu to the block
+          ddGroup.push_back(dallasDrop(cur[i]));
+		  ddGroup.back().arial.setSize(cfg().blockFontSize-4);
+          break;
+        case 9:
+          for (unsigned int j=0; j<cur[i].size(); j++) {
+            if (cur[i][j].getLabel()=="block") {
+              blocksIn.push_back(block());
+			  blocksIn.back().setup(cur[i][j],color);
+            }
+          }
+          break;
+        case 10:
+          for (unsigned int j=0; j<cur[i].size(); j++) {
+            if (cur[i][j].getLabel()=="block") {
+              blocksOn.push_back(block());
+			  blocksOn.back().setup(cur[i][j],color);
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    }
+	}
+  
+  parseTitle();
+}
+
+
+block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
+	//********* This is the method by which all of the blocks are first generated from the xml files in the data root.
+	//-------- TODO: get rid of the garbage with the color triples. blech.
+	//-------- load the font for the arialHeader, at 10 pt.
+	
+	origTag=cur;
+  
+	arialHeader.loadFont(defaultFont);
+  arialHeader.setMode(OF_FONT_MID);
+	arialHeader.setSize(cfg().blockFontSize);
+	insertSpace=0;
+  bGrabbed=false;
+	//-------- color initialization
+	if(cur.getAttribute("color").length())
+		color=ofColor(strtol(cur.getAttribute("color").c_str(),NULL,0));
+	else color=col;
+	
+	//-------- load name from the name of the xmlNode
+	title=cur.getAttribute("name");
+
+	h=TITLE_HEIGHT=arialHeader.stringHeight("Kjhg")*2;
+
+  ttlSize.x=w;
+  ttlSize.y=TITLE_HEIGHT;
+  ddSelected=false;
+  
+	//cout << title << endl;
+	
+	//-------- init some variables, to prevent garbage from happening
+	ddOpen=false;
+	titlePos.x=10;
+  
+  type=BLK_DEFAULT;
+  
+	placeHolder=false;
+	//-------- declare the map used for the switch
+	map<string,int> list;
+	list["seq"]=0;
+	list["bracket"]=1;
+	list["action"]=4;
+	list["file"]=5;
+	list["sibling"]=6;
+	list["num"]=7;
+	list["dropdown"]=8;
+	list["blocksIn"]=9;
+  list["blocksOn"]=10;
+	for(int i=0;i<cur.size();i++){
+		string node[2]={cur[i].getLabel(),cur[i].getValue()};
+		//-- node[0] is the label, node[1] is the value
+    if(list.find(node[0])!=list.end()){
+      switch (list.find(node[0])->second) {
+        case 1: //-- bracket
+          //-------- set type to bracket, and change size
+          type=BLK_BRACKET;
+          h=2*ttlSize.y+25;
           w=200;
           titlePos.x=30;
           break;
@@ -149,7 +258,8 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
 
 void block::parseTitle()
 {
-  vector<string> titleSplit;
+	for(int i=0; i<ddGroup.size(); i++)
+		ddGroup[i].changeSize(ddGroup[i].w, (ddGroup[i].arial.stringHeight("1")+4));
   
   orig.height=h;
   orig.width=w;
@@ -175,29 +285,33 @@ void block::parseTitle()
 		arialHeader.setSize(7);
 	}
 	
-	//-------- split the title into words by looking for " ", and establish a baseline for the width with "."
-	titleSplit = ofSplitString(title, " ");
+	//-------- split the title into words by looking for " ", and establish a baseline for the width with "s"
+	vector<string> titleSplit = ofSplitString(title, " ");
+	for(unsigned int i=0; i<titleSplit.size(); i++){
+		ttlSpl.push_back(textWord(titleSplit[i],arialHeader));
+	}
 	int sp=1;
-	int spSize=arialHeader.stringWidth(".");
+	spaceSize=arialHeader.stringWidth("i");
 	int totalwidth=titlePos.x;
 	
 	//-------- set the displacement for each object in the title, statement blocks and dropdowns
-	for (unsigned int i=0; i<titleSplit.size(); i++) {
-		if(!titleSplit[i].compare("%d")){
+	for (unsigned int i=0; i<ttlSpl.size(); i++) {
+		if(!ttlSpl[i].txt.compare("%d")){
 			if(ddNum<ddGroup.size()){
 				//-------- augment the relative position with the current total width
-				if(i>0) ddGroup[ddNum].relPos.x+=totalwidth-spSize/2;
-				else ddGroup[ddNum].relPos.x+=totalwidth;
+				ddGroup[ddNum].relPos.x+=totalwidth;
+				ttlSpl[i].wid=ddGroup[ddNum].w;
 				//-------- update total width
-				totalwidth+=ddGroup[ddNum].w+spSize*2;
+				totalwidth+=ddGroup[ddNum].w+spaceSize;
 				//-------- if you have two dropdowns in a row, make sure they don't overlap
-				if((i==titleSplit.size()-2&&!titleSplit[i+1].compare("%d"))){
-					ddGroup[ddNum].relPos.x+=spSize;
+				if((i<=ttlSpl.size()-2&&!ttlSpl[i+1].txt.compare("%d"))){
+					//ddGroup[ddNum].relPos.x+=spaceSize;
+					totalwidth+=spaceSize;
 				}
 				ddNum++;
 			}
 		}
-		else if(!titleSplit[i].compare("%b")){
+		else if(!ttlSpl[i].txt.compare("%b")){
 			//-------- if we find a statement block, init it as a placeholder
 			int cur=numBlocks.size();
 			numBlocks.push_back(block());
@@ -206,51 +320,22 @@ void block::parseTitle()
 			numBlocks[cur].w=50;
 			numBlocks[cur].h=20;
 			if(h<=5+numBlocks[cur].h) h=5+numBlocks[cur].h;
-			totalwidth+=50+spSize;
+			totalwidth+=50+spaceSize;
 		}
 		else {
-			totalwidth+=arialHeader.stringWidth(titleSplit[i]);
-      if(i<titleSplit.size()-1) totalwidth+=spSize;
+			totalwidth+=arialHeader.stringWidth(ttlSpl[i].txt);
+			if(i<ttlSpl.size()-1) totalwidth+=spaceSize;
 		}
 	}
-
-	title="";
-	ddNum=0;
-	for (unsigned int i=0; i<titleSplit.size(); i++) {
-		if(!titleSplit[i].compare("%d")){
-			if(ddNum<ddGroup.size()){
-				sp=0;
-				int origWid = arialHeader.stringWidth(title);
-				while (spSize*sp<ddGroup[ddNum].w) {
-					sp++;
-					title.append(" ");
-				}
-				ddNum++;
-			}
-		}
-		else if(!titleSplit[i].compare("%b")){
-			sp=0;
-			int origWid = arialHeader.stringWidth(title);
-			while (arialHeader.stringWidth(title)+spSize*(sp+1)-origWid<50) {
-				sp++;
-				title.append(" ");
-			}
-		}
-		else {
-			title.append(titleSplit[i].c_str());
-			for (int k=0; k<sp; k++) {
-				if(i<titleSplit.size()-1) title.append(" ");
-			}
-		}
+	double newWid=titlePos.x;
+	for(unsigned int i=0; i<ttlSpl.size(); i++){
+		newWid+=ttlSpl[i].wid;
+		if(i<ttlSpl.size()-1) newWid+=spaceSize;
 	}
-	double newWid=totalwidth+titlePos.x;
-	if(type!=BLK_VAL) w=max(newWid,w);
+	if(type!=BLK_VAL) w=max(newWid+10,w);
 	else {
 		w=newWid-10;
 	}
-  
-	for(int i=0; i<ddGroup.size(); i++)
-		ddGroup[i].changeSize(ddGroup[i].w, (ddGroup[i].arial.stringHeight("1")+4));
   
 	orig.height=h;
 }
@@ -343,6 +428,8 @@ void block::operator=(const block &t) {
 	placeHolder=t.placeHolder;
 	color=t.color;
   insertSpace=t.insertSpace;
+  ttlSpl=t.ttlSpl;
+  spaceSize=t.spaceSize;
   
   origTag=t.origTag;
 }

@@ -1,4 +1,4 @@
-ROBOT=fish
+ROBOT=arduino
 TIMEOUT=180
 VERBOSE=1
 TEST_AVAILABLE=0
@@ -7,9 +7,10 @@ PORTRAIT_MODE=0
 DRAW_NEW_USER_BUTTON=1
 WRAPPER=arduino_make/animWrapper.wrp
 BOARD=DUEM
+BLOCK_FONT_SIZE=18
+BUTTON_FONT_SIZE=23
 
 #you shouldn't need to edit below here, unless arduinos were upgraded
 
 PERIPHERAL=data/Blocks
 EXCLUDE_PORT=COM1
-EXCLUDE_PORT=COM3

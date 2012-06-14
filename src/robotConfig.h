@@ -21,6 +21,8 @@ struct configuration {
 	bool portraitMode;
 	dallasButton newUser;
 	bool drawNewUser;
+	int buttonFontSize;
+	int blockFontSize;
 	string robotRoot,robotTitle;
 	void readGeneralConfig(string cfgFile);
 	configuration(){

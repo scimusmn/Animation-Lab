@@ -9,7 +9,7 @@
 
 
 #include "blockGroup.h"
-#include "../robotConfig.h"
+#include "..\robotConfig.h"
 
 extern int CURRENT_ROBOT_NUMBER;
 
@@ -199,7 +199,8 @@ void bGroup::loadFile(string filename)
 	for (unsigned int i=0; i<tag.size(); i++) {
     cout <<tag[i].getLabel()<< endl;
 		if (tag[i].getLabel()=="block") {
-			base.blocksOn.push_back(block(tag[i],base.color));
+			base.blocksOn.push_back(block());
+			base.blocksOn.back().setup(tag[i],base.color);
 		}
 	}
 }

@@ -166,6 +166,14 @@ void bGroup::addFromSB(block t,int _x,int _y){
 	}
 }
 
+void bGroup::clearAndReset()
+{
+	blocks.clear();
+	current=0;
+	ddopen=false;
+	inHand=false;
+}
+
 void bGroup::update()
 {
 	//bar.update();

@@ -119,6 +119,7 @@ public:
   
   bool changedSinceSave();
   
+	void clearAndReset();
 	
 	void addFromSB(block t,int x,int y);
 	

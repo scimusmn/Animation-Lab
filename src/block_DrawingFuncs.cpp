@@ -131,8 +131,17 @@ void block::draw(bool fade){
     ofFill();
   }
   
-  glColor3f(1,1,1);
-  arialHeader.drawString(title,x+titlePos.x,y+titlePos.y);
+  /*glColor3f(1,1,1);
+  arialHeader.drawString(title,x+titlePos.x,y+titlePos.y);*/
+  ofSetColor(white);
+  int ttlPs=titlePos.x;
+  for(unsigned int i=0; i<ttlSpl.size(); i++){
+	  if(ttlSpl[i].txt!="%d"){
+		  arialHeader.drawString(ttlSpl[i].txt,x+ttlPs,y+titlePos.y);
+		  ttlPs+=ttlSpl[i].wid+spaceSize;
+	  }
+	  else ttlPs+=ttlSpl[i].wid+spaceSize;
+  }
   
 	//-------- for each of the statement positions,draw a placeholder or the block in that position
 	for (unsigned int i=0; i<numBlocks.size(); i++) {

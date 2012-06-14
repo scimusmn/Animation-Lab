@@ -17,7 +17,7 @@ class crabClaw {
 	Servo claw;
 	int clawPin;
 	int clawAngle;
-	int open;
+	int bOpen;
 	int clawSpeed;
 	bool running;
 	int openAng,closeAng;
@@ -29,32 +29,40 @@ public:
 		closeAng=cls;
 	}
 	void setup(){
-		running=open=0;
+		bOpen=0;
 		claw.attach(clawPin);
+		claw.write(closeAng);
 	}
-	void start(){
-		running=open=clawSpeed=0;
-	}
-	void end(){
-		if(open!=state){
-			state=open;
-			claw.write(closeAng+openAng*open);
+	void close(){
+		if(bOpen>0){
+			bOpen=0;
+			claw.write(closeAng);
+			delay(250);
 		}
 	}
-	void automatic(String speed){
-		running=true;
-		if(speed.equals("SLOW")) clawSpeed = 900;
-		else if(speed.equals("MED")) clawSpeed = 600;
-		else if(speed.equals("FAST")) clawSpeed=300;
-		else clawSpeed=0;
-		
-		open=(millis()/clawSpeed)%2;
+	void open(){
+		if(bOpen==0){
+			bOpen=1;
+			claw.write(closeAng+openAng);
+			delay(250);
+		}
+	}
+	void start(){
+		bOpen=0;
+	}
+	void end(){
+		bOpen=0;
+		claw.write(closeAng);
 	}
 	void manual(String state){
-		open=state.equals("OPEN");
-		claw.write(closeAng+openAng*open);
+		if(state.equals("OPEN")) open();
+		else close();
 	}
-	bool isOpen(){ return open; }
-} leftClaw(16,-65,65), rightClaw(17,-65,130);
+	void manual(int ind){
+		if(ind) open();
+		else close();
+	}
+	bool isOpen(){ return bOpen; }
+} leftClaw(16,30,15), rightClaw(17,-25,113);
 
 #endif

@@ -1,27 +1,39 @@
 #include "WProgram.h"
-#include "Servo.h"
-#include "fishMoves.h"
+
+
+
+
 
 
 bool thru=false;
 
 void setup(){
 	thru=false;
-	Flippers.setup();
-
+	pinMode(13,OUTPUT);
+	
 }
 
 void loop(){
+
 	
-	Flippers.start();
+	
+	
 
 	if(!thru){
-			while(1){
-			Flippers.manual(0);
-		}
+			digitalWrite(13,1);
+		delay(1 *1000);
+		digitalWrite(13,0);
+		delay(1 *1000);
+		digitalWrite(13,1);
+		delay(1 *1000);
+		digitalWrite(13,0);
+		delay(1 *1000);
 
 		thru=true;
 	}
-	Flippers.end();
+	
+	
+	
+	
 
 }

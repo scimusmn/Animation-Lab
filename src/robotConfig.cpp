@@ -60,10 +60,16 @@ void configuration::readGeneralConfig(string cfgFile){
 			else if(token[0]=="DRAW_NEW_USER_BUTTON"){
 				drawNewUser=ofToInt(token[1]);
 				//newUser.setTextSize(ofToInt(token[1]));
-				newUser.setup("New user?",19);
+				newUser.setup("New user?",23);
 			}
 			else if(token[0]=="WRAPPER"){
 				wrapperFile=token[1];
+			}
+			else if(token[0]=="BLOCK_FONT_SIZE"){
+				blockFontSize=ofToInt(token[1]);
+			}
+			else if(token[0]=="BUTTON_FONT_SIZE"){
+				buttonFontSize=ofToInt(token[1]);
 			}
 		}
 	}

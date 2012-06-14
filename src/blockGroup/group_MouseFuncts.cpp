@@ -95,9 +95,9 @@ void resetInsertSpace(block & t){
 void bGroup::drag(double _x, double _y){
 	//-------- if we're holding a block, update the position
 	if(inHand){
-    if(held.bGrabbed){
-      held.move(_x+dispx, _y+dispy);
-    }
+		if(held.bGrabbed){
+			held.move(_x+dispx, _y+dispy);
+		}
 	}
   bar.mouseMotion(_x, _y);
 }

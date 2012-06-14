@@ -1,9 +1,0 @@
-$blocks.global()
-
-void setup(){
-	$blocks.setup()
-}
-
-void loop(){
-	$blocks.loop()
-}

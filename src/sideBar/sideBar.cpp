@@ -242,10 +242,10 @@ void sbGroup::setup(ofXML & xml,bGroup * destin)
 			bars.push_back( sideBar(tag[i].getAttribute("name"),color));
 			for (unsigned int j=0; j<tag[i].size(); j++) {
 				if (tag[i][j].getLabel()=="block") {
-					int curBlock=bars[curBar].blocks.size();
-					bars[curBar].blocks.push_back(block(tag[i][j],color));
-					bars[curBar].w=max(bars[curBar].w,bars[curBar].blocks[curBlock].fullWidth());
-					w=max(bars[curBar].w,w);
+					bars.back().blocks.push_back(block());
+					bars.back().blocks.back().setup(tag[i][j],color);
+					bars.back().w=max(bars.back().w,bars.back().blocks.back().fullWidth());
+					w=max(bars.back().w,w);
 				}
 			}
 		}

@@ -154,11 +154,11 @@ void controlBar::setup(bGroup * bG, sbGroup * sbG)
   
   report().setup();
   
-  clearBut.setup("Clear blocks", 19);
+  clearBut.setup("Clear blocks", cfg().buttonFontSize);
 
   redoBut.setup(64, OF_VERT, "images/redo.png","images/redo_active.png");
 	undoBut.setup(64, OF_VERT, "images/undo.png","images/undo_active.png");
-  demo.setup("View Demo", 19);
+  demo.setup("View Demo", cfg().buttonFontSize);
   skipBut.setup(300, 100, "images/skipBut.png");
 
   anim.setup(blocks, sideBar);
@@ -327,7 +327,7 @@ void controlBar::update()
     if(!bPluginChoice){
       if(blocks->changedSinceSave()) report().post("Program changes not uploaded;\nReconnect robot to upload.",3);
       blocks->saveXML("programs/"+serChk.deviceNumber()+".xml");
-      blocks->clear();
+      blocks->clearAndReset();
       if (cfg().test&&test().isTesting()) {
         test().stopTesting();
         test().resetTurtle();
@@ -339,7 +339,7 @@ void controlBar::update()
     bChooseLevel=true;
   }
   
-  if(timeOut.justExpired()) bChooseLevel=true,blocks->clear(),anim.clearPrompt();
+  if(timeOut.justExpired()) bChooseLevel=true,blocks->clearAndReset(),anim.clearPrompt();
  
   upload.update();
   if(cfg().test&&test().turtleIsRunning()){
@@ -357,7 +357,7 @@ bool controlBar::clickDown(int _x, int _y, int button)
     timeOut.reset();
     timeOut.run();
     if (clearBut.clickDown(_x, _y)) {
-      blocks->clear();
+      blocks->clearAndReset();
 	  ret=true;
     }
     
@@ -378,7 +378,7 @@ bool controlBar::clickDown(int _x, int _y, int button)
     }
 
 	if(cfg().newUser.clickDown(_x,_y)){
-		bChooseLevel=true,blocks->clear(),anim.clearPrompt();
+		bChooseLevel=true,blocks->clearAndReset(),anim.clearPrompt();
 	}
     
     if(cfg().test) test().clickDown(_x, _y);
@@ -391,7 +391,7 @@ bool controlBar::clickDown(int _x, int _y, int button)
 	ret=true;
   }
   
-	if(anim.isPrompting()){
+	if(anim.isPrompting()&&!bChooseLevel){
 		if(anim.clickDown(_x, _y)) blocks->recordState();
 		ret=true;
 	}

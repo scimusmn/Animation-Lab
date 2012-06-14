@@ -67,6 +67,14 @@ class bGroup;
  *   string title:: _ _ _ _ _ _ _ _ 
  *   placeHolder=true:: _ _ _ _ _ _ 
  */
+struct textWord {
+	string txt;
+	int wid;
+	textWord(string t, ofFont& f){
+		txt=t;
+		wid=f.stringWidth(txt);
+	}
+};
 
 class block: public ofInterObj {
 public:
@@ -81,6 +89,9 @@ public:
 	ofFont arialHeader;
 	vector<string> sibling;
 	vector<dallasDrop> ddGroup;
+
+	vector<textWord> ttlSpl;
+	int spaceSize;
   
   bGroup * group;
   
@@ -96,19 +107,20 @@ public:
   ofTag origTag;
 	
 	block(ofTag & xml,ofColor col);
+
+	void setup(ofTag & xml,ofColor col);
   
   void parseTitle();
 	
 	block():ofInterObj(){
-		placeHolder=true;
+		//placeHolder=true;
 	}
 	
 	block(const block &t);
 	
 	~block();
 	
-	virtual 
-  void setup(double _w, double _h);
+	virtual void setup(double _w, double _h);
 	
 	void operator=(const block &t);
   

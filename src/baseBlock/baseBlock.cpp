@@ -15,7 +15,9 @@ extern ofColor white, black, blue, yellow, gray;
 
 extern int TITLE_HEIGHT;
 
-baseBlock::baseBlock():block(){
+void baseBlock::setup(bGroup * grp)
+{
+  group=grp;
   bDrawtest=true;
   w=575, h=90;
   orig.width=w;
@@ -24,12 +26,12 @@ baseBlock::baseBlock():block(){
   interior.y=0;
   interior.x=0;
 	arialHeader.loadFont("fonts/DinC.ttf");
-	arialHeader.setSize(21);
+	arialHeader.setSize(cfg().blockFontSize);
   arialHeader.setMode(OF_FONT_TOP);
   //arialHeader.setMode(OF_FONT_MID);
 
-  testBut.setup("Test program", 20);
-  uploadBut.setup("Upload program",20);
+  testBut.setup("Test program", cfg().buttonFontSize);
+  uploadBut.setup("Upload program",cfg().buttonFontSize);
   pad=15;
   
   butArea.x=max(uploadBut.w,testBut.w)+pad*2;
@@ -52,6 +54,10 @@ baseBlock::baseBlock():block(){
   
   
   //else butArea.y=pad+uploadBut.h+pad;//+testBut.h+pad;
+}
+
+baseBlock::baseBlock():block(){
+  
 }
 
 void baseBlock::setDrawTest(bool btest){
@@ -78,7 +84,7 @@ void baseBlock::drawButtonArea(int _x, int _y)
   ofSetLineWidth(1);
   ofFill();
 
-  uploadBut.setTextSize(19);
+  uploadBut.setTextSize(cfg().buttonFontSize);
   
   if(cfg().test){
 	uploadBut.draw(x+w-butArea.x+(butArea.x-uploadBut.w)/2,_y+pad);
@@ -144,11 +150,6 @@ bool baseBlock::clickDown(int _x, int _y)
 bool baseBlock::newClickUp( int _x, int _y)
 {
   return uploadBut.clickUp();
-}
-
-void baseBlock::setup(bGroup * grp)
-{
-  group=grp;
 }
 
 bool baseBlock::beneath(block & chk,signed int blw)

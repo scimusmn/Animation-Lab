@@ -30,28 +30,36 @@ public:
 	}
 	void start(){
 		open=0;
+		bod.write(closeAng);
 	}
 	void end(){
-		retract();
-	}
-	void extend(){
-		open=1;
-		bod.write(closeAng+openAng);
-	}
-	void retract(){
+		//retract();
 		open=0;
 		bod.write(closeAng);
 	}
+	void retract(){
+		if(!open){
+			open=1;
+			bod.write(closeAng+openAng);
+			delay(500);
+		}
+	}
+	void extend(){
+		if(open){
+			open=0;
+			bod.write(closeAng);
+			delay(500);
+		}
+	}
 	void setByIndex(int ind){
-		open=ind;
-		if(open) extend();
+		if(ind) extend();
 		else retract();
 	}
 	void manual(String state){
-		open=state.equals("EXTEND");
-		bod.write(closeAng+openAng*open);
+		if(state.equals("EXTEND")) extend();
+		else retract();
 	}
 	bool isOpen(){ return open; }
-} Body(16,85,0);
+} Body(16,80,0);
 
 #endif

@@ -28,9 +28,11 @@ public:
 	}
 	void start(){
 		bRunning=false;
+		digitalWrite(fetPin,LOW);
 	}
 	void end(){
-		if(bRunning) off();
+		bRunning=false;
+		digitalWrite(fetPin,LOW);
 	}
 	void setSpeed(String speed){
 		bRunning=true;
@@ -44,13 +46,19 @@ public:
     else digitalWrite(fetPin,((switchSpeed)?1:0));
 	}
   void on(){
-    bRunning=true;
-    digitalWrite(fetPin,HIGH);
+	if(!bRunning){
+    		bRunning=true;
+    		digitalWrite(fetPin,HIGH);
+		delay(250);
+	}
   }
   void off(){
-    bRunning=false;
-    if(bAnalogPin) setSpeed("OFF");
-    else digitalWrite(fetPin,LOW);
+	if(bRunning){
+    		bRunning=false;
+    		if(bAnalogPin) setSpeed("OFF");
+    		else digitalWrite(fetPin,LOW);
+		delay(250);
+	}
   }
 };
 

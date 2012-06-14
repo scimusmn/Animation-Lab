@@ -1,6 +1,10 @@
 #ifndef _TEST_APP
 #define _TEST_APP
 
+#define ANIMATION_LAB
+
+#include "../../dallasEng/dallasEng.h"
+
 #include "ofMain.h"
 #include "ofExtended.h"
 #include "sideBar/sideBar.h"
