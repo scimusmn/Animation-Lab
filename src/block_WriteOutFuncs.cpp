@@ -55,12 +55,12 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 			*fOut << "\t";
 			tabsPrinted++;
 		}*/
-		while(tabsPrinted<t&&buffer!="}"){
+		while(tabsPrinted<t&&buffer!="}"&&buffer!="}\r"){
 			*fOut << "\t";
 			tabsPrinted++;
 		}
 		//-------- if the buffer is not a single '}', then parse the line; otherwise, it indicates the end of the section
-		if(buffer!="}"){
+		if(buffer!="}"&&buffer!="}\r"){
 			bool skipNewline=false;
 			//-------- init the foundTab var, and start stepping through the buffer
 			int foundTab=0;
@@ -240,11 +240,11 @@ void block::printData(string sblng,ofstream* k,int t,map<string,bool> * printed,
 		//-------- burn the buffer until we find the start of the end
 		bool found=false;
 		while(f.peek()!=EOF&&!found){
-			if (buffer.compare(sblng)) {
-				getline(f,buffer);
+			if (buffer==sblng||buffer==sblng+"\r") {
+				found=true;
 			}
 			else {
-				found=true;
+				getline(f,buffer);
 			}
 		}
 		if(found){

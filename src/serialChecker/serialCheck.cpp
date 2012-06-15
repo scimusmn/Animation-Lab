@@ -58,11 +58,13 @@ serialCheck::serialCheck()
 }
 
 void serialCheck::setup(){
-	rfid().setup();
-	setUp=true;
-	for(unsigned int i=0; i<cfg().excludedPort.size(); i++){
-		excludeDevice(cfg().excludedPort[i]);
-	}
+  if(cfg().boardDetect){
+    rfid().setup();
+    setUp=true;
+    for(unsigned int i=0; i<cfg().excludedPort.size(); i++){
+      excludeDevice(cfg().excludedPort[i]);
+    }
+  }
 }
 
 serialCheck::~serialCheck(){
@@ -73,11 +75,14 @@ serialCheck::~serialCheck(){
 bool serialCheck::isAvailable()
 {
   bool ret=0;
-  if(lock()){
-    ret=bAvailable;
-	if(cfg().test) ret&=rfid().available();
-    unlock();
+  if(cfg().boardDetect){
+    if(lock()){
+      ret=bAvailable;
+    if(cfg().test) ret&=rfid().available();
+      unlock();
+    }
   }
+  else ret=true;
   return ret;
 }
 
@@ -194,8 +199,10 @@ string serialCheck::deviceNumber()
 
 void serialCheck::threadCheckAvailability()
 {
-  if (!bRunning&&checkTimer.expired()) {
-    start();
+  if(cfg().boardDetect){
+    if (!bRunning&&checkTimer.expired()) {
+      start();
+    }
   }
 }
 

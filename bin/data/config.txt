@@ -5,9 +5,10 @@ TEST_AVAILABLE=0
 SCROLL_SCREEN=1
 PORTRAIT_MODE=0
 DRAW_NEW_USER_BUTTON=1
+BOARD_DETECT=0
 WRAPPER=arduino_make/animWrapper.wrp
 BOARD=DUEM
-BLOCK_FONT_SIZE=18
+BLOCK_FONT_SIZE=14
 BUTTON_FONT_SIZE=23
 
 #you shouldn't need to edit below here, unless arduinos were upgraded

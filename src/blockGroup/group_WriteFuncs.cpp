@@ -9,7 +9,7 @@
 
 
 #include "blockGroup.h"
-#include "..\robotConfig.h"
+#include "../robotConfig.h"
 
 extern int CURRENT_ROBOT_NUMBER;
 

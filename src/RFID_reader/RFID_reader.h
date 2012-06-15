@@ -12,16 +12,21 @@
 #include "ofMain.h"
 #include "ofExtended.h"
 
+#define ENABLE_RFID 1
+
+#if ENABLE_RFID
 #if defined( TARGET_OSX )
-#include "/Library/Frameworks/Phidget21.framework/Headers/phidget21.h"
+#include "../phidgets/Headers/phidget21.h"
 #else
 #include "phidgets/phidget21.h"
+#endif
 #endif
 
 class RFIDreader {
 protected:
+#if ENABLE_RFID
   CPhidgetRFIDHandle rfid;
-
+#endif
 public:
   RFIDreader();
   void setup();

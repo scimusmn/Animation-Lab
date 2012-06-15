@@ -23,6 +23,7 @@ struct configuration {
 	bool drawNewUser;
 	int buttonFontSize;
 	int blockFontSize;
+  bool boardDetect;
 	string robotRoot,robotTitle;
 	void readGeneralConfig(string cfgFile);
 	configuration(){

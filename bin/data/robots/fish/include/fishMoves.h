@@ -27,7 +27,6 @@ public:
 	void setup(){
 		bOpen=0;
 		serv.attach(pin);
-		serv.write(closeAng);
 	}
 	void start(){
 		bOpen=0;
@@ -36,18 +35,12 @@ public:
 		close();
 	}
 	void open(){
-		if(!bOpen){
-			bOpen=1;
-			serv.write(closeAng+openAng);
-			delay(250);
-		}
+		bOpen=1;
+		serv.write(closeAng+openAng);
 	}
 	void close(){
-		if(bOpen){
-			bOpen=0;
-			serv.write(closeAng);
-			delay(250);
-		}
+		bOpen=0;
+		serv.write(closeAng);
 	}
 	void manual(int ind){
 		if(ind) open();

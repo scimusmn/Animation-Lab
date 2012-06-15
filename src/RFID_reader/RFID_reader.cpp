@@ -20,6 +20,8 @@ RFIDreader & rfid(){
 	return rfident;
 }
 
+#if ENABLE_RFID
+
 int CCONV AttachHandler(CPhidgetHandle RFID, void *userptr)
 {
 	int serialNo;
@@ -79,6 +81,7 @@ int CCONV TagLostHandler(CPhidgetRFIDHandle RFID, void *usrptr, unsigned char *T
 	return 0;
 }
 
+#endif
 
 RFIDreader::RFIDreader()
 {
@@ -87,6 +90,7 @@ RFIDreader::RFIDreader()
 
 void RFIDreader::setup()
 {
+  #if ENABLE_RFID
 	if(cfg().test){
 		int result;
 		const char *err;
@@ -123,14 +127,17 @@ void RFIDreader::setup()
   
 		CPhidgetRFID_setAntennaOn(rfid, 1);
 	}
+#endif
 }
 
 RFIDreader::~RFIDreader()
 {
+#if ENABLE_RFID
 	if(cfg().test){
 		CPhidget_close((CPhidgetHandle)rfid);
 		CPhidget_delete((CPhidgetHandle)rfid);
 	}
+#endif
 }
 
 bool RFIDreader::available()
