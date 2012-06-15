@@ -18,7 +18,7 @@
 #if defined( TARGET_OSX )
 #include "../phidgets/Headers/phidget21.h"
 #else
-#include "phidgets/phidget21.h"
+#include "phidget21.h"
 #endif
 #endif
 

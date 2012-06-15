@@ -25,6 +25,8 @@ struct configuration {
 	int blockFontSize;
   bool boardDetect;
 	string robotRoot,robotTitle;
+
+	string uploadedMessage;
 	void readGeneralConfig(string cfgFile);
 	configuration(){
 		drawNewUser=scroll=test=verbose=portraitMode=false;

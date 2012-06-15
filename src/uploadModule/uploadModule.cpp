@@ -88,8 +88,7 @@ bool uploadModule::isUploading()
 	if(!cmplr.isCompiling()&&bRunning){
     //uploaded.set(3);
     //uploaded.run();
-		if(cfg().test) report().post("You may now unplug the robot.",3);
-		else report().post("Watch the robot!",3);
+		report().post(cfg().uploadedMessage,3);
 	}
   bRunning=cmplr.isCompiling();
   return bRunning;
