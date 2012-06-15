@@ -163,3 +163,5 @@ pip-log.txt
 .DS_Store
 
 bin/Arduino*
+
+ProgramBlocks.xcodeproj/exhibits.pbxuser
