@@ -6,7 +6,7 @@ extern "C" {
  #define CCONV __stdcall  	
 #else 
  #if defined(__BORLANDC__) || defined(_MSC_VER) 
-  #define CCONV __stdcall  
+  #define CCONV __cdecl  
  #else 
   #define CCONV 
  #endif 

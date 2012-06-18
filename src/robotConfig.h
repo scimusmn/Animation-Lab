@@ -26,7 +26,7 @@ struct configuration {
   bool boardDetect;
 	string robotRoot,robotTitle;
 
-	string uploadedMessage;
+	string uploadedMessage,connectMessage;
 	void readGeneralConfig(string cfgFile);
 	configuration(){
 		drawNewUser=scroll=test=verbose=portraitMode=false;

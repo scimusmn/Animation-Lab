@@ -10,6 +10,10 @@ WRAPPER=arduino_make/animWrapper.wrp
 BOARD=UNO
 BLOCK_FONT_SIZE=14
 BUTTON_FONT_SIZE=23
+
+#On screen text
+
+CONNECT_MESSAGE=Connect an Arduino to begin
 UPLOADED_MESSAGE=Watch the Arduino
 
 #you shouldn't need to edit below here, unless arduinos were upgraded

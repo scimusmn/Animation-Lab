@@ -92,7 +92,7 @@ bool serialCheck::drawForeground()
   if(!isAvailable()){
     ofSetColor(0, 0, 0,196);
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
-    string printOut="Connect the robot to begin";
+	string printOut=cfg().connectMessage;
     if(bAvailable&&cfg().test) printOut="Place robot on platform";
     if(bIdent&&cfg().test) printOut="Identifying: Do not unplug";
     

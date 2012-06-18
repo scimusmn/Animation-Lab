@@ -74,6 +74,9 @@ void configuration::readGeneralConfig(string cfgFile){
 			else if(token[0]=="UPLOADED_MESSAGE"){
 				uploadedMessage=token[1];
 			}
+			else if(token[0]=="CONNECT_MESSAGE"){
+				connectMessage=token[1];
+			}
       else if(token[0]=="BOARD_DETECT"){
         boardDetect=ofToInt(token[1]);
       }
