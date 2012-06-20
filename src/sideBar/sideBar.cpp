@@ -229,7 +229,6 @@ deviceBlocks::deviceBlocks(ofTag & tag, ofColor color,string baseLabel)
     k.loadFile(cfg().robotRoot+"/xmlSources/"+src);
     k.setCurrentTag(";");
     tag=k.getCurrentTag();
-    cout << tag.size() << endl;
   }
   for (unsigned int j=0; j<tag.size(); j++) {
     if (tag[j].getLabel()=="block") {
@@ -243,6 +242,7 @@ deviceBlocks::deviceBlocks(ofTag & tag, ofColor color,string baseLabel)
 
 dynamicSB::dynamicSB(ofTag & tag):vSideBar()
 {
+  pad=10;
   type=DYNAMIC_BAR;
   arialHeader.loadFont("fonts/HelveticaBold.otf");
 	arialHeader.setSize(20);
@@ -262,10 +262,17 @@ dynamicSB::dynamicSB(ofTag & tag):vSideBar()
     }
     if (tag[j].getLabel()=="device") {
       devices.push_back(deviceBlocks(tag[j],color,tag.getAttribute("label")));
-      w=max(w,devices.back().w);
+      w=max(w,devices.back().w+pad*4);
     }
   }
+  arialHeader.setSize(16);
+  arialHeader.setMode(OF_FONT_MID);
+  dropOffset=arialHeader.stringWidth(filename+" is a(n)");
+  arialHeader.setSize(20);
+  
+  w=max(w,dropOffset+select.w+pad*3);
 }
+
 
 int dynamicSB::size()
 {
@@ -292,15 +299,15 @@ void dynamicSB::draw(int _x, int _y)
   x=_x, y=_y;
   if(bOpen){
     ofSetColor(gray);
-    ofRectangle k(x, y+h, w, select.h+20);
+    ofRectangle k(x, y+h, w, select.h+pad*2);
     ofRect(k);
     ofSetColor(black);
-    drawHatching(k.x,k.y,k.width,k.height, 15, 1);
+    drawHatching(k.x,k.y,k.width,k.height, 1, 15);
     drawBorder(k);
     ofSetColor(yellow);
     arialHeader.setSize(16);
     arialHeader.setMode(OF_FONT_MID);
-    arialHeader.drawString(filename+" is a(n)",x+10,y+h+(select.h+20)/2);
+    arialHeader.drawString(filename+" is a(n)",x+pad,y+h+(select.h+pad*2)/2);
     arialHeader.setSize(20);
   }
 	
@@ -314,19 +321,18 @@ void dynamicSB::draw(int _x, int _y)
   trimmedRect(x,y,w,h);
   ofFill();
   ofSetColor(white);
-	arialHeader.drawString(filename,x+w/8+10,y+h/2);
-  int pad=20;
+	arialHeader.drawString(filename+" - "+select.getString(),x+w/8+10,y+h/2);
 	if(bOpen){
-		int temp=y+h+select.h+10+pad;
+		int temp=y+h+select.h+pad*3;
 		for (unsigned int j=0; j<set().size(); j++) {
-			set()[j].draw(x+pad,temp);
+			set()[j].draw(x+pad*2,temp);
       if(j<set().size()-1){
         ofSetColor(black.opacity(.5));
-        ofRect(x, temp+set()[j].h+set()[j].newHeightOn()+pad/2, w, 1);
+        ofRect(x, temp+set()[j].h+set()[j].newHeightOn()+pad, w, 1);
       }
-			temp+=set()[j].h+set()[j].newHeightOn()+pad;
+			temp+=set()[j].h+set()[j].newHeightOn()+pad*2;
 		}
-    select.draw(x+(w-select.w)/2+20, y+h+10);
+    select.draw(x+dropOffset+pad*2, y+h+pad);
 	}
 }
 

@@ -468,6 +468,7 @@ void controlBar::setAvailableButtons()
 void controlBar::resize()
 {
 	bHldr.clear();
+  sideBar->updateHeight();
 	subBar.width=ofGetWidth();
 	barSpacing();
 }

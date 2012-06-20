@@ -272,6 +272,15 @@
 								<string>AA5687F215910FE8007AA4C4</string>
 								<string>AA56865B1590BC4A007AA4C4</string>
 								<string>AA5686651590BC4A007AA4C4</string>
+								<string>AA56866A1590BC4A007AA4C4</string>
+								<string>AA56899C15921E38007AA4C4</string>
+								<string>AA5689F515925B28007AA4C4</string>
+								<string>AA5689F615925B28007AA4C4</string>
+								<string>AA5689F715925B28007AA4C4</string>
+								<string>AA5689F815925B28007AA4C4</string>
+								<string>AA5689F915925B28007AA4C4</string>
+								<string>AA56899D15921E38007AA4C4</string>
+								<string>AA56866E1590BC4B007AA4C4</string>
 								<string>E4B69E1C0A3A1BDC003C02F2</string>
 								<string>AA7A312F14687EF400D95060</string>
 								<string>AA7A313014687F0A00D95060</string>
@@ -291,15 +300,17 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>59</integer>
-									<integer>58</integer>
-									<integer>55</integer>
-									<integer>34</integer>
+									<integer>17</integer>
+									<integer>11</integer>
+									<integer>10</integer>
+									<integer>9</integer>
+									<integer>8</integer>
+									<integer>4</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 406}, {260, 982}}</string>
+							<string>{{0, 0}, {260, 982}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -336,7 +347,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>sideBar.cpp</string>
+								<string>Switch.xml</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -344,11 +355,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>sideBar.cpp</string>
+										<string>Switch.xml</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>AA56891715912DF4007AA4C4</string>
+										<string>AA568A8D159272C2007AA4C4</string>
 										<key>history</key>
 										<array>
 											<string>AA4B120812F70DDA00C962B4</string>
@@ -447,7 +458,6 @@
 											<string>AA85E45A14EB0F2E0047B1AF</string>
 											<string>AA85E4F214F430920047B1AF</string>
 											<string>AA85E4F714F430920047B1AF</string>
-											<string>AA85E4F814F430920047B1AF</string>
 											<string>AA85E4FA14F430920047B1AF</string>
 											<string>AA0C2EA314FECE070061C267</string>
 											<string>AA90A62D15064B8A00330553</string>
@@ -463,7 +473,6 @@
 											<string>AA34D41315545AC9001CDCFF</string>
 											<string>AA34D41415545AC9001CDCFF</string>
 											<string>AA34D41615545AC9001CDCFF</string>
-											<string>AA34D4391558623D001CDCFF</string>
 											<string>AA34D43A1558623D001CDCFF</string>
 											<string>AA34D43B1558623D001CDCFF</string>
 											<string>AAC27E641559A2760039F75E</string>
@@ -471,7 +480,6 @@
 											<string>AAC27E99155ACC440039F75E</string>
 											<string>AAC27EA0155ACC9E0039F75E</string>
 											<string>AA5686861590C510007AA4C4</string>
-											<string>AA5686A01590C6F5007AA4C4</string>
 											<string>AA5686D51590CA3B007AA4C4</string>
 											<string>AA5687141590D0DA007AA4C4</string>
 											<string>AA5687B01590DECC007AA4C4</string>
@@ -482,26 +490,55 @@
 											<string>AA5687E715910802007AA4C4</string>
 											<string>AA5687FB15911409007AA4C4</string>
 											<string>AA5687FC15911409007AA4C4</string>
-											<string>AA56880015911409007AA4C4</string>
-											<string>AA56880115911409007AA4C4</string>
 											<string>AA56882A1591190F007AA4C4</string>
-											<string>AA56886C15911CBA007AA4C4</string>
 											<string>AA56887415911FD8007AA4C4</string>
-											<string>AA56887515911FD8007AA4C4</string>
 											<string>AA56887615911FD8007AA4C4</string>
-											<string>AA56887F159120D3007AA4C4</string>
 											<string>AA56889415912313007AA4C4</string>
-											<string>AA56889815912313007AA4C4</string>
-											<string>AA56889F159124A9007AA4C4</string>
 											<string>AA5688C715912654007AA4C4</string>
 											<string>AA5688C815912654007AA4C4</string>
 											<string>AA5688D7159126E8007AA4C4</string>
-											<string>AA5688D8159126E8007AA4C4</string>
-											<string>AA5688D9159126E8007AA4C4</string>
-											<string>AA5688E215912803007AA4C4</string>
 											<string>AA56890915912D6E007AA4C4</string>
-											<string>AA56891515912DF4007AA4C4</string>
-											<string>AA56891615912DF4007AA4C4</string>
+											<string>AA56891F1592093A007AA4C4</string>
+											<string>AA5689201592093A007AA4C4</string>
+											<string>AA56892615920C80007AA4C4</string>
+											<string>AA56892815920C80007AA4C4</string>
+											<string>AA5689331592137A007AA4C4</string>
+											<string>AA56893A1592137A007AA4C4</string>
+											<string>AA56894F159214B4007AA4C4</string>
+											<string>AA56896715921696007AA4C4</string>
+											<string>AA56898C15921B64007AA4C4</string>
+											<string>AA5689AB15922931007AA4C4</string>
+											<string>AA5689AC15922931007AA4C4</string>
+											<string>AA5689AF15922931007AA4C4</string>
+											<string>AA5689B215922931007AA4C4</string>
+											<string>AA5689BD15922A9E007AA4C4</string>
+											<string>AA5689BF15922A9E007AA4C4</string>
+											<string>AA5689C115922A9E007AA4C4</string>
+											<string>AA5689C915922B23007AA4C4</string>
+											<string>AA5689E71592587E007AA4C4</string>
+											<string>AA5689EB15925907007AA4C4</string>
+											<string>AA5689F215925AC2007AA4C4</string>
+											<string>AA5689F315925AC2007AA4C4</string>
+											<string>AA568A101592631E007AA4C4</string>
+											<string>AA568A111592631E007AA4C4</string>
+											<string>AA568A121592631E007AA4C4</string>
+											<string>AA568A1D159263A8007AA4C4</string>
+											<string>AA568A4015926A1C007AA4C4</string>
+											<string>AA568A4215926A1C007AA4C4</string>
+											<string>AA568A4315926A1C007AA4C4</string>
+											<string>AA568A4E15926B22007AA4C4</string>
+											<string>AA568A4F15926B22007AA4C4</string>
+											<string>AA568A5B15926D3A007AA4C4</string>
+											<string>AA568A6615926E12007AA4C4</string>
+											<string>AA568A73159271C8007AA4C4</string>
+											<string>AA568A74159271C8007AA4C4</string>
+											<string>AA568A75159271C8007AA4C4</string>
+											<string>AA568A77159271C8007AA4C4</string>
+											<string>AA568A78159271C8007AA4C4</string>
+											<string>AA568A821592725F007AA4C4</string>
+											<string>AA568A8A159272C2007AA4C4</string>
+											<string>AA568A8B159272C2007AA4C4</string>
+											<string>AA568A8C159272C2007AA4C4</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -699,12 +736,12 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>AA56891815912DF4007AA4C4</string>
+		<string>AA568A8E159272C2007AA4C4</string>
 		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>AA5685F91590AC06007AA4C4</string>
 		<string>AA5685FA1590AC06007AA4C4</string>
-		<string>AAA84A5512B2ECF10096758E</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>AAA84A5512B2ECF10096758E</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/exhibits/Documents/Xcode_Projects/openFrameworks/apps/projects/Animation-Lab/ProgramBlocks.xcodeproj</string>
 	</array>
@@ -732,7 +769,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>sideBar.cpp</string>
+								<string>block_WriteOutFuncs.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>

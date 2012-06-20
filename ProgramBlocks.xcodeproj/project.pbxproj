@@ -247,6 +247,21 @@
 		AA5687F315910FE8007AA4C4 /* LED.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LED.xml; sourceTree = "<group>"; };
 		AA568891159121CC007AA4C4 /* Servo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Servo.xml; sourceTree = "<group>"; };
 		AA56889215912201007AA4C4 /* Button.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Button.xml; sourceTree = "<group>"; };
+		AA56892E15920F0A007AA4C4 /* Pot.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Pot.xml; sourceTree = "<group>"; };
+		AA56892F15921015007AA4C4 /* LightSensor.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LightSensor.xml; sourceTree = "<group>"; };
+		AA56899E15921E49007AA4C4 /* set.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = set.blk; sourceTree = "<group>"; };
+		AA5689ED15925991007AA4C4 /* fade.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fade.blk; sourceTree = "<group>"; };
+		AA5689FA15925B3C007AA4C4 /* set.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = set.blk; sourceTree = "<group>"; };
+		AA5689FB15925B46007AA4C4 /* follow.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = follow.blk; sourceTree = "<group>"; };
+		AA568A0A15926253007AA4C4 /* send.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = send.blk; sourceTree = "<group>"; };
+		AA568A2815926671007AA4C4 /* varDelay.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = varDelay.blk; sourceTree = "<group>"; };
+		AA568A3C1592691F007AA4C4 /* pressed.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pressed.blk; sourceTree = "<group>"; };
+		AA568A3D1592697D007AA4C4 /* wait.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wait.blk; sourceTree = "<group>"; };
+		AA568A4A15926AE6007AA4C4 /* waitPnR.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = waitPnR.blk; sourceTree = "<group>"; };
+		AA568A5315926C72007AA4C4 /* detect.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = detect.blk; sourceTree = "<group>"; };
+		AA568A6E15926EDD007AA4C4 /* switch.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = switch.blk; sourceTree = "<group>"; };
+		AA568A6F15927087007AA4C4 /* changed.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changed.blk; sourceTree = "<group>"; };
+		AA568A70159270FB007AA4C4 /* Switch.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Switch.xml; sourceTree = "<group>"; };
 		AA7A307E1468275600D95060 /* bracketBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bracketBlock.h; path = bracketBlock/bracketBlock.h; sourceTree = "<group>"; };
 		AA7A307F1468275600D95060 /* bracketBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bracketBlock.cpp; path = bracketBlock/bracketBlock.cpp; sourceTree = "<group>"; };
 		AA7A30A21468332B00D95060 /* COMMIT_EDITMSG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COMMIT_EDITMSG; sourceTree = "<group>"; };
@@ -794,6 +809,7 @@
 		AA56866A1590BC4A007AA4C4 /* blocks */ = {
 			isa = PBXGroup;
 			children = (
+				AA56899C15921E38007AA4C4 /* devices */,
 				AA56866B1590BC4A007AA4C4 /* actions */,
 				AA56866E1590BC4B007AA4C4 /* conditions */,
 				AA5686721590BC4B007AA4C4 /* timing */,
@@ -857,8 +873,78 @@
 				AA5687F315910FE8007AA4C4 /* LED.xml */,
 				AA568891159121CC007AA4C4 /* Servo.xml */,
 				AA56889215912201007AA4C4 /* Button.xml */,
+				AA56892E15920F0A007AA4C4 /* Pot.xml */,
+				AA56892F15921015007AA4C4 /* LightSensor.xml */,
+				AA568A70159270FB007AA4C4 /* Switch.xml */,
 			);
 			path = devices;
+			sourceTree = "<group>";
+		};
+		AA56899C15921E38007AA4C4 /* devices */ = {
+			isa = PBXGroup;
+			children = (
+				AA5689F515925B28007AA4C4 /* Button */,
+				AA5689F615925B28007AA4C4 /* LightSensor */,
+				AA5689F715925B28007AA4C4 /* Pot */,
+				AA5689F815925B28007AA4C4 /* Servo */,
+				AA5689F915925B28007AA4C4 /* Switch */,
+				AA56899D15921E38007AA4C4 /* LED */,
+			);
+			path = devices;
+			sourceTree = "<group>";
+		};
+		AA56899D15921E38007AA4C4 /* LED */ = {
+			isa = PBXGroup;
+			children = (
+				AA56899E15921E49007AA4C4 /* set.blk */,
+				AA5689ED15925991007AA4C4 /* fade.blk */,
+			);
+			path = LED;
+			sourceTree = "<group>";
+		};
+		AA5689F515925B28007AA4C4 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				AA568A3C1592691F007AA4C4 /* pressed.blk */,
+				AA568A3D1592697D007AA4C4 /* wait.blk */,
+				AA568A4A15926AE6007AA4C4 /* waitPnR.blk */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		AA5689F615925B28007AA4C4 /* LightSensor */ = {
+			isa = PBXGroup;
+			children = (
+				AA568A5315926C72007AA4C4 /* detect.blk */,
+			);
+			path = LightSensor;
+			sourceTree = "<group>";
+		};
+		AA5689F715925B28007AA4C4 /* Pot */ = {
+			isa = PBXGroup;
+			children = (
+				AA568A0A15926253007AA4C4 /* send.blk */,
+				AA568A2815926671007AA4C4 /* varDelay.blk */,
+			);
+			path = Pot;
+			sourceTree = "<group>";
+		};
+		AA5689F815925B28007AA4C4 /* Servo */ = {
+			isa = PBXGroup;
+			children = (
+				AA5689FA15925B3C007AA4C4 /* set.blk */,
+				AA5689FB15925B46007AA4C4 /* follow.blk */,
+			);
+			path = Servo;
+			sourceTree = "<group>";
+		};
+		AA5689F915925B28007AA4C4 /* Switch */ = {
+			isa = PBXGroup;
+			children = (
+				AA568A6E15926EDD007AA4C4 /* switch.blk */,
+				AA568A6F15927087007AA4C4 /* changed.blk */,
+			);
+			path = Switch;
 			sourceTree = "<group>";
 		};
 		AA7A30811468275C00D95060 /* bracketBlock */ = {

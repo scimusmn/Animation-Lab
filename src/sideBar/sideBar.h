@@ -98,6 +98,8 @@ protected:
   vector<deviceBlocks> devices;
   dallasDrop select;
   string dropLabel;
+  int dropOffset;
+  int pad;
 public:
   dynamicSB(ofTag & tag);
   int size();

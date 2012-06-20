@@ -78,7 +78,7 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 					//-------- doing this allows you to find which dropdown to look at (most often, it's 0)
 					string temp(buffer,strtPos,endPos-strtPos);
 					vector<string> tempVec=ofSplitString(temp, "[]");
-					
+      
 					//-------- pos stores the vector position of the dd you are looking for 
 					int pos=0;
 					if(tempVec.size()>1){
@@ -87,8 +87,10 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 					
 					//-------- reassemble the string without the []
 					if(tempVec.size()>2) temp = tempVec[0] + tempVec[2];
+          else if(tempVec.size()==2) temp=tempVec[0];
 					
 					if(temp.compare("blockIn")==0&&buffer[i+1]==';') i++;
+          cout <<temp<<endl;
 					//-------- generate the map for use in the switch
 					map<string,int> list;
 					list["dd.num"]=0;
@@ -97,6 +99,7 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 					list["blockOn"]=3;
 					list["blockIn"]=4;
 					list["blockIf"]=5;
+          list["label"]=6;
 					switch (list.find(temp)->second) {
 						case 0:
 							//-------- if temp=="dd.num" write the value of the "pos" dropdown
@@ -143,6 +146,15 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 
 							}
 							break;
+            case 6:
+              if(tempVec.size()==1){
+                *fOut << label;
+              }
+              else {
+                *fOut << ofSplitString(label,":")[pos];
+              }
+
+              break;
 						default:
 							break;
 					}
