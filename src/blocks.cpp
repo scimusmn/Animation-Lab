@@ -40,10 +40,6 @@ string defaultFont="fonts/HelveticaBold.otf";
  *
  *  Input_________
  *
- *    -200 :
- *    -200 :
- *    150 :
- *    45 :
  *
  *  Output________
  *
@@ -432,6 +428,7 @@ void block::operator=(const block &t) {
   spaceSize=t.spaceSize;
   
   origTag=t.origTag;
+  label=t.label;
 }
 
 /*****************************************************************
@@ -475,6 +472,7 @@ void block::setup(double _w, double _h)
   
   ttlSize.y=h/2;
   ttlSize.x=_w;
+  label="";
 }
 
 //--------------- Maybe unnecessary functions? --------------
@@ -505,5 +503,25 @@ block & block::operator[](int i){
 	return blocksOn[i];
 }
 
+void removeFromVector(vector<block> & blks,string label){
+  for (unsigned int i=0; i<blks.size(); i++) {
+    if(blks[i].label==label){
+      blks.erase(blks.begin()+i);
+      i--;
+    }
+  }
+}
+
+void block::removeBlocksByLabel(string label){
+  for (unsigned int i=0; i<blocksOn.size(); i++) {
+    blocksOn[i].removeBlocksByLabel(label);
+    removeFromVector(blocksOn,label);
+  }
+  for (unsigned int i=0; i<blocksIn.size(); i++) {
+    blocksIn[i].removeBlocksByLabel(label);
+    removeFromVector(blocksIn,label);
+  }
+  
+}
 
 #endif

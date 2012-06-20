@@ -1,11 +1,11 @@
-ROBOT=arduino
+ROBOT=tinkerboard
 TIMEOUT=180
 VERBOSE=1
 TEST_AVAILABLE=0
 SCROLL_SCREEN=1
 PORTRAIT_MODE=0
 DRAW_NEW_USER_BUTTON=1
-BOARD_DETECT=1
+BOARD_DETECT=0
 WRAPPER=arduino_make/animWrapper.wrp
 BOARD=UNO
 BLOCK_FONT_SIZE=14
@@ -15,6 +15,12 @@ BUTTON_FONT_SIZE=23
 
 CONNECT_MESSAGE=Connect an Arduino to begin
 UPLOADED_MESSAGE=Watch the Arduino
+
+#programmer level folders
+
+LEVEL_FOLDER=001_Basic
+LEVEL_FOLDER=002_Intermediate
+LEVEL_FOLDER=003_Advanced
 
 #you shouldn't need to edit below here, unless arduinos were upgraded
 

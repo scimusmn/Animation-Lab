@@ -105,6 +105,8 @@ public:
 	string title;
   
   ofTag origTag;
+  
+  string label;
 	
 	block(ofTag & xml,ofColor col);
 
@@ -200,7 +202,11 @@ public:
   
   block separateBlock(blkVectType bType, int index);
   
+  void removeBlocksByLabel(string label);
+  
 };
+
+void removeFromVector(vector<block> &,string);
                  
 struct dropBlock {
   int index;

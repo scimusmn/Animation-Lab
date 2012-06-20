@@ -111,7 +111,8 @@ public:
 	block operator[](int i);
   
   int totalBlocks();
-  
+
+  void clearBlocksByLabel(string label);
   
   void saveXML(string filename);
   

@@ -36,7 +36,7 @@ extern ofColor white, black, gray, yellow, blue, red, orange;
  *
  */
 
-sideBar::sideBar(int _x,int _y,int w,int h,string file,ofColor col):ofInterObj(_x,_y,w,h){
+sideBar::sideBar(int _x,int _y,int w,int h,string file,ofColor col):vSideBar(){
 	arialHeader.loadFont("fonts/HelveticaBold.otf");
 	arialHeader.setSize(20);
 	bOver=bPressed=false;
@@ -47,7 +47,7 @@ sideBar::sideBar(int _x,int _y,int w,int h,string file,ofColor col):ofInterObj(_
 	filename=file;
 }
 
-sideBar::sideBar(string title,ofColor col):ofInterObj(){
+sideBar::sideBar(string title,ofColor col):vSideBar(){
 	arialHeader.loadFont("fonts/HelveticaBold.otf");
 	arialHeader.setSize(20);
 	bOver=bPressed=false;
@@ -55,6 +55,25 @@ sideBar::sideBar(string title,ofColor col):ofInterObj(){
 	color=col.opacity(1);
   h=arialHeader.stringHeight("Kjhg")*1.3;
 	filename=title;
+}
+
+sideBar::sideBar(ofTag & tag):vSideBar()
+{
+  type=DEFAULT_BAR;
+  arialHeader.loadFont("fonts/HelveticaBold.otf");
+	arialHeader.setSize(20);
+	bOver=bPressed=false;
+	bOpen = false;
+  h=arialHeader.stringHeight("Kjhg")*1.3;
+  color.set(strtol(tag.getAttribute("color").c_str(),NULL,0));
+  filename=tag.getAttribute("name");
+  w=0;
+  for (unsigned int j=0; j<tag.size(); j++) {
+    if (tag[j].getLabel()=="block") {
+      blocks.push_back(block(tag[j],color));
+      w=max(w,blocks.back().fullWidth());
+    }
+  }
 }
 
 /*****************************************************************
@@ -73,7 +92,7 @@ sideBar::sideBar(string title,ofColor col):ofInterObj(){
  *
  */
 
-sideBar::sideBar():ofInterObj(){
+sideBar::sideBar():vSideBar(){
 	arialHeader.loadFont(defaultFont);
 	arialHeader.setSize(20);
 	bOver=bPressed=false;
@@ -122,6 +141,7 @@ void sideBar::operator=(const sideBar t) {
 	h=t.h;
   color=t.color;
   filename=t.filename;
+  type=t.type;
 }
 
 /*****************************************************************
@@ -161,8 +181,6 @@ void sideBar::draw(int _x, int _y){
 		for (unsigned int j=0; j<blocks.size(); j++) {
 			blocks[j].draw(x+pad,temp);
       if(j<blocks.size()-1){
-        //ofShade(x, temp+blocks[j].h+blocks[j].newHeightOn()+pad/2, 3, w-h-1, OF_UP);
-        //ofShade(x, temp+blocks[j].h+blocks[j].newHeightOn()+pad/2, 3, w-h-1, OF_DOWN,false);
         ofSetColor(black.opacity(.5));
         ofRect(x, temp+blocks[j].h+blocks[j].newHeightOn()+pad/2, w, 1);
       }
@@ -197,6 +215,150 @@ double sideBar::updateSize()
 	return w;
 }
 
+
+/****************************** Dynamic Sidebar **********************
+ *********************************************************************/
+
+deviceBlocks::deviceBlocks(ofTag & tag, ofColor color,string baseLabel)
+{
+  w=h=0;
+  string secondLabel=tag.getAttribute("label");
+  string src=tag.getAttribute("source");
+  if(src.length()){
+    ofXML k;
+    k.loadFile(cfg().robotRoot+"/xmlSources/"+src);
+    k.setCurrentTag(";");
+    tag=k.getCurrentTag();
+    cout << tag.size() << endl;
+  }
+  for (unsigned int j=0; j<tag.size(); j++) {
+    if (tag[j].getLabel()=="block") {
+      blocks.push_back(block(tag[j],color));
+      blocks.back().label=baseLabel+":"+secondLabel;
+      blocks.back().blocksOn.clear();
+      w=max(w,blocks.back().fullWidth());
+    }
+  }
+}
+
+dynamicSB::dynamicSB(ofTag & tag):vSideBar()
+{
+  type=DYNAMIC_BAR;
+  arialHeader.loadFont("fonts/HelveticaBold.otf");
+	arialHeader.setSize(20);
+  arialHeader.setMode(OF_FONT_MID);
+	bOver=bPressed=false;
+	bOpen = false;
+  h=arialHeader.stringHeight("Kjhg")*1.3;
+  color.set(strtol(tag.getAttribute("color").c_str(),NULL,0));
+  filename=tag.getAttribute("name");
+  w=0;
+  select.dallasStyle();
+  select.arial.setSize(16);
+  select.setMode(false);
+  for (unsigned int j=0; j<tag.size(); j++) {
+    if(tag[j].getLabel()=="dropdown"){
+      select.init(tag[j]);
+    }
+    if (tag[j].getLabel()=="device") {
+      devices.push_back(deviceBlocks(tag[j],color,tag.getAttribute("label")));
+      w=max(w,devices.back().w);
+    }
+  }
+}
+
+int dynamicSB::size()
+{
+  return set().size();
+}
+
+block & dynamicSB::operator[](int i)
+{
+  return set()[i];
+}
+
+double dynamicSB::updateSize()
+{
+  for (unsigned int i=0; i<set().size(); i++) {
+		if (set()[i].w>3*w/4) {
+			w=max(w,set()[i].w+40);
+		}
+	}
+	return w;
+}
+
+void dynamicSB::draw(int _x, int _y)
+{
+  x=_x, y=_y;
+  if(bOpen){
+    ofSetColor(gray);
+    ofRectangle k(x, y+h, w, select.h+20);
+    ofRect(k);
+    ofSetColor(black);
+    drawHatching(k.x,k.y,k.width,k.height, 15, 1);
+    drawBorder(k);
+    ofSetColor(yellow);
+    arialHeader.setSize(16);
+    arialHeader.setMode(OF_FONT_MID);
+    arialHeader.drawString(filename+" is a(n)",x+10,y+h+(select.h+20)/2);
+    arialHeader.setSize(20);
+  }
+	
+  ofSetColor(gray);
+  trimmedRect(x, y, w, h);
+  ofSetColor(color);
+	if(!bOpen) trimmedRect(x,y,w/8,h);
+	else trimmedRect(x,y,w,h);
+	ofSetColor(yellow);
+  ofNoFill();
+  trimmedRect(x,y,w,h);
+  ofFill();
+  ofSetColor(white);
+	arialHeader.drawString(filename,x+w/8+10,y+h/2);
+  int pad=20;
+	if(bOpen){
+		int temp=y+h+select.h+10+pad;
+		for (unsigned int j=0; j<set().size(); j++) {
+			set()[j].draw(x+pad,temp);
+      if(j<set().size()-1){
+        ofSetColor(black.opacity(.5));
+        ofRect(x, temp+set()[j].h+set()[j].newHeightOn()+pad/2, w, 1);
+      }
+			temp+=set()[j].h+set()[j].newHeightOn()+pad;
+		}
+    select.draw(x+(w-select.w)/2+20, y+h+10);
+	}
+}
+
+void dynamicSB::operator=(const dynamicSB t)
+{
+  x=t.x;
+	y=t.y;
+	w=t.w;
+	h=t.h;
+  color=t.color;
+  filename=t.filename;
+  devices=t.devices;
+  select=t.select;
+  type=t.type;
+}
+
+bool dynamicSB::clickDown(int _x, int _y)
+{
+  bool ret=0;
+  if(bOpen) select.clickDown(_x, _y);
+  if(bOpen&&select.justSelected()){
+    ret=1;
+  }
+  return ret;
+}
+
+vector<block> & dynamicSB::set()
+{
+  return devices[select.getChoiceNumber()].blocks;
+}
+
+
 /****************************** Sidebar Group *************************
  **********************************************************************/
 
@@ -217,13 +379,13 @@ double sideBar::updateSize()
  */
 
 void sbGroup::updateBlocks(int i){
-	int divs=bars[i].blocks.size();
+	int divs=bars[i]->blocks.size();
 	for (unsigned int j=0; j<divs; j++) {
-		int w=bars[i].blocks[j].w;
-		bars[i].blocks[j].x=(bars[i].w-30-w)/2;
-		bars[i].blocks[j].y=bars[i].y+5*bars[i].h/4+sideBarSpace*j*\
-		((bars[i+1].y-(bars[i].y+bars[i].h))/sideBarSpace)/divs;
-		bars[i].blocks[j].h=bars[i].blocks[j].orig.height*((bars[i+1].y-(bars[i].y+bars[i].h))/sideBarSpace);
+		int w=bars[i]->blocks[j].w;
+		bars[i]->blocks[j].x=(bars[i]->w-30-w)/2;
+		bars[i]->blocks[j].y=bars[i]->y+5*bars[i]->h/4+sideBarSpace*j*\
+		((bars[i+1]->y-(bars[i]->y+bars[i]->h))/sideBarSpace)/divs;
+		bars[i]->blocks[j].h=bars[i]->blocks[j].orig.height*((bars[i+1]->y-(bars[i]->y+bars[i]->h))/sideBarSpace);
 	}
 }
 
@@ -236,31 +398,22 @@ void sbGroup::setup(ofXML & xml,bGroup * destin)
 	ofTag & tag=xml.getCurrentTag();
 	for (unsigned int i=0; i<tag.size(); i++) {
 		if (tag[i].getLabel()=="bar") {
-			ofColor color=ofColor(strtol(tag[i].getAttribute("color").c_str(),NULL,0));
-      //printf("color %i, %i, %i", int(color.r), int(color.g), int(color.b));
-			unsigned int curBar=bars.size();
-			bars.push_back( sideBar(tag[i].getAttribute("name"),color));
-			for (unsigned int j=0; j<tag[i].size(); j++) {
-				if (tag[i][j].getLabel()=="block") {
-					bars.back().blocks.push_back(block());
-					bars.back().blocks.back().setup(tag[i][j],color);
-					bars.back().w=max(bars.back().w,bars.back().blocks.back().fullWidth());
-					w=max(bars.back().w,w);
-				}
-			}
+      if(tag[i].getAttribute("type")=="default"||tag[i].getAttribute("type")=="") bars.push_back(new sideBar(tag[i]));
+      else if(tag[i].getAttribute("type")=="dynamic") bars.push_back(new dynamicSB(tag[i]));
+			w=max(bars.back()->w,w);
 		}
 	}
-	bars.push_back( sideBar("Filler",ofColor(0,0,0)));
+	bars.push_back(new sideBar("Filler",ofColor(0,0,0)));
 	if (bars.size()) {
-		y=bars[0].y;
+		y=bars[0]->y;
 		x=0;
-    barHeight=bars[0].h;
+    barHeight=bars[0]->h;
 	}
   for (unsigned int i=0; i<bars.size(); i++) {
-    bars[i].w=w;
+    bars[i]->w=w;
   }
 	updateHeight();
-	if(bars.size()>=2) bars[0].bOpen=true;
+	if(bars.size()>=2) bars[0]->bOpen=true;
 }
 
 void sbGroup::clear()
@@ -276,7 +429,7 @@ void sbGroup::clear()
  *
  *  Input_________
  *
- *    bGroup Desktop Documents Downloads Java Library Mail Movies Music Pictures Public Sites bin doc example gmon.out include libtool modkit-community-edition-read-only python tmp xstc destin :
+ *    bGroup * destin :
  *
  *  Output________
  *
@@ -309,17 +462,17 @@ void sbGroup::updateHeight(){
 	double maxHeight=0;
 	for (unsigned int i=0; i<bars.size(); i++) {
 		double hgt=20;
-		for (unsigned int j=0; j<bars[i].size(); j++) {
-			hgt+=bars[i][j].h+bars[i][j].newHeightOn()+20;
+		for (unsigned int j=0; j<bars[i]->size(); j++) {
+			hgt+=(*bars[i])[j].h+(*bars[i])[j].newHeightOn()+20;
 		}
 		maxHeight=max(maxHeight,max(hgt,ofGetHeight()/2.));
-		maxWid=max(maxWid,bars[i].updateSize());
+		maxWid=max(maxWid,bars[i]->updateSize());
 	}
 	sideBarSpace=maxHeight;
-	h=sideBarSpace+bars[0].h*(bars.size()-1);
+	if(bars.size()) h=sideBarSpace+bars[0]->h*(bars.size()-1);
 	w=max(w,maxWid);
 	for (unsigned int i=0; i<bars.size(); i++) {
-		bars[i].w=maxWid;
+		bars[i]->w=maxWid;
 	}
 }
 
@@ -342,8 +495,8 @@ void sbGroup::updateHeight(){
 void sbGroup::update()
 {
 	for (unsigned int i=0; i<bars.size(); i++) {
-		for (unsigned int j=0; j<bars[i].size(); j++) {
-			if(bars[i][j].newUpdateHeight())
+		for (unsigned int j=0; j<bars[i]->size(); j++) {
+			if((*bars[i])[j].newUpdateHeight())
 				updateHeight();
 		}
 	}
@@ -418,7 +571,7 @@ void sbGroup::draw(){
 	//ofSetColor(0x80633B);
   int binWidth=w;
   for (unsigned int i=0; i<bars.size()-1; i++) {
-    if(bars[i].bOpen) ofSetColor((bars[i].color*.5).opacity(.25));
+    if(bars[i]->bOpen) ofSetColor((bars[i]->color*.5).opacity(.25));
   }
   
 	//ofSetColor((white*.2).opacity(.7));
@@ -426,14 +579,15 @@ void sbGroup::draw(){
 	
 	int pos=0;
 	for (unsigned int i=0; i<bars.size()-1; i++) {
-		bars[i].draw(x,pos+y);
-    if(bars[i].bOpen){
+		bars[i]->draw(x,pos+y);
+
+    if(bars[i]->bOpen){
       
     }
-		pos+=bars[i].h;
-		if(bars[i].bOpen) pos+=sideBarSpace;
+		pos+=bars[i]->h;
+		if(bars[i]->bOpen) pos+=sideBarSpace;
 	}
-	bars.back().y=y+h;
+	bars.back()->y=y+h;
 }
 
 /*****************************************************************
@@ -456,16 +610,31 @@ void sbGroup::draw(){
 bool sbGroup::clickDown(double _x, double _y){
 	bool ret=false;
 	for (unsigned int i=0; i<bars.size()-1; i++) {
-		if(bars[i].over(_x,_y)){ 
+		if(bars[i]->over(_x,_y)){ 
 			for (unsigned int j=0; j<bars.size()-1; j++) {
 				if (j!=i) {
-					bars[j].bOpen=false;
+					bars[j]->bOpen=false;
 				}
 			}
-			ret=bars[i].bOpen=true;
+			ret=bars[i]->bOpen=true;
 		}
-		for (unsigned int j=0; j<bars[i].blocks.size(); j++) {
-			if(dest&&bars[i].bOpen) dest->addFromSB(bars[i].blocks[j],_x,_y);
+    if(bars[i]->type==DYNAMIC_BAR){
+      dynamicSB & dsb= *as_dynamic(bars[i]);
+      string lbl=dsb.set()[0].label;
+      if(dsb.clickDown(_x,_y)){
+        if(dsb.set()[0].label!=lbl){
+          dest->clearBlocksByLabel(lbl);
+        }
+        ret=true;
+      }
+    }
+		for (unsigned int j=0; j<bars[i]->size(); j++) {
+			if(dest&&bars[i]->bOpen&&!ret){
+        if((*bars[i])[j].over(_x,_y)||(*bars[i])[j].onBlockOn(_x, _y)){
+          ret=true;
+          dest->addFromSB((*bars[i])[j],_x,_y);
+        }
+      }
 		}
 	}
 	return ret;

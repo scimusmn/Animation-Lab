@@ -80,6 +80,9 @@ void configuration::readGeneralConfig(string cfgFile){
       else if(token[0]=="BOARD_DETECT"){
         boardDetect=ofToInt(token[1]);
       }
+      else if(token[0]=="LEVEL_FOLDER"){
+        levelFolders.push_back(token[1]);
+      }
 		}
 	}
 	config.close();

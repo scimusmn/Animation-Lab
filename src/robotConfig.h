@@ -25,6 +25,7 @@ struct configuration {
 	int blockFontSize;
   bool boardDetect;
 	string robotRoot,robotTitle;
+  vector<string> levelFolders;
 
 	string uploadedMessage,connectMessage;
 	void readGeneralConfig(string cfgFile);

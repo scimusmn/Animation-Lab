@@ -151,8 +151,7 @@ int bGroup::totalBlocks()
 }
 
 void bGroup::addFromSB(block t,int _x,int _y){
-	if(t.over(_x,_y)||t.onBlockOn(_x, _y)&&!inHand){
-		int numBlocks=size();
+	if(!inHand){
 		if(totalBlocks()<50){
 			used[t.title]=false;
       held=t;
@@ -164,6 +163,14 @@ void bGroup::addFromSB(block t,int _x,int _y){
 			printf("Remove some blocks, doncha know.");
 		}
 	}
+}
+
+void bGroup::clearBlocksByLabel(string label){
+  base.removeBlocksByLabel(label);
+  for (unsigned int i=0; i<blocks.size(); i++) {
+    blocks[i].removeBlocksByLabel(label);
+    removeFromVector(blocks,label);
+  }
 }
 
 void bGroup::clearAndReset()

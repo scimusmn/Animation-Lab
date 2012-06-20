@@ -8,6 +8,7 @@
  */
 
 #include "blockLoad.h"
+#include "robotConfig.h"
 
 /******************
  * config(string file) 
@@ -129,8 +130,12 @@ void rootGroup::load(string dir)
     vector<string> spl= ofSplitString(DIR.getPath(i), "/");
     vector<string> spl2= ofSplitString(spl.back(), ".");
     if(spl2.size()==1){
-		if(atoi(spl2[0].substr(0,3).c_str()))
-			set.push_back(blockGroup(DIR.getPath(i)));
+		//if(atoi(spl2[0].substr(0,3).c_str()))
+      bool found=0;
+      for (unsigned int j=0; j<cfg().levelFolders.size(); j++) {
+        if(cfg().levelFolders[j]==spl2[0]) found=true;
+      }
+      if(found) cout << spl2[0] << endl,set.push_back(blockGroup(DIR.getPath(i)));
     }
   }
 }

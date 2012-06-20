@@ -10,6 +10,8 @@
 
 #include "../blockGroup/blockGroup.h"
 
+#define as_dynamic(x) static_cast<dynamicSB *>(x)
+
 /*****************************************************************
  * class sideBar: public ofInterObj 
  *
@@ -20,7 +22,7 @@
  *
  *    public: ofFont arialLabel::_ _ 
  *    ofFont arialHeader:: _ _ _ _ _ 
- *    bool bOpen::_ _ _ _ _ _ _ _ _ _ 
+ *    bool bOpen:: _ _ _ _ _ _ _ _ _ 
  *    float r,g,b::_ _ _ _ _ _ _ _ _ 
  *    ofColor color::_ _ _ _ _ _ _ _ 
  *    int xo,yo::_ _ _ _ _ _ _ _ _ _ 
@@ -32,8 +34,13 @@
  *    return blocks[i]:: _ _ _ _ _ _ 
  */
 
-class sideBar: public ofInterObj {
+enum barType {
+  DEFAULT_BAR, DYNAMIC_BAR
+};
+
+class vSideBar : public ofInterObj {
 public:
+  barType type;
 	ofFont arialLabel;
 	ofFont arialHeader;
 	bool bOpen;
@@ -44,10 +51,24 @@ public:
 	string filename;
 	vector<block> blocks;
 	double space;
+  vSideBar():ofInterObj(){
+  }
+  virtual int size()=0;
+	
+	virtual block & operator[](int i)=0;
+	
+	virtual double updateSize()=0;	
+	virtual void draw(int _x, int _y)=0;
+};
+
+class sideBar: public vSideBar {
+public:
+  
 	//int textNum;
 	sideBar();
 	sideBar(int x,int y,int w,int h,string file,ofColor col);
 	sideBar(string title,ofColor col);
+  sideBar(ofTag & tag);
 	~sideBar();
 	void update(double spc);
 	
@@ -59,11 +80,33 @@ public:
 	
 	void operator=(const sideBar t);
 	
-	void draw();
-	
 	void draw(int _x, int _y);
 	
 	//void draw(double k,double space);
+};
+
+struct deviceBlocks {
+  vector<block> blocks;
+  double w,h;
+  int size(){ return blocks.size();}
+  block & operator[](int i){ return blocks[i];}
+  deviceBlocks(ofTag & tag,ofColor color,string baseLabel);
+};
+
+class dynamicSB : public vSideBar {
+protected:
+  vector<deviceBlocks> devices;
+  dallasDrop select;
+  string dropLabel;
+public:
+  dynamicSB(ofTag & tag);
+  int size();
+  block & operator[](int i);
+  double updateSize();
+  void draw(int _x, int _y);
+  void operator=(const dynamicSB t);
+  bool clickDown(int x, int y);
+  vector<block> & set();
 };
 
 /*****************************************************************
@@ -88,7 +131,7 @@ class sbGroup : public ofInterObj {
   double barHeight;
 public:
   ofRectangle area;
-	vector<sideBar> bars;
+	vector<vSideBar *> bars;
 	void updateBlocks(int i);
 	
   sbGroup(){}
@@ -104,7 +147,7 @@ public:
 	
 	int size(){ return bars.size();}
 	
-	sideBar & operator[](int i){ return bars[i];}
+	vSideBar * operator[](int i){ return bars[i];}
 	
 	void setDest(bGroup * destin);
 	

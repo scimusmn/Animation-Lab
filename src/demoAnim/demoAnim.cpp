@@ -178,8 +178,8 @@ ofInterObj * demoAnim::searchForObject(ofTag & tag, int & _x, int & _y)
   string yTemp=tag.getAttribute("y");
   vector<string> whSplit = ofSplitString(where, "[]");
   if(whSplit[0]=="sidebar"){
-    if(whSplit.size()==2) ret=&((*sideBar)[ofToInt(whSplit[1])]);
-    if(whSplit.size()==3) ret=&((*sideBar)[ofToInt(whSplit[1])][ofToInt(whSplit[2])]);
+    if(whSplit.size()==2) ret=((*sideBar)[ofToInt(whSplit[1])]);
+    if(whSplit.size()==3) ret=&((*(*sideBar)[ofToInt(whSplit[1])])[ofToInt(whSplit[2])]);
   }
   else if(whSplit[0]=="base"){
     if(whSplit.size()==1) ret=&(blocks->base);
