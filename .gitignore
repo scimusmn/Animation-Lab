@@ -97,7 +97,9 @@ DocProject/Help/html
 publish
 
 # Others
-[Bb]in
+[Bb]in/A*
+[Bb]in/*.app
+#
 [Oo]bj
 sql
 TestResults
