@@ -17,7 +17,7 @@ void testApp::setup(){
 	cfg().setup();
   
 	//--------- Load font for drawing on screen
-  topTitle.loadFont("fonts/DinC.ttf", 35);
+  topTitle.loadFont("fonts/DinC.ttf", 5);
   
 	ofHideCursor();
   

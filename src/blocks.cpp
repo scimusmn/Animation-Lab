@@ -156,6 +156,15 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
 	//********* This is the method by which all of the blocks are first generated from the xml files in the data root.
 	//-------- TODO: get rid of the garbage with the color triples. blech.
 	//-------- load the font for the arialHeader, at 10 pt.
+  
+  string src=cur.getAttribute("source");
+  
+  if(src.length()){
+    ofXML xml;
+    xml.loadFile(cfg().robotRoot+"/xmlSources/"+src);
+    xml.setCurrentTag(";");
+    cur=xml.getCurrentTag();
+  }
 	
 	origTag=cur;
   

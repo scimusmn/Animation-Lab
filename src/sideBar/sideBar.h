@@ -109,6 +109,7 @@ public:
   void operator=(const dynamicSB t);
   bool clickDown(int x, int y);
   vector<block> & set();
+  friend class sbGroup;
 };
 
 /*****************************************************************

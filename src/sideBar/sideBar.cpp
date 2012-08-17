@@ -242,6 +242,22 @@ deviceBlocks::deviceBlocks(ofTag & tag, ofColor color,string baseLabel)
 
 dynamicSB::dynamicSB(ofTag & tag):vSideBar()
 {
+  string oldLabel=tag.getAttribute("label");
+  filename=tag.getAttribute("name");
+  string colorString=tag.getAttribute("color");
+  color.set(strtol(colorString.c_str(),NULL,0));
+  
+  string src=tag.getAttribute("source");
+  if(src.length()){
+    ofXML k;
+    k.loadFile(cfg().robotRoot+"/xmlSources/"+src);
+    k.setCurrentTag(";");
+    tag=k.getCurrentTag();
+    tag.addAttribute("label", oldLabel);
+    tag.addAttribute("name", filename);
+    tag.addAttribute("color", colorString);
+  }
+  
   pad=10;
   type=DYNAMIC_BAR;
   arialHeader.loadFont("fonts/HelveticaBold.otf");
@@ -250,8 +266,6 @@ dynamicSB::dynamicSB(ofTag & tag):vSideBar()
 	bOver=bPressed=false;
 	bOpen = false;
   h=arialHeader.stringHeight("Kjhg")*1.3;
-  color.set(strtol(tag.getAttribute("color").c_str(),NULL,0));
-  filename=tag.getAttribute("name");
   w=0;
   select.dallasStyle();
   select.arial.setSize(16);
@@ -402,10 +416,15 @@ void sbGroup::setup(ofXML & xml,bGroup * destin)
   xml.setCurrentTag(";blocks");
 	string font=xml.getCurrentTag().getAttribute("font");
 	ofTag & tag=xml.getCurrentTag();
+  int numDyn=0;
 	for (unsigned int i=0; i<tag.size(); i++) {
 		if (tag[i].getLabel()=="bar") {
       if(tag[i].getAttribute("type")=="default"||tag[i].getAttribute("type")=="") bars.push_back(new sideBar(tag[i]));
-      else if(tag[i].getAttribute("type")=="dynamic") bars.push_back(new dynamicSB(tag[i]));
+      else if(tag[i].getAttribute("type")=="dynamic"){
+        bars.push_back(new dynamicSB(tag[i]));
+        as_dynamic(bars.back())->select.setSelected(numDyn);
+        numDyn++;
+      }
 			w=max(bars.back()->w,w);
 		}
 	}

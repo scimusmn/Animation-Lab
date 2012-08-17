@@ -239,11 +239,6 @@
 		AA5686741590BC4B007AA4C4 /* forever.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = forever.blk; sourceTree = "<group>"; };
 		AA5686751590BC4B007AA4C4 /* forSeconds.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = forSeconds.blk; sourceTree = "<group>"; };
 		AA5686761590BC4B007AA4C4 /* repeat.blk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = repeat.blk; sourceTree = "<group>"; };
-		AA5686781590BC4B007AA4C4 /* blink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blink.h; sourceTree = "<group>"; };
-		AA5686791590BC4B007AA4C4 /* fetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fetController.h; sourceTree = "<group>"; };
-		AA56867A1590BC4B007AA4C4 /* snailBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snailBody.h; sourceTree = "<group>"; };
-		AA56867B1590BC4B007AA4C4 /* snailEye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snailEye.h; sourceTree = "<group>"; };
-		AA56867C1590BC4B007AA4C4 /* snailTail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snailTail.h; sourceTree = "<group>"; };
 		AA5687F315910FE8007AA4C4 /* LED.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LED.xml; sourceTree = "<group>"; };
 		AA568891159121CC007AA4C4 /* Servo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Servo.xml; sourceTree = "<group>"; };
 		AA56889215912201007AA4C4 /* Button.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Button.xml; sourceTree = "<group>"; };
@@ -348,6 +343,12 @@
 		AA9C32611338E09B00CB0F81 /* ofxSystemCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSystemCall.h; sourceTree = "<group>"; };
 		AA9C32621338E09B00CB0F81 /* ofxThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxThread.cpp; sourceTree = "<group>"; };
 		AA9C32631338E09B00CB0F81 /* ofxThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThread.h; sourceTree = "<group>"; };
+		AAB1A7231594D170002184DB /* wait.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = wait.xml; sourceTree = "<group>"; };
+		AAB1A72A1594D2E3002184DB /* forever.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = forever.xml; sourceTree = "<group>"; };
+		AAB1A72B1594D342002184DB /* repeat.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = repeat.xml; sourceTree = "<group>"; };
+		AAB1A72C1594D41D002184DB /* for.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = for.xml; sourceTree = "<group>"; };
+		AAB1A73015989B90002184DB /* basic.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = basic.xml; sourceTree = "<group>"; };
+		AAB1A73715989EB4002184DB /* advanced.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = advanced.xml; sourceTree = "<group>"; };
 		AAB4E7041460744600276A4D /* blockGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = blockGroup.h; path = blockGroup/blockGroup.h; sourceTree = "<group>"; };
 		AAB4E7051460744600276A4D /* group_SetupFuncs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = group_SetupFuncs.cpp; path = blockGroup/group_SetupFuncs.cpp; sourceTree = "<group>"; };
 		AAB4E70D146076A400276A4D /* group_MouseFuncts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = group_MouseFuncts.cpp; path = blockGroup/group_MouseFuncts.cpp; sourceTree = "<group>"; };
@@ -850,11 +851,6 @@
 		AA5686771590BC4B007AA4C4 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				AA5686781590BC4B007AA4C4 /* blink.h */,
-				AA5686791590BC4B007AA4C4 /* fetController.h */,
-				AA56867A1590BC4B007AA4C4 /* snailBody.h */,
-				AA56867B1590BC4B007AA4C4 /* snailEye.h */,
-				AA56867C1590BC4B007AA4C4 /* snailTail.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -862,6 +858,8 @@
 		AA5687F115910FE8007AA4C4 /* xmlSources */ = {
 			isa = PBXGroup;
 			children = (
+				AAB1A72F15989B85002184DB /* bars */,
+				AAB1A7221594D160002184DB /* blocks */,
 				AA5687F215910FE8007AA4C4 /* devices */,
 			);
 			path = xmlSources;
@@ -1375,6 +1373,26 @@
 				AA9C32631338E09B00CB0F81 /* ofxThread.h */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		AAB1A7221594D160002184DB /* blocks */ = {
+			isa = PBXGroup;
+			children = (
+				AAB1A7231594D170002184DB /* wait.xml */,
+				AAB1A72A1594D2E3002184DB /* forever.xml */,
+				AAB1A72B1594D342002184DB /* repeat.xml */,
+				AAB1A72C1594D41D002184DB /* for.xml */,
+			);
+			path = blocks;
+			sourceTree = "<group>";
+		};
+		AAB1A72F15989B85002184DB /* bars */ = {
+			isa = PBXGroup;
+			children = (
+				AAB1A73015989B90002184DB /* basic.xml */,
+				AAB1A73715989EB4002184DB /* advanced.xml */,
+			);
+			path = bars;
 			sourceTree = "<group>";
 		};
 		AAB4E7031460741A00276A4D /* Block Group */ = {
