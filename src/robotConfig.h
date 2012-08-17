@@ -14,6 +14,8 @@ struct configuration {
 	string mcu, baud, programmer,freq,wrapperFile; // compiler vars
 	vector<string> excludedPort;
 	string rootDir,toolDir,addonLib; // directory vars
+	string programDir;
+	bool savePrograms;
 	double timeout;
 	bool verbose;
 	bool test;
@@ -23,11 +25,19 @@ struct configuration {
 	bool drawNewUser;
 	int buttonFontSize;
 	int blockFontSize;
+	bool absoluteSaveDir;
+	int titleBarSize;
+	bool showTitle;
+	bool demoAvailable;
+
+	ofColor controlBarColor;
+	ofColor backgroundColor;
+	ofColor sideBarColor;
   bool boardDetect;
 	string robotRoot,robotTitle;
   vector<string> levelFolders;
 
-	string uploadedMessage,connectMessage;
+	string uploadedMessage,connectMessage,disconnectMsg,demoMsg,createMsg,editMsg,clearMsg;
 	void readGeneralConfig(string cfgFile);
 	configuration(){
 		drawNewUser=scroll=test=verbose=portraitMode=false;

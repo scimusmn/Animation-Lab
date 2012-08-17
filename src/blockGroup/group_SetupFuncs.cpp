@@ -176,6 +176,7 @@ void bGroup::clearBlocksByLabel(string label){
 void bGroup::clearAndReset()
 {
 	blocks.clear();
+	base.blocksOn.clear();
 	current=0;
 	ddopen=false;
 	inHand=false;

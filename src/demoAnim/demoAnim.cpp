@@ -16,6 +16,8 @@ void demoAnim::setup(bGroup * bG, sbGroup * sbG)
 {
   blocks=bG;
   sideBar=sbG;
+
+  bPrompt=false;
   
   anim.setup(this);
   animStep=0;

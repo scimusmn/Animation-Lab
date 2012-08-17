@@ -15,17 +15,20 @@ bool bCopy=false;
 //--------------------------------------------------------------
 void testApp::setup(){
 	cfg().setup();
-  
+
 	//--------- Load font for drawing on screen
+<<<<<<< HEAD
   topTitle.loadFont("fonts/DinC.ttf", 5);
+=======
+	if(cfg().titleBarSize) topTitle.loadFont("fonts/DinC.ttf", cfg().titleBarSize);
+	else topTitle.h=0;
+>>>>>>> Pushing all of the changes made for EngStudio.
   
 	ofHideCursor();
   
   //mapps.loadImage("maps/map_2.jpg");
   
   controls.setup(&blocks, &sidebar);
-  
-  cout << "hello?\n";
 
   //--------- Initialize the valid working space for the blocks
 	blocks.setup(sidebar.area.width,controls.h+topTitle.h,ofGetWidth()-sidebar.area.width,ofGetHeight()-(controls.h+topTitle.h));
@@ -34,16 +37,15 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
+
 	//blocks.update();
   controls.update();
 }
 
-
 //--------------------------------------------------------------
 void testApp::draw(){
-    
   //--------- Draw background with slightly yellow grid over it.
-  ofBackground(0x33, 0x33, 0x33);
+	ofBackground(cfg().backgroundColor.r,cfg().backgroundColor.g, cfg().backgroundColor.b);
   
   
   ofSetColor(black);
@@ -57,7 +59,7 @@ void testApp::draw(){
   
   controls.draw(0, topTitle.h);
 
-  topTitle.draw(cfg().robotTitle,0,0);
+  if(cfg().showTitle) topTitle.draw(cfg().robotTitle,0,0);
   
   //********************** Draw the blocks which are being held by the mouse ********
   
@@ -69,6 +71,7 @@ void testApp::draw(){
   
   
   controls.drawForeground();
+
 }
 
 //--------------------------------------------------------------

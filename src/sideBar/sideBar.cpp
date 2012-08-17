@@ -38,7 +38,7 @@ extern ofColor white, black, gray, yellow, blue, red, orange;
 
 sideBar::sideBar(int _x,int _y,int w,int h,string file,ofColor col):vSideBar(){
 	arialHeader.loadFont("fonts/HelveticaBold.otf");
-	arialHeader.setSize(20);
+	arialHeader.setSize(cfg().buttonFontSize);
 	bOver=bPressed=false;
 	bOpen = false;
 	xo=_x;
@@ -49,7 +49,7 @@ sideBar::sideBar(int _x,int _y,int w,int h,string file,ofColor col):vSideBar(){
 
 sideBar::sideBar(string title,ofColor col):vSideBar(){
 	arialHeader.loadFont("fonts/HelveticaBold.otf");
-	arialHeader.setSize(20);
+	arialHeader.setSize(cfg().buttonFontSize);
 	bOver=bPressed=false;
 	bOpen = false;
 	color=col.opacity(1);
@@ -61,7 +61,7 @@ sideBar::sideBar(ofTag & tag):vSideBar()
 {
   type=DEFAULT_BAR;
   arialHeader.loadFont("fonts/HelveticaBold.otf");
-	arialHeader.setSize(20);
+	arialHeader.setSize(cfg().buttonFontSize);
 	bOver=bPressed=false;
 	bOpen = false;
   h=arialHeader.stringHeight("Kjhg")*1.3;
@@ -94,7 +94,7 @@ sideBar::sideBar(ofTag & tag):vSideBar()
 
 sideBar::sideBar():vSideBar(){
 	arialHeader.loadFont(defaultFont);
-	arialHeader.setSize(20);
+	arialHeader.setSize(cfg().buttonFontSize);
 	bOver=bPressed=false;
 	bOpen = false;
 }
@@ -224,8 +224,10 @@ deviceBlocks::deviceBlocks(ofTag & tag, ofColor color,string baseLabel)
   w=h=0;
   string secondLabel=tag.getAttribute("label");
   string src=tag.getAttribute("source");
+  cout << src << endl;
   if(src.length()){
     ofXML k;
+	cout << cfg().robotRoot+"/xmlSources/"+src << endl;
     k.loadFile(cfg().robotRoot+"/xmlSources/"+src);
     k.setCurrentTag(";");
     tag=k.getCurrentTag();
@@ -261,14 +263,14 @@ dynamicSB::dynamicSB(ofTag & tag):vSideBar()
   pad=10;
   type=DYNAMIC_BAR;
   arialHeader.loadFont("fonts/HelveticaBold.otf");
-	arialHeader.setSize(20);
+  arialHeader.setSize(cfg().buttonFontSize);
   arialHeader.setMode(OF_FONT_MID);
 	bOver=bPressed=false;
 	bOpen = false;
   h=arialHeader.stringHeight("Kjhg")*1.3;
   w=0;
   select.dallasStyle();
-  select.arial.setSize(16);
+  select.arial.setSize(cfg().buttonFontSize-4);
   select.setMode(false);
   for (unsigned int j=0; j<tag.size(); j++) {
     if(tag[j].getLabel()=="dropdown"){
@@ -279,10 +281,10 @@ dynamicSB::dynamicSB(ofTag & tag):vSideBar()
       w=max(w,devices.back().w+pad*4);
     }
   }
-  arialHeader.setSize(16);
+  arialHeader.setSize(cfg().buttonFontSize-4);
   arialHeader.setMode(OF_FONT_MID);
   dropOffset=arialHeader.stringWidth(filename+" is a(n)");
-  arialHeader.setSize(20);
+  arialHeader.setSize(cfg().buttonFontSize);
   
   w=max(w,dropOffset+select.w+pad*3);
 }
@@ -319,10 +321,10 @@ void dynamicSB::draw(int _x, int _y)
     drawHatching(k.x,k.y,k.width,k.height, 1, 15);
     drawBorder(k);
     ofSetColor(yellow);
-    arialHeader.setSize(16);
+    arialHeader.setSize(cfg().buttonFontSize-4);
     arialHeader.setMode(OF_FONT_MID);
     arialHeader.drawString(filename+" is a(n)",x+pad,y+h+(select.h+pad*2)/2);
-    arialHeader.setSize(20);
+    arialHeader.setSize(cfg().buttonFontSize);
   }
 	
   ofSetColor(gray);
@@ -335,7 +337,7 @@ void dynamicSB::draw(int _x, int _y)
   trimmedRect(x,y,w,h);
   ofFill();
   ofSetColor(white);
-	arialHeader.drawString(filename+" - "+select.getString(),x+w/8+10,y+h/2);
+	arialHeader.drawString(filename+" - Choose device",x+w/8+10,y+h/2);
 	if(bOpen){
 		int temp=y+h+select.h+pad*3;
 		for (unsigned int j=0; j<set().size(); j++) {
@@ -419,13 +421,19 @@ void sbGroup::setup(ofXML & xml,bGroup * destin)
   int numDyn=0;
 	for (unsigned int i=0; i<tag.size(); i++) {
 		if (tag[i].getLabel()=="bar") {
+<<<<<<< HEAD
       if(tag[i].getAttribute("type")=="default"||tag[i].getAttribute("type")=="") bars.push_back(new sideBar(tag[i]));
       else if(tag[i].getAttribute("type")=="dynamic"){
         bars.push_back(new dynamicSB(tag[i]));
         as_dynamic(bars.back())->select.setSelected(numDyn);
         numDyn++;
       }
+=======
+			if(tag[i].getAttribute("type")=="default"||tag[i].getAttribute("type")=="") bars.push_back(new sideBar(tag[i]));
+			else if(tag[i].getAttribute("type")=="dynamic") bars.push_back(new dynamicSB(tag[i]));
+>>>>>>> Pushing all of the changes made for EngStudio.
 			w=max(bars.back()->w,w);
+			cout << tag[i].getAttribute("name") << endl;
 		}
 	}
 	bars.push_back(new sideBar("Filler",ofColor(0,0,0)));
@@ -554,7 +562,7 @@ void sbGroup::draw(int _x, int _y)
   
   y+=30;
   
-  ofSetColor(gray*1.1);
+  ofSetColor(cfg().sideBarColor);
   ofRect(area);
   
   ofSetColor(black.opacity(.2));

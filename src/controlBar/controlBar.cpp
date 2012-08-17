@@ -154,11 +154,11 @@ void controlBar::setup(bGroup * bG, sbGroup * sbG)
   
   report().setup();
   
-  clearBut.setup("Clear blocks", cfg().buttonFontSize);
+  clearBut.setup(cfg().clearMsg, cfg().buttonFontSize);
 
   redoBut.setup(64, OF_VERT, "images/redo.png","images/redo_active.png");
 	undoBut.setup(64, OF_VERT, "images/undo.png","images/undo_active.png");
-  demo.setup("View Demo", cfg().buttonFontSize);
+	demo.setup(cfg().demoMsg, cfg().buttonFontSize);
   skipBut.setup(300, 100, "images/skipBut.png");
 
   anim.setup(blocks, sideBar);
@@ -171,8 +171,9 @@ void controlBar::setup(bGroup * bG, sbGroup * sbG)
   subBar.width=ofGetWidth();
   
   //ROOT_DIR=config("robots/config.cfg");
-  
+
   sets.load(cfg().robotRoot);
+
   loadBlocks(sets[0]);
 
   
@@ -188,8 +189,8 @@ void controlBar::setup(bGroup * bG, sbGroup * sbG)
   loadBlocks(sets[0]);
   setAvailableButtons();
   
-  create.setup("Create new program", 35);
-  edit.setup("Edit existing program",35);
+  create.setup(cfg().createMsg, 35);
+  edit.setup(cfg().editMsg,35);
   
   int maxW=max(create.w,edit.w);
   
@@ -203,6 +204,7 @@ void controlBar::loadBlocks(blockGroup & bg){
   if(bg.nLoaded>=3){
     
     //--------- load the new blocks with the blockGroup data
+	  cout << bg.title << endl;
 	cfg().robotTitle=bg.title;
     sideBar->clear();
     sideBar->setup(bg.blockXML,blocks);
@@ -221,11 +223,11 @@ void controlBar::draw(int _x, int _y)
   //_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_
   //_-_-_-_-_//_-_-_-_-_//buttonbar//_-_-_-_-_//_-_-_-_-_
   
-  ofSetColor(black);
+  ofSetColor(cfg().controlBarColor);
   ofRect(buttonBar);
   
-  ofSetColor(gray);
-  drawHatching(buttonBar.x, buttonBar.y, buttonBar.width, buttonBar.height, 85,80);
+  ofSetColor(gray.opacity(.5));
+  drawHatching(buttonBar.x, buttonBar.y, buttonBar.width, buttonBar.height, 50,50);
   
   for (unsigned int i=0; i<sets.size(); i++) sets(i).w=sets(i).h=72;
   bHldr[0].draw(buttonBar.x,buttonBar.y);
@@ -269,6 +271,9 @@ void controlBar::draw(int _x, int _y)
     
     test().draw(0,cBar.y+cBar.height,ofGetHeight()-(cBar.y+cBar.height),ofGetHeight()-(cBar.y+cBar.height));
     blocks->base.draw(ofGetHeight(), y);
+	cfg().test=false;
+	blocks->base.drawButtonArea(ofGetHeight(),y);
+	cfg().test=true;
     test().drawCurrentBlock();
     
     test().drawControlBar(x, y);
@@ -288,6 +293,13 @@ void controlBar::drawForeground(){
   }
   else if(serChk.drawForeground());
   else if(upload.drawForeground());
+  else if(cfg().savePrograms&&bPluginChoice){
+	  ofSetColor(black.opacity(.9));
+	  ofRect(0,0,ofGetWidth(),ofGetHeight());
+	  drawStyledBox(create.x-50, create.y-50, create.w+100, (edit.y-create.y)+edit.h+100);
+	  create.draw((ofGetWidth()-create.w)/2,(ofGetHeight()-create.h*2)/2-50);
+	  edit.draw((ofGetWidth()-edit.w)/2,(ofGetHeight()+edit.h*2)/2+50);
+  }
   else if(bChooseLevel){
     //ofSetColor(0, 0, 0,192);
     //ofRect(0, y, ofGetWidth(), ofGetHeight());
@@ -325,8 +337,8 @@ void controlBar::update()
   
   if(serChk.justLostDevice()){
     if(!bPluginChoice){
-      if(blocks->changedSinceSave()) report().post("Program changes not uploaded;\nReconnect robot to upload.",3);
-      blocks->saveXML("programs/"+serChk.deviceNumber()+".xml");
+      if(blocks->changedSinceSave()) report().post(cfg().disconnectMsg,3);
+	  blocks->saveXML(cfg().programDir+serChk.deviceNumber()+".xml");
       blocks->clearAndReset();
       if (cfg().test&&test().isTesting()) {
         test().stopTesting();
@@ -335,11 +347,15 @@ void controlBar::update()
     }
   }
   if(serChk.justFoundDevice()){
-    //bPluginChoice=true;
-    bChooseLevel=true;
+	if(cfg().savePrograms) bPluginChoice=true;
+    else bChooseLevel=true;
   }
   
-  if(timeOut.justExpired()) bChooseLevel=true,blocks->clearAndReset(),anim.clearPrompt();
+  if(timeOut.justExpired()){
+	if(cfg().savePrograms) bPluginChoice=true;
+	else bChooseLevel=true;
+	blocks->clearAndReset(),anim.clearPrompt();
+  }
  
   upload.update();
   if(cfg().test&&test().turtleIsRunning()){
@@ -378,7 +394,9 @@ bool controlBar::clickDown(int _x, int _y, int button)
     }
 
 	if(cfg().newUser.clickDown(_x,_y)){
-		bChooseLevel=true,blocks->clearAndReset(),anim.clearPrompt();
+		if(cfg().savePrograms) bPluginChoice=true;
+		else bChooseLevel=true;
+		blocks->clearAndReset(),anim.clearPrompt();
 	}
     
     if(cfg().test) test().clickDown(_x, _y);
@@ -409,22 +427,49 @@ bool controlBar::clickDown(int _x, int _y, int button)
       if(bChooseLevel){
         bChooseLevel=false;
         //anim.play();
-        anim.startPrompt();
+        if(cfg().demoAvailable) anim.startPrompt();
       }
-      anim.startPrompt();
+      if(cfg().demoAvailable) anim.startPrompt();
       if(sets.getSelected())
         loadBlocks((*sets.getSelected()));
     }
   }
 
-  if(!mouseLockout(button)&&upload.clickDown(_x, _y)){
-    blocks->saveXML("programs/"+serChk.deviceNumber()+".xml");
+  if((!mouseLockout(button)||(mouseLockout(button)&&test().isTesting()))&&upload.clickDown(_x, _y)){
+	  cout << "saving " << cfg().programDir+serChk.deviceNumber()+".xml" << endl;
+    blocks->saveXML(cfg().programDir+serChk.deviceNumber()+".xml");
 	if(cfg().test){
 		test().resetTurtle();
 		test().stopTesting();
 	}
 	ret=true;
   }
+
+  if(cfg().savePrograms&&bPluginChoice){
+	  if(create.clickDown(_x,_y)){
+		  bPluginChoice=false;
+		  bChooseLevel=true;
+		  blocks->clearAndReset();
+		  blocks->recordState();
+		  ret=true;
+	  }
+	  if(edit.clickDown(_x,_y)){
+		  bPluginChoice=false;
+		  sysCall.run("dir \""+cfg().programDir+"\"");
+		  while(sysCall.isRunning());
+		  anim.clearPrompt();
+		  for(unsigned int i=0; i<sysCall.outputLines(); i++){
+			  vector<string>spl=ofSplitString(sysCall[i]," ");
+			  if(spl.size()>=5){
+				  if(spl[4]==serChk.deviceNumber()+".xml")
+					  blocks->loadFile(cfg().programDir+serChk.deviceNumber()+".xml");
+			  }
+		  }
+		  
+		  bChooseLevel=false;
+	  }
+  }
+
   return ret;
 }
 

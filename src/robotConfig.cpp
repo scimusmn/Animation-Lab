@@ -45,7 +45,7 @@ void configuration::readGeneralConfig(string cfgFile){
 			}
 			else if(token[0]=="ROBOT"){
 				cout << token[1] << endl;
-				robotRoot="robots/"+token[1];
+				robotRoot=ofToDataPath("robots/"+token[1]);
 			}
 			else if(token[0]=="TEST_AVAILABLE"){
 				test=ofToInt(token[1]);
@@ -55,12 +55,15 @@ void configuration::readGeneralConfig(string cfgFile){
 			}
 			else if(token[0]=="PORTRAIT_MODE"){
 				portraitMode=ofToInt(token[1]);
-				ofSetWindowShape(ofGetScreenWidth(),ofGetScreenHeight());
+				//ofSetWindowShape(ofGetScreenWidth(),ofGetScreenHeight());
 			}
-			else if(token[0]=="DRAW_NEW_USER_BUTTON"){
-				drawNewUser=ofToInt(token[1]);
-				//newUser.setTextSize(ofToInt(token[1]));
-				newUser.setup("New user?",23);
+			else if(token[0]=="NEW_USER_BUTTON"){
+				if(token[1].length()>1){
+					drawNewUser=true;
+					//newUser.setTextSize(ofToInt(token[1]));
+					newUser.setup(token[1],buttonFontSize);
+				}
+				else drawNewUser=false;
 			}
 			else if(token[0]=="WRAPPER"){
 				wrapperFile=token[1];
@@ -77,12 +80,59 @@ void configuration::readGeneralConfig(string cfgFile){
 			else if(token[0]=="CONNECT_MESSAGE"){
 				connectMessage=token[1];
 			}
-      else if(token[0]=="BOARD_DETECT"){
-        boardDetect=ofToInt(token[1]);
-      }
-      else if(token[0]=="LEVEL_FOLDER"){
-        levelFolders.push_back(token[1]);
-      }
+			else if(token[0]=="DISCONNECT_MESSAGE"){
+				disconnectMsg=token[1];
+			}
+			else if(token[0]=="DEMO_MESSAGE"){
+				demoMsg=token[1];
+			}
+			else if(token[0]=="CREATE_MESSAGE"){
+				createMsg=token[1];
+			}
+			else if(token[0]=="EDIT_MESSAGE"){
+				editMsg=token[1];
+			}
+			else if(token[0]=="CLEAR_MESSAGE"){
+				clearMsg=token[1];
+			}
+			else if(token[0]=="BOARD_DETECT"){
+			    boardDetect=ofToInt(token[1]);
+			}
+			else if(token[0]=="LEVEL_FOLDER"){
+		      levelFolders.push_back(token[1]);
+			}
+			else if(token[0]=="ABS_SAVE_DIR"){
+				programDir=token[1];
+				cout<< programDir<<endl;
+			}
+			else if(token[0]=="SAVED_PROGRAM_DIR"){
+				programDir=ofToDataPath(token[1]);
+			}
+			else if(token[0]=="SAVE_PROGRAMS"){
+				savePrograms=ofToInt(token[1]);
+			}
+			else if(token[0]=="FULLSCREEN"){
+				ofSetFullscreen(ofToInt(token[1]));
+			}
+			else if(token[0]=="TITLE_BAR_SIZE"){
+				titleBarSize=ofToInt(token[1]);
+			}
+			else if(token[0]=="DEMO_AVAILABLE"){
+				demoAvailable=ofToInt(token[1]);
+			}
+			else if(token[0]=="CONTROL_BAR_COLOR"){
+				controlBarColor=ofColor(strtol(token[1].c_str(),NULL,0));
+				controlBarColor.a=255;
+				cout << controlBarColor.r << endl;
+			}
+			else if(token[0]=="BG_COLOR"){
+				backgroundColor=ofColor(strtol(token[1].c_str(),NULL,0));
+				backgroundColor.a=255;
+			}
+			else if(token[0]=="SIDE_BAR_COLOR"){
+				sideBarColor=ofColor(strtol(token[1].c_str(),NULL,0));
+				sideBarColor.a=255;
+			}
 		}
 	}
 	config.close();

@@ -88,6 +88,8 @@ protected:
   ofTimer timeOut;
 
   compiler cmplr;
+
+  ofSystemCall sysCall;
 public:
   double x,y,w,h;
   //controlBar();

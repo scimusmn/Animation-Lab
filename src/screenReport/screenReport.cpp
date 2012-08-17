@@ -34,7 +34,7 @@ void screenReport::draw()
 	if(timer.running()){
 		ofSetColor(0, 0, 0,128);
 		ofRect(0, 0, ofGetWidth(), ofGetHeight());
-		vector<string> spl=ofSplitString(repString,"\n");
+		vector<string> spl=ofSplitString(repString,"|");
 		float wid=0;
 		for(unsigned int i=0; i<spl.size(); i++){
 			wid=max(rep.stringWidth(spl[i]),wid);

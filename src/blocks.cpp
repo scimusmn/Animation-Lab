@@ -237,6 +237,7 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
         case 8: // dropdown
           //-- add a new dropdown menu to the block
           ddGroup.push_back(dallasDrop(cur[i]));
+		  ddGroup.back().arial.setSize(cfg().blockFontSize-4);
           break;
         case 9:
           for (unsigned int j=0; j<cur[i].size(); j++) {
