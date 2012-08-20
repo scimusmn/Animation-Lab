@@ -233,7 +233,7 @@ deviceBlocks::deviceBlocks(ofTag & tag, ofColor color,string baseLabel)
   for (unsigned int j=0; j<tag.size(); j++) {
     if (tag[j].getLabel()=="block") {
       blocks.push_back(block(tag[j],color));
-      blocks.back().label=baseLabel+":"+secondLabel;
+	  blocks.back().label=baseLabel+":"+secondLabel+":"+tag[j].getAttribute("label");
       blocks.back().blocksOn.clear();
       w=max(w,blocks.back().fullWidth());
     }

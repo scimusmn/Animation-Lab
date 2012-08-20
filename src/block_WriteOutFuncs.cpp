@@ -210,8 +210,10 @@ bool block::siblingWritten(map<string,bool> * printed)
 	//-------- checks to see if a complement block has been printed
 	bool ret=false;
 	map<string,bool>::iterator it;
-	vector<string> lbl1=(ofSplitString(label,":"));
-	if(lbl1.size()>1){
+	//(ofSplitString(label,":"));
+	if(label.find_last_of(":")!=string::npos){
+		string lbl1=label.substr(0,label.find_last_of(":"));
+		cout << lbl1 << endl;
 		//for (unsigned int i=0; i<sibling.size(); i++) {
 			//cout << sibling[i]+":"+title+":" << endl;
 			/*it=printed->find(sibling[i]);
@@ -221,9 +223,10 @@ bool block::siblingWritten(map<string,bool> * printed)
 		//}
 		map<string, bool>::iterator it;
 		for(it=printed->begin(); it!=printed->end(); it++){
-			size_t pos=it->first.find_first_of(":");
+			size_t pos=it->first.find_last_of(":");
 			if(pos!=string::npos){
-				if(it->first.substr(0,pos)==lbl1[0]){
+				cout << it->first.substr(0,pos) << endl;
+				if(it->first.substr(0,pos)==lbl1){
 					ret=ret||it->second;
 				}
 			}

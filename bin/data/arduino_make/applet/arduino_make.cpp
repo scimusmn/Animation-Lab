@@ -8,18 +8,15 @@ bool thru=false;
 
 void setup(){
 	thru=false;
-	  (port3).mode(SERVO);
-	  (port2).mode(SERVO);
+	(port3).mode(SERVO);
+	(port1).mode(INPUT);
 
 }
 
 void loop(){
-	
-	
 
 	if(!thru){
-			(port3).sWrite(0);
-		(port2).sWrite(45);
+			(port3).sWrite(map((port1).aRead(),0,1024,0,180));
 
 		thru=true;
 	}
