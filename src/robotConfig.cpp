@@ -28,7 +28,7 @@ void configuration::readGeneralConfig(string cfgFile){
 			}
 			else if(token[0]=="EXCLUDE_PORT"){
 				excludedPort.push_back(token[1]);
-				cout << token[1] << " will be excluded"<<endl;
+				if(verbose) cout << "Port " << token[1] << " will not be used to program."<<endl;
 			}
 			else if(token[0]=="INSTALL_DIR"){
 				rootDir=ofToDataPath(token[1]);
@@ -44,7 +44,7 @@ void configuration::readGeneralConfig(string cfgFile){
 				timeout=ofToInt(token[1]);
 			}
 			else if(token[0]=="ROBOT"){
-				cout << token[1] << endl;
+				if(verbose) cout << token[1] << " is the current robot configuration." << endl;
 				robotRoot=ofToDataPath("robots/"+token[1]);
 			}
 			else if(token[0]=="TEST_AVAILABLE"){
@@ -103,7 +103,7 @@ void configuration::readGeneralConfig(string cfgFile){
 			}
 			else if(token[0]=="ABS_SAVE_DIR"){
 				programDir=token[1];
-				cout<< programDir<<endl;
+				if(verbose) cout << "The directory to which programs are saved is " << programDir <<endl;
 			}
 			else if(token[0]=="SAVED_PROGRAM_DIR"){
 				programDir=ofToDataPath(token[1]);
@@ -123,7 +123,6 @@ void configuration::readGeneralConfig(string cfgFile){
 			else if(token[0]=="CONTROL_BAR_COLOR"){
 				controlBarColor=ofColor(strtol(token[1].c_str(),NULL,0));
 				controlBarColor.a=255;
-				cout << controlBarColor.r << endl;
 			}
 			else if(token[0]=="BG_COLOR"){
 				backgroundColor=ofColor(strtol(token[1].c_str(),NULL,0));
@@ -132,6 +131,9 @@ void configuration::readGeneralConfig(string cfgFile){
 			else if(token[0]=="SIDE_BAR_COLOR"){
 				sideBarColor=ofColor(strtol(token[1].c_str(),NULL,0));
 				sideBarColor.a=255;
+			}
+			else if(token[0]=="DEFAULT_COLORS"){
+				defaultColor=ofToInt(token[1]);
 			}
 		}
 	}

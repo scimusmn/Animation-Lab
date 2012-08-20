@@ -1,12 +1,7 @@
 TIMEOUT=180
 VERBOSE=1
-<<<<<<< HEAD
-TEST_AVAILABLE=1
-=======
 
 #Screen mode options 
-
->>>>>>> Pushing all of the changes made for EngStudio.
 SCROLL_SCREEN=1
 FULLSCREEN=1
 PORTRAIT_MODE=0
@@ -40,6 +35,7 @@ BOARD=UNO
 
 #colors
 
+DEFAULT_COLORS=1
 BG_COLOR=0x333333
 SIDE_BAR_COLOR=0x337799
 CONTROL_BAR_COLOR=0x000000

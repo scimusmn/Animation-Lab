@@ -17,12 +17,9 @@ void testApp::setup(){
 	cfg().setup();
 
 	//--------- Load font for drawing on screen
-<<<<<<< HEAD
-  topTitle.loadFont("fonts/DinC.ttf", 5);
-=======
+
 	if(cfg().titleBarSize) topTitle.loadFont("fonts/DinC.ttf", cfg().titleBarSize);
 	else topTitle.h=0;
->>>>>>> Pushing all of the changes made for EngStudio.
   
 	ofHideCursor();
   
@@ -45,7 +42,9 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
   //--------- Draw background with slightly yellow grid over it.
-	ofBackground(cfg().backgroundColor.r,cfg().backgroundColor.g, cfg().backgroundColor.b);
+	if(!cfg().defaultColor)
+		ofBackground(cfg().backgroundColor.r,cfg().backgroundColor.g, cfg().backgroundColor.b);
+	else ofBackground(gray.r,gray.g, gray.b);
   
   
   ofSetColor(black);

@@ -11,33 +11,59 @@
 #include "../../dallasEng/dallasEng.h"
 
 struct configuration {
-	string mcu, baud, programmer,freq,wrapperFile; // compiler vars
-	vector<string> excludedPort;
-	string rootDir,toolDir,addonLib; // directory vars
-	string programDir;
-	bool savePrograms;
+	string 
+		// compiler vars
+		mcu, 
+		baud, 
+		programmer,
+		freq,
+		wrapperFile,
+		//Directory vars
+		rootDir,
+		toolDir,
+		addonLib,
+		programDir,
+		//RobotVars
+		robotRoot,
+		robotTitle,
+		//Messages
+		uploadedMessage,
+		connectMessage,
+		disconnectMsg,
+		demoMsg,
+		createMsg,
+		editMsg,
+		clearMsg;
+	
+	vector<string> 
+		excludedPort,
+		levelFolders;
+
 	double timeout;
-	bool verbose;
-	bool test;
-	bool scroll;
-	bool portraitMode;
 	dallasButton newUser;
-	bool drawNewUser;
-	int buttonFontSize;
-	int blockFontSize;
-	bool absoluteSaveDir;
-	int titleBarSize;
-	bool showTitle;
-	bool demoAvailable;
+	int 
+		buttonFontSize,
+		blockFontSize,
+		titleBarSize;
 
-	ofColor controlBarColor;
-	ofColor backgroundColor;
-	ofColor sideBarColor;
-  bool boardDetect;
-	string robotRoot,robotTitle;
-  vector<string> levelFolders;
+	bool 
+		absoluteSaveDir,
+		defaultColor,
+		showTitle,
+		demoAvailable,
+		boardDetect,
+		drawNewUser,
+		verbose,
+		test,
+		scroll,
+		portraitMode,
+		savePrograms;
 
-	string uploadedMessage,connectMessage,disconnectMsg,demoMsg,createMsg,editMsg,clearMsg;
+	ofColor 
+		controlBarColor,
+		backgroundColor,
+		sideBarColor;
+
 	void readGeneralConfig(string cfgFile);
 	configuration(){
 		drawNewUser=scroll=test=verbose=portraitMode=false;

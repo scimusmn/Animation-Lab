@@ -204,7 +204,7 @@ void controlBar::loadBlocks(blockGroup & bg){
   if(bg.nLoaded>=3){
     
     //--------- load the new blocks with the blockGroup data
-	  cout << bg.title << endl;
+	if(cfg().verbose) cout << "The current title is " << bg.title << endl;
 	cfg().robotTitle=bg.title;
     sideBar->clear();
     sideBar->setup(bg.blockXML,blocks);
@@ -223,7 +223,8 @@ void controlBar::draw(int _x, int _y)
   //_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_
   //_-_-_-_-_//_-_-_-_-_//buttonbar//_-_-_-_-_//_-_-_-_-_
   
-  ofSetColor(cfg().controlBarColor);
+  if(!cfg().defaultColor) ofSetColor(cfg().controlBarColor);
+  else ofSetColor(black);
   ofRect(buttonBar);
   
   ofSetColor(gray.opacity(.5));
@@ -348,12 +349,16 @@ void controlBar::update()
   }
   if(serChk.justFoundDevice()){
 	if(cfg().savePrograms) bPluginChoice=true;
-    else bChooseLevel=true;
+    else {
+		beginLevelChoice();
+	}
   }
   
   if(timeOut.justExpired()){
 	if(cfg().savePrograms) bPluginChoice=true;
-	else bChooseLevel=true;
+	else {
+		beginLevelChoice();
+	}
 	blocks->clearAndReset(),anim.clearPrompt();
   }
  
@@ -361,6 +366,20 @@ void controlBar::update()
   if(cfg().test&&test().turtleIsRunning()){
     test().idleTurtle();
   }
+}
+
+void controlBar::beginLevelChoice(){
+	if(sets.size()>1) bChooseLevel=true;
+	else if(sets.size()>0){
+		if(sets.clickDown(sets[0].choice.x,sets[0].choice.y)&&!anim.isPlaying()){
+			if(bChooseLevel){
+				bChooseLevel=false;
+				if(cfg().demoAvailable) anim.startPrompt();
+			}
+			if(sets.getSelected())
+				loadBlocks((*sets.getSelected()));
+		}
+	}
 }
 
 //_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_

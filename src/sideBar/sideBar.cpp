@@ -224,10 +224,8 @@ deviceBlocks::deviceBlocks(ofTag & tag, ofColor color,string baseLabel)
   w=h=0;
   string secondLabel=tag.getAttribute("label");
   string src=tag.getAttribute("source");
-  cout << src << endl;
   if(src.length()){
     ofXML k;
-	cout << cfg().robotRoot+"/xmlSources/"+src << endl;
     k.loadFile(cfg().robotRoot+"/xmlSources/"+src);
     k.setCurrentTag(";");
     tag=k.getCurrentTag();
@@ -421,19 +419,14 @@ void sbGroup::setup(ofXML & xml,bGroup * destin)
   int numDyn=0;
 	for (unsigned int i=0; i<tag.size(); i++) {
 		if (tag[i].getLabel()=="bar") {
-<<<<<<< HEAD
-      if(tag[i].getAttribute("type")=="default"||tag[i].getAttribute("type")=="") bars.push_back(new sideBar(tag[i]));
-      else if(tag[i].getAttribute("type")=="dynamic"){
-        bars.push_back(new dynamicSB(tag[i]));
-        as_dynamic(bars.back())->select.setSelected(numDyn);
-        numDyn++;
-      }
-=======
 			if(tag[i].getAttribute("type")=="default"||tag[i].getAttribute("type")=="") bars.push_back(new sideBar(tag[i]));
-			else if(tag[i].getAttribute("type")=="dynamic") bars.push_back(new dynamicSB(tag[i]));
->>>>>>> Pushing all of the changes made for EngStudio.
+			else if(tag[i].getAttribute("type")=="dynamic"){
+				bars.push_back(new dynamicSB(tag[i]));
+				as_dynamic(bars.back())->select.setSelected(numDyn);
+				numDyn++;
+			}
+
 			w=max(bars.back()->w,w);
-			cout << tag[i].getAttribute("name") << endl;
 		}
 	}
 	bars.push_back(new sideBar("Filler",ofColor(0,0,0)));
@@ -561,8 +554,8 @@ void sbGroup::draw(int _x, int _y)
   area.width=w;
   
   y+=30;
-  
-  ofSetColor(cfg().sideBarColor);
+  if(cfg().defaultColor)  ofSetColor(gray);
+  else ofSetColor(cfg().sideBarColor);
   ofRect(area);
   
   ofSetColor(black.opacity(.2));

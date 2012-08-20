@@ -93,7 +93,6 @@ void blockGroup::load(string dir)
   //you can now iterate through the files as you like
   for(int i = 0; i < nDir; i++){
     vector<string> spl= ofSplitString(DIR.getPath(i), "/");
-    //cout << spl[spl.size()-1] << endl;
     if(spl.back()=="blocks.xml") blockXML.loadFile(DIR.getPath(i)), nLoaded++;
     else if(spl.back()=="anim.xml") animXML.loadFile(DIR.getPath(i)), nLoaded++;
     else if(spl.back()=="icon_big.png") choice.setup(200,OF_HOR,DIR.getPath(i)), nLoaded++;
@@ -102,7 +101,6 @@ void blockGroup::load(string dir)
   blockXML.setCurrentTag(";blocks");
   title=blockXML.getAttribute("title");
   subtitle=blockXML.getAttribute("subtitle");
-  //cout << blockXML.filename << endl;
 }
 
 /******************
@@ -135,7 +133,10 @@ void rootGroup::load(string dir)
       for (unsigned int j=0; j<cfg().levelFolders.size(); j++) {
         if(cfg().levelFolders[j]==spl2[0]) found=true;
       }
-      if(found) cout << spl2[0] << endl,set.push_back(blockGroup(DIR.getPath(i)));
+      if(found){
+		  if(cfg().verbose) cout << "Programming level " << set.size()+1 << " is " << spl2[0] << endl;
+		  set.push_back(blockGroup(DIR.getPath(i)));
+	  }
     }
   }
 }

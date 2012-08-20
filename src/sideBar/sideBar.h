@@ -132,6 +132,7 @@ class sbGroup : public ofInterObj {
 	bGroup * dest;
 	int sideBarSpace;
   double barHeight;
+  int numDyn;
 public:
   ofRectangle area;
 	vector<vSideBar *> bars;

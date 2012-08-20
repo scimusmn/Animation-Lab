@@ -127,7 +127,8 @@ void serialCheck::checkAvailability()
           bool excluded=false;
           for(unsigned int j=0; j<excludedPorts.size(); j++){
             if(excludedPorts[j]==serial.deviceNameByNumber(i))
-              excluded=true,cout << serial.deviceNameByNumber(i) << " has been excluded\n";
+              excluded=true;
+			  if(cfg().verbose) cout << serial.deviceNameByNumber(i) << " has been excluded\n";
           }
           if((!excluded||excludedPorts.size()==0)&&serial.deviceNameByNumber(i).substr(0,7)=="tty.usb"){
             portNm="/dev/"+serial.deviceNameByNumber(i);
@@ -141,11 +142,12 @@ void serialCheck::checkAvailability()
           bool excluded=false;
           for(unsigned int j=0; j<excludedPorts.size(); j++){
             if(excludedPorts[j]==serial.deviceNameByNumber(i))
-              excluded=true,cout << serial.deviceNameByNumber(i) << " has been excluded\n";
+              excluded=true;
+			  if(cfg().verbose)  cout << serial.deviceNameByNumber(i) << " has been excluded from being a robot.\n";
           }
           if(!excluded||excludedPorts.size()==0){
             portNm=serial.deviceNameByNumber(i);
-            cout << "Robot is on port " << portNm << endl;
+            if(cfg().verbose) cout << "Found a robot on port " << portNm << endl;
             bAvailable=true;
             bJustFound=true;
           }

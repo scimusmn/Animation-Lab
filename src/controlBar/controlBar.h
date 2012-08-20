@@ -100,6 +100,7 @@ public:
   void drawForeground();
   void update();
   void setAvailableButtons();
+  void beginLevelChoice();
   bool clickDown(int x, int y, int button=0);
   bool clickUp();
   bool mouseLockout(int button);
