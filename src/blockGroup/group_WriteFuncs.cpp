@@ -19,7 +19,7 @@ void bGroup::resetUsed(block & t)
 {
 	//-------- resets the log of what blocks have been used in the last print stage
 	used[""]=false;
-	used[t.title]=false;
+	used[t.label]=false;
 	for (unsigned int i=0; i<t.numInside(); i++) {
 		resetUsed(t.blocksIn[i]);
 	}

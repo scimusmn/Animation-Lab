@@ -47,7 +47,7 @@ string defaultFont="fonts/HelveticaBold.otf";
  *
  */
 
-void block::setup(ofTag & cur,ofColor col){
+void block::setup(ofTag & cur,ofColor col){ //old, TODO: remove
 	w=150;
 	//********* This is the method by which all of the blocks are first generated from the xml files in the data root.
 	//-------- TODO: get rid of the garbage with the color triples. blech.
@@ -200,6 +200,7 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
 	map<string,int> list;
 	list["seq"]=0;
 	list["bracket"]=1;
+	list["label"]=2;
 	list["action"]=4;
 	list["file"]=5;
 	list["sibling"]=6;
@@ -219,6 +220,8 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
           w=200;
           titlePos.x=30;
           break;
+		case 2:
+			label=node[1];
         case 5: // file
           //-- definitely not deprecated, used to store value of which file to write from
           filename=node[1];

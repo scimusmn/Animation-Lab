@@ -14,7 +14,7 @@ void resetList(block & t, map<string,bool> & used)
 {
 	//-------- resets the log of what blocks have been used in the last print stage
 	used[""]=false;
-	used[t.title]=false;
+	used[t.label]=false;
 	for (unsigned int i=0; i<t.numInside(); i++) {
 		resetList(t.blocksIn[i],used);
 	}
@@ -32,7 +32,7 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 	//******* and uploading, but it seems to work okay. This function reads a block of code from a file handed from the functions
 	//******* below, parses it to find references to contained blocks or dropdowns, and properly formats it
 	
-	bool printed=printList->find(title)->second;
+	bool printed=printList->find(label)->second;
 	bool siblingP=siblingWritten(printList);
 
 	//if(siblingP) cout << "sibling to " +title+ " has been written\n";
@@ -210,11 +210,23 @@ bool block::siblingWritten(map<string,bool> * printed)
 	//-------- checks to see if a complement block has been printed
 	bool ret=false;
 	map<string,bool>::iterator it;
-	for (unsigned int i=0; i<sibling.size(); i++) {
-		//cout << sibling[i]+":"+title+":" << endl;
-		it=printed->find(sibling[i]);
-		if(it!=printed->end()){
-			ret=ret||it->second;
+	vector<string> lbl1=(ofSplitString(label,":"));
+	if(lbl1.size()>1){
+		//for (unsigned int i=0; i<sibling.size(); i++) {
+			//cout << sibling[i]+":"+title+":" << endl;
+			/*it=printed->find(sibling[i]);
+			if(it!=printed->end()){
+				ret=ret||it->second;
+			}*/
+		//}
+		map<string, bool>::iterator it;
+		for(it=printed->begin(); it!=printed->end(); it++){
+			size_t pos=it->first.find_first_of(":");
+			if(pos!=string::npos){
+				if(it->first.substr(0,pos)==lbl1[0]){
+					ret=ret||it->second;
+				}
+			}
 		}
 	}
 	//-------- checks to see if the block itself has been printed
@@ -263,7 +275,7 @@ void block::printData(string sblng,ofstream* k,int t,map<string,bool> * printed,
 			//-------- printout the code for the start routines
 			printOut(k,&f,t,printed);
 			//-------- set the printed flag for the block and close the input
-			(*printed)[title]=true;
+			(*printed)[label]=true;
 			f.close();
 			
 			//-------- print the start routines for the blocks on and in
