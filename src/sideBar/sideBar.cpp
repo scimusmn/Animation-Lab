@@ -14,6 +14,30 @@ extern string defaultFont;
 
 extern ofColor white, black, gray, yellow, blue, red, orange;
 
+void vSideBar::drawButton(int _x, int _y, int _w, int _h, int fontSize)
+{
+	button.cSetup(_x,_y,_w,_h);
+	ofFontMode oldH=arialHeader.getHorMode();
+	ofFontMode oldV=arialHeader.getVertMode();
+	arialHeader.setSize(fontSize);
+	arialHeader.setMode(OF_FONT_CENTER);
+	arialHeader.setMode(OF_FONT_TOP);
+	ofSetColor(color-(!bOpen?0:.2*255));
+	ofRoundedRect(_x,_y,_w,_h,_h/2);
+	if(bOpen) ofSetColor(yellow);
+	else ofSetColor(gray);
+	ofNoFill();
+	ofSetLineWidth(2);
+	ofRoundedRect(_x,_y,_w,_h,_h/2);
+	ofSetLineWidth(1);
+	ofFill();
+	ofSetColor(white);
+	arialHeader.drawString(filename,_x+_w/2,_y+(_h-arialHeader.stringHeight(filename))/2);
+	arialHeader.setMode(oldH);
+	arialHeader.setMode(oldV);
+	arialHeader.setSize(cfg().buttonFontSize);
+}
+
 /****************************** Sidebar *******************************
  **********************************************************************/
 
@@ -163,27 +187,28 @@ void sideBar::operator=(const sideBar t) {
 
 void sideBar::draw(int _x, int _y){
 	x=_x, y=_y;
-	
-  ofSetColor(gray);
-  trimmedRect(x, y, w, h);
-  ofSetColor(color);
-	if(!bOpen) trimmedRect(x,y,w/8,h);
-	else trimmedRect(x,y,w,h);
-	ofSetColor(yellow);
-  ofNoFill();
-  trimmedRect(x,y,w,h);
-  ofFill();
-  ofSetColor(white);
-	arialHeader.drawString(filename,x+w/8+10,y+3*h/4);
-  int pad=20;
+	if(!cfg().buttonsOnSidebar){
+		ofSetColor(gray);
+		trimmedRect(x, y, w, h);
+		ofSetColor(color);
+		if(!bOpen) trimmedRect(x,y,w/8,h);
+		else trimmedRect(x,y,w,h);
+		ofSetColor(yellow);
+		ofNoFill();
+		trimmedRect(x,y,w,h);
+		ofFill();
+		ofSetColor(white);
+		arialHeader.drawString(filename,x+w/8+10,y+3*h/4);
+	}
+	int pad=20;
 	if(bOpen){
-		int temp=y+h+pad;
+		int temp=y+(!cfg().buttonsOnSidebar?h:0)+pad;
 		for (unsigned int j=0; j<blocks.size(); j++) {
 			blocks[j].draw(x+pad,temp);
-      if(j<blocks.size()-1){
-        ofSetColor(black.opacity(.5));
-        ofRect(x, temp+blocks[j].h+blocks[j].newHeightOn()+pad/2, w, 1);
-      }
+			if(j<blocks.size()-1){
+				ofSetColor(black.opacity(.5));
+				ofRect(x, temp+blocks[j].h+blocks[j].newHeightOn()+pad/2, w, 1);
+			}
 			temp+=blocks[j].h+blocks[j].newHeightOn()+pad;
 		}
 	}
@@ -313,7 +338,7 @@ void dynamicSB::draw(int _x, int _y)
   x=_x, y=_y;
   if(bOpen){
     ofSetColor(gray);
-    ofRectangle k(x, y+h, w, select.h+pad*2);
+    ofRectangle k(x, y+(!cfg().buttonsOnSidebar?h:0), w, select.h+pad*2);
     ofRect(k);
     ofSetColor(black);
     drawHatching(k.x,k.y,k.width,k.height, 1, 15);
@@ -321,32 +346,36 @@ void dynamicSB::draw(int _x, int _y)
     ofSetColor(yellow);
     arialHeader.setSize(cfg().buttonFontSize-4);
     arialHeader.setMode(OF_FONT_MID);
-    arialHeader.drawString(filename+" is a(n)",x+pad,y+h+(select.h+pad*2)/2);
+    arialHeader.drawString(filename+" is a(n)",x+pad,k.y+(select.h+pad*2)/2);
     arialHeader.setSize(cfg().buttonFontSize);
+	select.draw(x+dropOffset+pad*2, k.y+pad);
   }
 	
-  ofSetColor(gray);
-  trimmedRect(x, y, w, h);
-  ofSetColor(color);
-	if(!bOpen) trimmedRect(x,y,w/8,h);
-	else trimmedRect(x,y,w,h);
-	ofSetColor(yellow);
-  ofNoFill();
-  trimmedRect(x,y,w,h);
-  ofFill();
-  ofSetColor(white);
-	arialHeader.drawString(filename+" - Choose device",x+w/8+10,y+h/2);
+	if(!cfg().buttonsOnSidebar){
+		ofSetColor(gray);
+		trimmedRect(x, y, w, h);
+		ofSetColor(color);
+		if(!bOpen) trimmedRect(x,y,w/8,h);
+		else trimmedRect(x,y,w,h);
+		ofSetColor(yellow);
+		ofNoFill();
+		trimmedRect(x,y,w,h);
+		ofFill();
+		ofSetColor(white);
+		arialHeader.drawString(filename+" - Choose device",x+w/8+10,y+h/2);
+	}
 	if(bOpen){
-		int temp=y+h+select.h+pad*3;
+		int temp=(!cfg().buttonsOnSidebar?h:0);
+		temp+=y+select.h+pad*3;
 		for (unsigned int j=0; j<set().size(); j++) {
 			set()[j].draw(x+pad*2,temp);
-      if(j<set().size()-1){
-        ofSetColor(black.opacity(.5));
-        ofRect(x, temp+set()[j].h+set()[j].newHeightOn()+pad, w, 1);
-      }
+			if(j<set().size()-1){
+				ofSetColor(black.opacity(.5));
+				ofRect(x, temp+set()[j].h+set()[j].newHeightOn()+pad, w, 1);
+			}
 			temp+=set()[j].h+set()[j].newHeightOn()+pad*2;
 		}
-    select.draw(x+dropOffset+pad*2, y+h+pad);
+		select.draw(x+dropOffset+pad*2, y+(!cfg().buttonsOnSidebar?h:0)+pad);
 	}
 }
 
@@ -491,7 +520,7 @@ void sbGroup::updateHeight(){
 		for (unsigned int j=0; j<bars[i]->size(); j++) {
 			hgt+=(*bars[i])[j].h+(*bars[i])[j].newHeightOn()+20;
 		}
-		maxHeight=max(maxHeight,max(hgt,ofGetHeight()/2.));
+		maxHeight=max(maxHeight,max(hgt,ofGetHeight()/3.));
 		maxWid=max(maxWid,bars[i]->updateSize());
 	}
 	sideBarSpace=maxHeight;
@@ -553,16 +582,26 @@ void sbGroup::draw(int _x, int _y)
   area.height=ofGetHeight()-area.y;
   area.width=w;
   
-  y+=30;
+  int pad=10;
+  int buttonH=30;
+
+  if(cfg().buttonsOnSidebar) y+=pad*(bars.size()/2+2)+(bars.size()/2)*buttonH;
+  else y+=30;
   if(cfg().defaultColor)  ofSetColor(gray);
   else ofSetColor(cfg().sideBarColor);
   ofRect(area);
   
   ofSetColor(black.opacity(.2));
   drawHatching(area.x, area.y, area.width, area.height, 50, 50);
+
+  if(cfg().buttonsOnSidebar){
+	  ofSetColor(black.opacity(.25));
+	  ofRect(x,area.y,w,y-area.y);
+  }
   
   ofSetColor(yellow);
   ofRect(area.x+area.width, area.y, 2, area.height);
+  ofRect(x,y,w,2);
   //ofRect(x,y+h,w,1);
   
   ofSetColor(gray);
@@ -571,6 +610,12 @@ void sbGroup::draw(int _x, int _y)
   ofRect(x,y+h+1,w,1);
   ofRect(x,y+h+16,w,1);
   
+  if(cfg().buttonsOnSidebar)
+		for (unsigned int i=0; i<bars.size()-1; i++) {
+			if(i<bars.size()-2||!((bars.size()-1)%2)) bars[i]->drawButton(x+(pad*(i%2+1))+(i%2)*((w-3*pad)/2),area.y+pad*(i/2+1)+(i/2)*buttonH,((w-3*pad)/2),buttonH,cfg().buttonFontSize-3);
+			else bars[i]->drawButton(x+(w-((w-3*pad)/2))/2,area.y+pad*(i/2+1)+(i/2)*buttonH,((w-3*pad)/2),buttonH,cfg().buttonFontSize-3);
+		}
+
 	draw();
 }
 
@@ -595,21 +640,21 @@ void sbGroup::draw(){
 	
 	//--------- Draw a gray box onto the sidebar to hold the blocks
 	//ofSetColor(0x80633B);
-  int binWidth=w;
-  for (unsigned int i=0; i<bars.size()-1; i++) {
-    if(bars[i]->bOpen) ofSetColor((bars[i]->color*.5).opacity(.25));
-  }
+	int binWidth=w;
+	for (unsigned int i=0; i<bars.size()-1; i++) {
+		if(bars[i]->bOpen) ofSetColor((bars[i]->color*.5).opacity(.25));
+	}
   
 	//ofSetColor((white*.2).opacity(.7));
 	ofRect(x,y,binWidth,h);
 	
 	int pos=0;
 	for (unsigned int i=0; i<bars.size()-1; i++) {
-		bars[i]->draw(x,pos+y);
+		bars[i]->draw(x,y+(cfg().buttonsOnSidebar?0:pos));
 
-    if(bars[i]->bOpen){
-      
-    }
+		if(bars[i]->bOpen){
+			
+		}
 		pos+=bars[i]->h;
 		if(bars[i]->bOpen) pos+=sideBarSpace;
 	}
@@ -635,8 +680,9 @@ void sbGroup::draw(){
 
 bool sbGroup::clickDown(double _x, double _y){
 	bool ret=false;
+	bool & BOSB=cfg().buttonsOnSidebar;
 	for (unsigned int i=0; i<bars.size()-1; i++) {
-		if(bars[i]->over(_x,_y)){ 
+		if((!BOSB&&bars[i]->over(_x,_y))||(BOSB&&bars[i]->button.over(_x,_y))){ 
 			for (unsigned int j=0; j<bars.size()-1; j++) {
 				if (j!=i) {
 					bars[j]->bOpen=false;

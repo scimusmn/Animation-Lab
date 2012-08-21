@@ -135,6 +135,9 @@ void configuration::readGeneralConfig(string cfgFile){
 			else if(token[0]=="DEFAULT_COLORS"){
 				defaultColor=ofToInt(token[1]);
 			}
+			else if(token[0]=="BUTTONS_ON_SIDEBAR"){
+				buttonsOnSidebar=ofToInt(token[1]);
+			}
 		}
 	}
 	config.close();

@@ -51,8 +51,10 @@ public:
 	string filename;
 	vector<block> blocks;
 	double space;
+	ofButton button;
   vSideBar():ofInterObj(){
   }
+  void drawButton(int _x, int _y, int _w, int _h, int fontSize);
   virtual int size()=0;
 	
 	virtual block & operator[](int i)=0;

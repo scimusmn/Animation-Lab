@@ -57,7 +57,8 @@ struct configuration {
 		test,
 		scroll,
 		portraitMode,
-		savePrograms;
+		savePrograms,
+		buttonsOnSidebar;
 
 	ofColor 
 		controlBarColor,

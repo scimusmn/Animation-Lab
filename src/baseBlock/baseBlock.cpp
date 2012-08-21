@@ -158,7 +158,7 @@ bool baseBlock::beneath(block & chk,signed int blw)
     blw=ttlSize.y;
   }
   else if(blw<ttlSize.y/2-5&&!blocksOn.size()){
-	  blw=150;
+	  blw=75;
   }
   else blw+=ttlSize.y;
   int midLine=y+h-ttlSize.y/2;
