@@ -8,6 +8,7 @@
  */
 
 #include "blockDraw.h"
+#include "robotConfig.h"
 
 extern int TITLE_HEIGHT;
 
@@ -44,19 +45,30 @@ void glWideCurve(double Ax,double Bx, double Cx,double Ay,double By, double Cy,d
 	}
 }
 
+void notchVertices(float x, float y, float w, float h){
+	if(cfg().defaultColor){
+		ofVertex(x, y);
+		ofVertex(x+w/2, y+h);
+		ofVertex(x+w, y);
+	}
+	else {
+		ofEnableSmoothing();
+		ofVertex(x, y);
+		ofVertex(x+w/4, y+h);
+		ofVertex(x+w-w/4, y+h);
+		ofVertex(x+w,y);
+		ofDisableSmoothing();
+	}
+}
+
 void drawBlock(double x, double y, double w, double h){
   double unit=TITLE_HEIGHT/4;
   ofBeginShape();{
     ofVertex(x+unit, y);
-    ofVertex(x+2*unit, y);
-    ofVertex(x+3*unit, y+unit);
-    ofVertex(x+4*unit, y);
+	notchVertices(x+2*unit,y,unit*2,unit);
     ofVertex(x+w, y);
     ofVertex(x+w, y+h);
-    ofVertex(x+4*unit, y+h);
-    ofVertex(x+3*unit, y+h+unit);
-    ofVertex(x+2*unit, y+h);
-    //ofVertex(x+unit, y+h);
+	notchVertices(x+4*unit,y+h,-unit*2,unit);
     ofVertex(x, y+h);
     ofVertex(x, y+unit);
     ofVertex(x+unit, y);
@@ -71,9 +83,7 @@ void drawBaseBlock(double x, double y, double w, double h, double butX, double b
   ofBeginShape();{
     ofVertex(x, y);
     ofVertex(x, y+h);
-    ofVertex(x+2*unit, y+h);
-    ofVertex(x+3*unit, y+h+unit);
-    ofVertex(x+4*unit, y+h);
+	notchVertices(x+2*unit,y+h,2*unit,unit);
     ofVertex(x+w-butX, y+h);
     ofVertex(x+w+(butY-h)-butX, y+butY);
     ofVertex(x+w-(butY-h), y+butY);
@@ -119,25 +129,17 @@ void drawBigBlock(int x, int y, int w, int h, int xI, int yI, int yB)
   double unit=TITLE_HEIGHT/4;
   ofBeginShape();{
     ofVertex(x+unit, y);
-    ofVertex(x+2*unit, y);
-    ofVertex(x+3*unit, y+unit);
-    ofVertex(x+4*unit, y);
+    notchVertices(x+2*unit,y,2*unit,unit);
     ofVertex(x+w, y);
     ofVertex(x+w, y+yI);
-    ofVertex(x+xI+4*unit, y+yI);
-    ofVertex(x+xI+3*unit, y+yI+unit);
-    ofVertex(x+xI+2*unit, y+yI);
+	notchVertices(x+xI+4*unit,y+yI,-2*unit,unit);
     ofVertex(x+xI+unit, y+yI);
     ofVertex(x+xI, y+yI+unit);
     ofVertex(x+xI, y+yB);
-    ofVertex(x+xI+2*unit, y+yB);
-    ofVertex(x+xI+3*unit, y+yB+unit);
-    ofVertex(x+xI+4*unit, y+yB);
+	notchVertices(x+xI+2*unit,y+yB,2*unit,unit);
     ofVertex(x+w, y+yB);
     ofVertex(x+w, y+h);
-    ofVertex(x+4*unit, y+h);
-    ofVertex(x+3*unit, y+h+unit);
-    ofVertex(x+2*unit, y+h);
+	notchVertices(x+4*unit,y+h,-2*unit,unit);
     ofVertex(x, y+h);
     ofVertex(x, y+unit);
     ofVertex(x+unit, y);

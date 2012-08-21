@@ -80,6 +80,7 @@ void bGroup::setup(double _x, double _y,double wid,double hgt){
   label.setSize(19);
   
   bScrolling=true;
+  saveStateAvailable=false;
 }
 
 int bGroup::size(){
@@ -98,6 +99,26 @@ block bGroup::operator[](int i){
 void bGroup::recordState()
 {
 	states.recordState(storageState(blocks,base));
+}
+
+void bGroup::loadState()
+{
+	if(saveStateAvailable){
+		blocks=save_state.blocks;
+		base=save_state.base;
+	}
+}
+
+bool bGroup::stateAvailable()
+{
+	return saveStateAvailable;
+}
+
+void bGroup::saveState()
+{
+	saveStateAvailable=true;
+	save_state.blocks=blocks;
+	save_state.base=base;
 }
 
 void bGroup::undoState()

@@ -337,13 +337,15 @@ void dynamicSB::draw(int _x, int _y)
 {
   x=_x, y=_y;
   if(bOpen){
-    ofSetColor(gray);
+    if(cfg().defaultColor) ofSetColor(gray);
+	else ofSetColor(cfg().subtitleColor);
     ofRectangle k(x, y+(!cfg().buttonsOnSidebar?h:0), w, select.h+pad*2);
     ofRect(k);
     ofSetColor(black);
-    drawHatching(k.x,k.y,k.width,k.height, 1, 15);
+    if(cfg().defaultColor) drawHatching(k.x,k.y,k.width,k.height, 1, 15);
     drawBorder(k);
-    ofSetColor(yellow);
+    if(cfg().defaultColor) ofSetColor(yellow);
+	else ofSetColor(cfg().textColor);
     arialHeader.setSize(cfg().buttonFontSize-4);
     arialHeader.setMode(OF_FONT_MID);
     arialHeader.drawString(filename+" is a(n)",x+pad,k.y+(select.h+pad*2)/2);
@@ -592,21 +594,24 @@ void sbGroup::draw(int _x, int _y)
   ofRect(area);
   
   ofSetColor(black.opacity(.2));
-  drawHatching(area.x, area.y, area.width, area.height, 50, 50);
+  if(cfg().defaultColor) drawHatching(area.x, area.y, area.width, area.height, 50, 50);
 
   if(cfg().buttonsOnSidebar){
 	  ofSetColor(black.opacity(.25));
-	  ofRect(x,area.y,w,y-area.y);
+	  //ofRect(x,area.y,w,y-area.y);
   }
   
-  ofSetColor(yellow);
+  if(cfg().defaultColor) ofSetColor(yellow);
+  else ofSetColor(cfg().lineColor);
   ofRect(area.x+area.width, area.y, 2, area.height);
   ofRect(x,y,w,2);
   //ofRect(x,y+h,w,1);
   
-  ofSetColor(gray);
+  if(cfg().defaultColor) ofSetColor(gray);
+  else ofSetColor(cfg().subtitleColor);
   ofRect(x,y+h+1,w,15);
-  ofSetColor(yellow);
+  if(cfg().defaultColor) ofSetColor(yellow);
+  else ofSetColor(cfg().lineColor);
   ofRect(x,y+h+1,w,1);
   ofRect(x,y+h+16,w,1);
   
@@ -642,7 +647,7 @@ void sbGroup::draw(){
 	//ofSetColor(0x80633B);
 	int binWidth=w;
 	for (unsigned int i=0; i<bars.size()-1; i++) {
-		if(bars[i]->bOpen) ofSetColor((bars[i]->color*.5).opacity(.25));
+		if(bars[i]->bOpen) ofSetColor((bars[i]->color*.75).opacity(.5));
 	}
   
 	//ofSetColor((white*.2).opacity(.7));

@@ -66,14 +66,16 @@ void baseBlock::setDrawTest(bool btest){
 
 void baseBlock::drawButtonArea(int _x, int _y)
 {
-  ofSetColor(black);
+  if(cfg().defaultColor) ofSetColor(black);
+  else ofSetColor(cfg().subtitleColor);
   ofBeginShape();
   if(cfg().test) drawButtonSpace(x+w-butArea.x, _y, butArea.x, butArea.y,butArea.y-h);
   else drawButtonSpace(x+w-butArea.x, _y, butArea.x, h,0);
   ofEndShape();
   
   
-  ofSetColor(yellow);
+  if(cfg().defaultColor) ofSetColor(yellow);
+  else ofSetColor(cfg().lineColor);
   ofNoFill();
   ofSetLineWidth(2);
   ofBeginShape();
@@ -100,7 +102,8 @@ void baseBlock::draw(int _x, int _y)
   
   //w=max(ttlSize.x, widthOn()+butArea.x);
   
-  ofSetColor(black);
+  if(cfg().defaultColor) ofSetColor(black);
+  else ofSetColor(cfg().subtitleColor);
   drawBaseBlock(x, y, w, h,0,h);
   
   //-------- Draw the blocks below
@@ -116,11 +119,13 @@ void baseBlock::draw(int _x, int _y)
   
   if(!bDrawtest) title="Program being tested";
   else title="Drag and drop blocks here";
-  ofSetColor(yellow);
   
+  if(cfg().defaultColor) ofSetColor(yellow);
+  else ofSetColor(cfg().textColor);
   arialHeader.drawString(title, x+10, y+(h-arialHeader.stringHeight(title))/2);
 
-  ofSetColor(yellow);
+  if(cfg().defaultColor) ofSetColor(yellow);
+  else ofSetColor(cfg().lineColor);
   ofNoFill();
   ofSetLineWidth(2);
   drawBaseBlock(x, y, w, h,0,h);

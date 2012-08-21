@@ -132,11 +132,26 @@ void configuration::readGeneralConfig(string cfgFile){
 				sideBarColor=ofColor(strtol(token[1].c_str(),NULL,0));
 				sideBarColor.a=255;
 			}
+			else if(token[0]=="LINE_COLOR"){
+				lineColor=ofColor(strtol(token[1].c_str(),NULL,0));
+				lineColor.a=255;
+			}
+			else if(token[0]=="TEXT_COLOR"){
+				textColor=ofColor(strtol(token[1].c_str(),NULL,0));
+				textColor.a=255;
+			}
+			else if(token[0]=="SUBTITLE_COLOR"){
+				subtitleColor=ofColor(strtol(token[1].c_str(),NULL,0));
+				subtitleColor.a=255;
+			}
 			else if(token[0]=="DEFAULT_COLORS"){
 				defaultColor=ofToInt(token[1]);
 			}
 			else if(token[0]=="BUTTONS_ON_SIDEBAR"){
 				buttonsOnSidebar=ofToInt(token[1]);
+			}
+			else if(token[0]=="SAVE_NOT_UNDO"){
+				saveNotUndo=ofToInt(token[1]);
 			}
 		}
 	}

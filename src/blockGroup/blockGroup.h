@@ -62,6 +62,11 @@ class bGroup: public ofInterObj {
 	//deque<storageState> storedState;
 	//int stateCount;
   stateSave<storageState> states;
+
+  storageState save_state;
+
+   bool saveStateAvailable;
+
 	ofImage rTop;
 	ofImage	rBot;
 	ofImage rSide;
@@ -93,6 +98,12 @@ public:
 	~bGroup();
   
   void setScrolling(bool scrl);
+
+	void loadState();
+
+	void saveState();
+
+	bool stateAvailable();
 	
 	void recordState();
 	

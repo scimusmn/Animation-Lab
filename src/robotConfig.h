@@ -58,12 +58,16 @@ struct configuration {
 		scroll,
 		portraitMode,
 		savePrograms,
-		buttonsOnSidebar;
+		buttonsOnSidebar,
+		saveNotUndo;
 
 	ofColor 
 		controlBarColor,
 		backgroundColor,
-		sideBarColor;
+		sideBarColor,
+		lineColor,
+		textColor,
+		subtitleColor;
 
 	void readGeneralConfig(string cfgFile);
 	configuration(){

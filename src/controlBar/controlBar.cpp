@@ -147,39 +147,46 @@ void controlBar::barSpacing()
 
 void controlBar::setup(bGroup * bG, sbGroup * sbG)
 {
-  blocks=bG;
-  sideBar=sbG;
+	blocks=bG;
+	sideBar=sbG;
 
-  serChk.setup();
+	serChk.setup();
   
-  report().setup();
+	report().setup();
   
-  clearBut.setup(cfg().clearMsg, cfg().buttonFontSize);
+	clearBut.setup(cfg().clearMsg, cfg().buttonFontSize);
 
-  redoBut.setup(64, OF_VERT, "images/redo.png","images/redo_active.png");
-	undoBut.setup(64, OF_VERT, "images/undo.png","images/undo_active.png");
+	if(cfg().saveNotUndo){
+		redoBut.setup(50, OF_VERT, "images/load.png");
+		undoBut.setup(50, OF_VERT, "images/save.png");
+		setAvailableButtons();
+	}
+	else{
+		redoBut.setup(64, OF_VERT, "images/redo.png","images/redo_active.png");
+		undoBut.setup(64, OF_VERT, "images/undo.png","images/undo_active.png");
+	}
 	demo.setup(cfg().demoMsg, cfg().buttonFontSize);
-  skipBut.setup(300, 100, "images/skipBut.png");
+	skipBut.setup(300, 100, "images/skipBut.png");
 
-  anim.setup(blocks, sideBar);
+	anim.setup(blocks, sideBar);
   
-  subtitle.loadFont("fonts/DinC.ttf");
-  subtitle.setSize(22);
-  subtitle.setMode(OF_FONT_TOP);
+	subtitle.loadFont("fonts/DinC.ttf");
+	subtitle.setSize(22);
+	subtitle.setMode(OF_FONT_TOP);
   
-  subBar.height=subtitle.stringHeight("Kjhg")*1.5;
-  subBar.width=ofGetWidth();
+	subBar.height=subtitle.stringHeight("Kjhg")*1.5;
+	subBar.width=ofGetWidth();
   
-  //ROOT_DIR=config("robots/config.cfg");
+	//ROOT_DIR=config("robots/config.cfg");
 
-  sets.load(cfg().robotRoot);
+	sets.load(cfg().robotRoot);
 
-  loadBlocks(sets[0]);
+	loadBlocks(sets[0]);
 
   
-  sets[0].choice.setAvailable(false);
+	sets[0].choice.setAvailable(false);
   
-  upload.setup(blocks,&serChk);
+	upload.setup(blocks,&serChk);
   
   if(cfg().test)
 	test().setup(&blocks->base);
@@ -228,7 +235,7 @@ void controlBar::draw(int _x, int _y)
   ofRect(buttonBar);
   
   ofSetColor(gray.opacity(.5));
-  drawHatching(buttonBar.x, buttonBar.y, buttonBar.width, buttonBar.height, 50,50);
+  if(cfg().defaultColor) drawHatching(buttonBar.x, buttonBar.y, buttonBar.width, buttonBar.height, 50,50);
   
   for (unsigned int i=0; i<sets.size(); i++) sets(i).w=sets(i).h=72;
   bHldr[0].draw(buttonBar.x,buttonBar.y);
@@ -239,27 +246,32 @@ void controlBar::draw(int _x, int _y)
   //_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_
   //_-_-_-_-_//_-_-_-_-_//subTitle //_-_-_-_-_//_-_-_-_-_
   
-  ofSetColor(gray);
+  if(cfg().defaultColor) ofSetColor(gray);
+  else ofSetColor(cfg().subtitleColor);
   ofRect(subBar);
   drawBorder(subBar);
   
-  ofSetColor(yellow);
+  if(cfg().defaultColor) ofSetColor(yellow);
+  else ofSetColor(cfg().lineColor);
   ofRect(subBar.x, subBar.y, subBar.width, 1);
   
   if(sets.getSelected()){
     ofButton & t=sets.getSelected()->choice;
     int wid=t.w/16+1;
-    ofSetColor(yellow);
+    if(cfg().defaultColor) ofSetColor(yellow);
+	else ofSetColor(cfg().lineColor);
     ofRect(t.x-wid, y, t.w+wid*2, buttonBar.height);
     wid=t.w/16;
-    ofSetColor(gray);
+	if(cfg().defaultColor) ofSetColor(gray);
+	else ofSetColor(cfg().subtitleColor);
     ofRect(t.x-wid, y, t.w+wid*2, buttonBar.height+10);
     t.draw(t.x,t.y);
     
-    ofSetColor(yellow);
+    if(cfg().defaultColor) ofSetColor(yellow);
+	else ofSetColor(cfg().textColor);
     subtitle.setSize(22);
     subtitle.setMode(OF_FONT_LEFT);
-    subtitle.drawString(sets.getSelected()->subtitle, 50, subBar.y+(subBar.height-subtitle.stringHeight(sets.getSelected()->subtitle))/2);
+    subtitle.drawString(sets.getSelected()->subtitle, 50, subBar.y+(subBar.height-subtitle.stringHeight(sets.getSelected()->subtitle))/2+5);
   }
   
   if(cfg().test&&test().isTesting()){
@@ -402,13 +414,15 @@ bool controlBar::clickDown(int _x, int _y, int button)
     
     //--------- if we press the undo button, roll back the state of the blockGroup
     if (undoBut.clickDown(_x, _y)) {
-      blocks->undoState();
-	  ret=true;
+		if(!cfg().saveNotUndo) blocks->undoState();
+		else blocks->saveState(),setAvailableButtons();
+		ret=true;
     }
     
     //--------- if we press the redo button, push the state forward
     if (redoBut.clickDown(_x, _y)) {
-      blocks->redoState();
+		if(!cfg().saveNotUndo) blocks->redoState();
+		else blocks->loadState();
 	  ret=true;
     }
 
@@ -524,9 +538,14 @@ bool controlBar::mouseLockout(int button)
 
 void controlBar::setAvailableButtons()
 {
-  redoBut.setAvailable(blocks->redoAvailable());
-	undoBut.setAvailable(blocks->undoAvailable());
-  demo.setAvailable(!anim.isPlaying());
+	if(!cfg().saveNotUndo){
+		redoBut.setAvailable(blocks->redoAvailable());
+		undoBut.setAvailable(blocks->undoAvailable());
+	}
+	else{
+		redoBut.setAvailable(blocks->stateAvailable());
+	}
+	demo.setAvailable(!anim.isPlaying());
 }
 
 void controlBar::resize()

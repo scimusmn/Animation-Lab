@@ -47,8 +47,10 @@ void testApp::draw(){
 	else ofBackground(gray.r,gray.g, gray.b);
   
   
-  ofSetColor(black);
-  drawHatching(0, 0, ofGetWidth(), ofGetHeight(), 15,1);
+  if(cfg().defaultColor) ofSetColor(black);
+  else ofSetColor(cfg().lineColor.opacity(.1));
+  if(cfg().defaultColor) drawHatching(0, 0, ofGetWidth(), ofGetHeight(), 15,1);
+  else drawHatching(0, 0, ofGetWidth(), ofGetHeight(), 10,1);
   
   //******************** Menu Bar **************************
   
