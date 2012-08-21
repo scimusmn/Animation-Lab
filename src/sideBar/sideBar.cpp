@@ -24,10 +24,9 @@ void vSideBar::drawButton(int _x, int _y, int _w, int _h, int fontSize)
 	arialHeader.setMode(OF_FONT_TOP);
 	ofSetColor(color-(!bOpen?0:.2*255));
 	ofRoundedRect(_x,_y,_w,_h,_h/2);
-	if(bOpen) ofSetColor(yellow);
+	if(bOpen) ofSetColor(blue),ofSetLineWidth(8);
 	else ofSetColor(gray);
 	ofNoFill();
-	ofSetLineWidth(2);
 	ofRoundedRect(_x,_y,_w,_h,_h/2);
 	ofSetLineWidth(1);
 	ofFill();
@@ -597,8 +596,12 @@ void sbGroup::draw(int _x, int _y)
   if(cfg().defaultColor) drawHatching(area.x, area.y, area.width, area.height, 50, 50);
 
   if(cfg().buttonsOnSidebar){
-	  ofSetColor(black.opacity(.25));
+	  //ofSetColor(black.opacity(.25));
 	  //ofRect(x,area.y,w,y-area.y);
+	  if(!cfg().defaultColor){
+		//ofSetColor(cfg().lineColor.opacity(.1));
+		//drawHatching(x,area.y,w,y-area.y, 1,1);
+	}
   }
   
   if(cfg().defaultColor) ofSetColor(yellow);
@@ -652,6 +655,11 @@ void sbGroup::draw(){
   
 	//ofSetColor((white*.2).opacity(.7));
 	ofRect(x,y,binWidth,h);
+	
+	if(!cfg().defaultColor){
+		ofSetColor(cfg().lineColor.opacity(.1));
+		drawHatching(x,y,binWidth,h, 7,1);
+	}
 	
 	int pos=0;
 	for (unsigned int i=0; i<bars.size()-1; i++) {
