@@ -1,4 +1,4 @@
-<blocks font="ArialNarrow.ttf" title="Program the Arduino" subtitle="Intermediate: Assemble repeating sequences" xmlns:blck="http://www.smm.org/">
+<blocks font="fonts/ArialNarrow.ttf" title="Program the Arduino" subtitle="Intermediate: Assemble repeating sequences" xmlns:blck="http://www.smm.org/">
 	<bar name="Action blocks" color="0xde8c3a">
 		<block name="turn pin %d %d" color="0xde8c3a">
       			<dropdown>
@@ -14,7 +14,7 @@
      			</dropdown>
 			<file>actions/digitalWrite.blk</file>
 		</block>
-		<block name="set pin %d to %d %" color="0xde8c3a">
+		<block name="set pin %d to %d percent" color="0xde8c3a">
       			<dropdown>
         			<dds>3</dds>
         			<dds>5</dds>

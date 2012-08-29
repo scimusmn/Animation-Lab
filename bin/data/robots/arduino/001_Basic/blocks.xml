@@ -1,4 +1,4 @@
-<blocks font="ArialNarrow.ttf" title="Program the Arduino" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
+<blocks font="fonts/ArialNarrow.ttf" title="Program the Arduino" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
 	<bar name="Instruction blocks" color="883710">
     <block name="turn pin %d %d" color="0xde8c3a">
       	<dropdown>
@@ -12,8 +12,8 @@
         	<dds>ON</dds>
         	<selected>ON</selected>
      	</dropdown>
-	<file>actions/digitalWrite.blk</file>
-	<blocksOn>
+        <file>actions/digitalWrite.blk</file>
+        <blocksOn>
 		<block name="delay %d second" color="0x13b5ea">
 			<dropdown>
 				<ddlow>0</ddlow>
@@ -46,7 +46,7 @@
 		</block>
 	</blocksOn>
     </block>
-    <block name="set pin %d to %d %" color="0xde8c3a">
+    <block name="set pin %d to %d percent" color="0xde8c3a">
       	<dropdown>
         	<dds>3</dds>
         	<dds>5</dds>
@@ -72,7 +72,7 @@
 			</dropdown>
 			<file>timing/delay.blk</file>
 		</block>
-		<block name="set pin %d to %d %s" color="0xde8c3a">
+		<block name="set pin %d to %d percent" color="0xde8c3a">
       			<dropdown>
         			<dds>3</dds>
         			<dds>5</dds>

@@ -1,5 +1,4 @@
 global(){
-	
 }
 
 setup(){
@@ -7,7 +6,6 @@ setup(){
 }
 
 start(){
-
 }
 
 loop(){
@@ -17,7 +15,6 @@ loop(){
 }
 
 end(){
-
 }
 
 ~ath

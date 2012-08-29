@@ -166,7 +166,12 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
+<<<<<<< HEAD
 bin/data/arduino_make/applet/*.*
 *._*.*
+=======
+bin/Arduino*
+bin/data/arduino_make/applet/*
+>>>>>>> Added tracking on osx side
 
 ProgramBlocks.xcodeproj/exhibits.pbxuser

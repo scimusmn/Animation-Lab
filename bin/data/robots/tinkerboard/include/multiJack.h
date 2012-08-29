@@ -52,21 +52,21 @@ public:
     analogWrite(out,val);
   }
   void sWrite(int num){
-	dTime=5*(abs(jackServo.read()-num));
+    dTime=5*(abs(jackServo.read()-num));
     jackServo.write(num);
-	//delay(dTime);
+    //delay(dTime);
   }
   void sWait(){
 	  delay(dTime);
 	  dTime=0;
   }
   void sWriteSpeed(int pos, int speed){
-	dTime=((speed==0)?35:((speed==1)?14:5));
-	for(int cPos=jackServo.read(); cPos!=pos; cPos+=(pos-cPos)/abs(pos-cPos)){
-		jackServo.write(cPos);
-		delay(dTime);
-	}
-	dTime=0;
+    dTime=((speed==0)?35:((speed==1)?14:5));
+    for(int cPos=jackServo.read(); cPos!=pos; cPos+=(pos-cPos)/abs(pos-cPos)){
+      jackServo.write(cPos);
+      delay(dTime);
+    }
+    dTime=0;
   }
   int dChanged(){
     int ret=0;
