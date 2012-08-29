@@ -1,4 +1,4 @@
-TIMEOUT=180
+TIMEOUT=6000
 VERBOSE=1
 
 #Screen mode options 
