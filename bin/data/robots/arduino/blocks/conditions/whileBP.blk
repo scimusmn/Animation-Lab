@@ -1,0 +1,23 @@
+global(){
+
+}
+
+setup(){
+	~pinMode($dd[0].str,INPUT);
+}
+
+start(){
+
+}
+
+loop(){
+	while(digitalRead($dd[0].str)==$dd[1].ind){
+		$blockIn;
+	}
+}
+
+end(){
+
+}
+
+~ath

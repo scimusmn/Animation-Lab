@@ -1,0 +1,18 @@
+global(){
+}
+
+setup(){
+  ~($label[0]).mode(INPUT);
+}
+
+start(){
+}
+
+loop(){
+	delay(map(($label[0]).aRead(),0,1024,0,2000));
+}
+
+end(){
+}
+
+~ath

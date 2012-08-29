@@ -70,6 +70,8 @@ void block::setup(ofTag & cur,ofColor col){ //old, TODO: remove
 
 	h=TITLE_HEIGHT=arialHeader.stringHeight("Kjhg")*2;
 
+	label=cur.getAttribute("label");
+
   ttlSize.x=w;
   ttlSize.y=TITLE_HEIGHT;
   ddSelected=false;
@@ -177,6 +179,8 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
 	if(cur.getAttribute("color").length())
 		color=ofColor(strtol(cur.getAttribute("color").c_str(),NULL,0));
 	else color=col;
+
+	label=cur.getAttribute("label");
 	
 	//-------- load name from the name of the xmlNode
 	title=cur.getAttribute("name");
@@ -200,7 +204,6 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
 	map<string,int> list;
 	list["seq"]=0;
 	list["bracket"]=1;
-	list["label"]=2;
 	list["action"]=4;
 	list["file"]=5;
 	list["sibling"]=6;
@@ -220,8 +223,6 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
           w=200;
           titlePos.x=30;
           break;
-		case 2:
-			label=node[1];
         case 5: // file
           //-- definitely not deprecated, used to store value of which file to write from
           filename=node[1];

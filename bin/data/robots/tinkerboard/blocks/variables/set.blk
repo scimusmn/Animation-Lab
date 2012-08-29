@@ -1,0 +1,18 @@
+global(){
+}
+
+setup(){
+	@$dd[1].str.mode(INPUT);
+}
+
+start(){
+}
+
+loop(){
+	$dd[0].str()=map($dd[1].str.aRead(),0,1024,0,255);
+}
+
+end(){
+}
+
+~ath

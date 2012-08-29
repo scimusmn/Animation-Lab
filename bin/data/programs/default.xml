@@ -1,0 +1,5 @@
+<base robot_number="0">
+	<block label="WAIT4PNR" name="wait for press and release" color="14584890.0000000">  
+		<file>devices/Button/waitPnR.blk</file>
+	</block>
+</base>

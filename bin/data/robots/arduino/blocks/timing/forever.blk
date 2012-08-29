@@ -1,0 +1,20 @@
+global(){
+}
+
+setup(){
+}
+
+start(){
+
+}
+
+loop(){
+	while(1){
+		$blockIn;
+	}
+}
+
+end(){
+}
+
+~ath

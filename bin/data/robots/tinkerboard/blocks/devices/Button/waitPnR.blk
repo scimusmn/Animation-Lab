@@ -1,0 +1,20 @@
+global(){
+}
+
+setup(){
+  ~($label[0]).mode(INPUT);
+}
+
+start(){
+}
+
+loop(){
+	while(($label[0]).dRead()==0);
+  delay(10);
+  while(($label[0]).dRead()==1);
+}
+
+end(){
+}
+
+~ath

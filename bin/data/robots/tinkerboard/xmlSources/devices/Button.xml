@@ -1,0 +1,17 @@
+<device label="BTN">
+  <block label="IF" name="if button is %d">
+    <dropdown>
+      <dds>not pressed</dds>
+      <dds>pressed</dds>
+      <selected>pressed</selected>
+    </dropdown>
+    <bracket />
+    <file>devices/Button/pressed.blk</file>
+  </block>
+  <block label="WAIT4PRESS" name="wait until button is pressed">
+    <file>devices/Button/wait.blk</file>
+  </block>
+  <block label="WAIT4PNR" name="wait for press and release">
+    <file>devices/Button/waitPnR.blk</file>
+  </block>
+</device>

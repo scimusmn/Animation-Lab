@@ -1,0 +1,15 @@
+<device label="SWCH">
+  <block name="if switch is %d" label="SWITCH">
+    <dropdown>
+      <dds>on</dds>
+      <dds>off</dds>
+      <selected>on</selected>
+    </dropdown>
+    <bracket />
+    <file>devices/Switch/switch.blk</file>
+  </block>
+  <block name="if switch just flipped" label="CHANGE">
+    <file>devices/Switch/changed.blk</file>
+    <bracket />
+  </block>
+</device>

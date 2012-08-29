@@ -2,24 +2,20 @@
 #include "Servo.h"
 #include "multiJack.h"
 
-
+$blocks.global()
 
 bool thru=false;
 
 void setup(){
 	thru=false;
-	  (port1).mode(INPUT);
-
+	$blocks.setup()
 }
 
 void loop(){
-
+	$blocks.start()
 	if(1){
-			while((port1).dRead()==0);
-		  delay(10);
-		  while((port1).dRead()==1);
-
+		$blocks.loop()
 		//thru=true;
 	}
-
+	$blocks.end()
 }

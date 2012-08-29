@@ -5,7 +5,7 @@
 *.pydevproject
 .project
 .metadata
-bin/
+#bin/
 tmp/
 *.tmp
 *.bak
@@ -99,6 +99,8 @@ publish
 # Others
 [Bb]in/A*
 [Bb]in/*.app
+[Bb]in/*.dll
+[Bb]in/*.zip
 #
 [Oo]bj
 sql
@@ -142,7 +144,7 @@ dist
 build
 eggs
 parts
-bin
+#bin
 var
 sdist
 develop-eggs
@@ -164,6 +166,7 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
-bin/Arduino*
+bin/data/arduino_make/applet/*.*
+*._*.*
 
 ProgramBlocks.xcodeproj/exhibits.pbxuser

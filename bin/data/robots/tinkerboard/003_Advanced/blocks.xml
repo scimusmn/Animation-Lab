@@ -1,0 +1,155 @@
+<blocks font="fonts/ArialNarrow.ttf" title="Program the Arduino" subtitle="Advanced: Create interactive sequences with conditional statements" xmlns:blck="http://www.smm.org/">
+  <bar name="Port 1" label="port1" type="dynamic" color="0xde8c3a">
+    <dropdown>
+      <dds>Button</dds>
+      <dds>LIGHT</dds>
+      <dds>Servo</dds>
+      <dds>Motor</dds>
+      <dds>Potentiometer</dds>
+      <dds>Light Sensor</dds>
+      <dds>Switch</dds>
+      <selected>Button</selected>
+    </dropdown>
+    <device label="BTN" source="devices/Button.xml" />
+    <device label="LED" source="devices/LED.xml" />
+    <device label="SRVO" source="devices/Servo.xml" />
+    <device label="MOTOR" source="devices/Motor.xml" />
+    <device label="POT" source="devices/Pot.xml" />
+    <device label="SNSR" source="devices/LightSensor.xml" />
+    <device label="SWCH" source="devices/Switch.xml" />
+	</bar>
+  <bar name="Port 2" label="port2" type="dynamic" color="0x65c270">
+    <dropdown>
+      <dds>Button</dds>
+      <dds>LIGHT</dds>
+      <dds>Servo</dds>
+      <dds>Motor</dds>
+      <dds>Potentiometer</dds>
+      <dds>Light Sensor</dds>
+      <dds>Switch</dds>
+      <selected>LED</selected>
+    </dropdown>
+    <device label="BTN" source="devices/Button.xml" />
+    <device label="LED" source="devices/LED.xml" />
+    <device label="SRVO" source="devices/Servo.xml" />
+    <device label="MOTOR" source="devices/Motor.xml" />
+    <device label="POT" source="devices/Pot.xml" />
+    <device label="SNSR" source="devices/LightSensor.xml" />
+    <device label="SWCH" source="devices/Switch.xml" />
+	</bar>
+  <bar name="Port 3" label="port3" type="dynamic" color="0x6570c2">
+    <dropdown>
+      <dds>Button</dds>
+      <dds>LIGHT</dds>
+      <dds>Servo</dds>
+      <dds>Motor</dds>
+      <dds>Potentiometer</dds>
+      <dds>Light Sensor</dds>
+      <dds>Switch</dds>
+      <selected>Servo</selected>
+    </dropdown>
+    <device label="BTN" source="devices/Button.xml" />
+    <device label="LED" source="devices/LED.xml" />
+    <device label="SRVO" source="devices/Servo.xml" />
+    <device label="MOTOR" source="devices/Motor.xml" />
+    <device label="POT" source="devices/Pot.xml" />
+    <device label="SNSR" source="devices/LightSensor.xml" />
+    <device label="SWCH" source="devices/Switch.xml" />
+	</bar>
+  <bar name="Port 4" label="port4" type="dynamic" color="0xc26570">
+    <dropdown>
+      <dds>Button</dds>
+      <dds>LIGHT</dds>
+      <dds>Servo</dds>
+      <dds>Motor</dds>
+      <dds>Potentiometer</dds>
+      <dds>Light Sensor</dds>
+      <dds>Switch</dds>
+      <selected>Potentiometer</selected>
+    </dropdown>
+    <device label="BTN" source="devices/Button.xml" />
+    <device label="LED" source="devices/LED.xml" />
+    <device label="SRVO" source="devices/Servo.xml" />
+    <device label="MOTOR" source="devices/Motor.xml" />
+    <device label="POT" source="devices/Pot.xml" />
+    <device label="SNSR" source="devices/LightSensor.xml" />
+    <device label="SWCH" source="devices/Switch.xml" />
+	</bar>
+	<bar name="Timing blocks" color="0x13b5ea">
+		<block name="wait %d second" label="DELAY">
+			<dropdown>
+				<ddlow>0</ddlow>
+				<ddhigh>5</ddhigh>
+			</dropdown>
+			<file>timing/delay.blk</file>
+		</block>
+		<block name="repeat %d times" label="REPEAT">
+			<bracket />
+            		<dropdown>
+                		<ddlow>0</ddlow>
+                		<ddhigh>10</ddhigh>
+                		<ddsteps>11</ddsteps>
+            		</dropdown>
+			<file>timing/repeat.blk</file>
+		</block>
+		<block name="once" label="ONCE">
+			<bracket />
+			<file>timing/once.blk</file>
+		</block>
+	</bar>
+	<bar name="Variables" color="0xdb2332">
+		<block name="set %d to the value of %d" label="VAR.SET">
+			<dropdown>
+				<dds>var1</dds> 
+				<dds>var2</dds> 
+				<dds>var3</dds> 
+				<dds>var4</dds> 
+				<selected>var1</selected>
+			</dropdown>
+			<dropdown>
+				<dds>port1</dds> 
+				<dds>port2</dds> 
+				<dds>port3</dds> 
+				<dds>port4</dds> 
+				<selected>port1</selected>
+			</dropdown>
+			<file>variables/set.blk</file>
+		</block>
+		<block name="write %d to %d" label="VAR.SEND">
+			<dropdown>
+				<dds>var1</dds> 
+				<dds>var2</dds> 
+				<dds>var3</dds> 
+				<dds>var4</dds> 
+				<selected>var1</selected>
+			</dropdown>
+			<dropdown>
+				<dds>port1</dds> 
+				<dds>port2</dds> 
+				<dds>port3</dds> 
+				<dds>port4</dds> 
+				<selected>port1</selected>
+			</dropdown>
+			<file>variables/send.blk</file>
+		</block>
+		<block name="move servo on %d to %d" label="VAR.SERV">
+			<dropdown>
+				<dds>port1</dds> 
+				<dds>port2</dds> 
+				<dds>port3</dds> 
+				<dds>port4</dds> 
+				<selected>port1</selected>
+			</dropdown>
+			<dropdown>
+				<dds>var1</dds> 
+				<dds>var2</dds> 
+				<dds>var3</dds> 
+				<dds>var4</dds> 
+				<selected>var1</selected>
+			</dropdown>
+			<file>variables/servoSend.blk</file>
+		</block>
+	</bar>
+
+</blocks>
+	

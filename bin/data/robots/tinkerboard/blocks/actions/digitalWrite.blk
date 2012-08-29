@@ -1,0 +1,15 @@
+global(){
+}
+
+setup(){
+  ~pinMode($dd[0].str,OUTPUT);
+}
+
+loop(){
+	digitalWrite($dd[0].str,$dd[1].ind);
+}
+
+endLoop(){
+}
+
+~ath

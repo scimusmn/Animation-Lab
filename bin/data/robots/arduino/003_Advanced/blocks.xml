@@ -1,0 +1,113 @@
+<blocks font="ArialNarrow.ttf" title="Program the Arduino" subtitle="Advanced: Create interactive sequences with conditional statements" xmlns:blck="http://www.smm.org/">
+	<bar name="Action blocks" color="0xde8c3a">
+		<block name="turn pin %d %d" color="0xde8c3a">
+      			<dropdown>
+      		  		<ddlow>4</ddlow>
+				<ddhigh>13</ddhigh>
+				<ddsteps>10</ddsteps>
+       			 	<selected>13</selected>
+      			</dropdown>
+      			<dropdown>
+        			<dds>OFF</dds>
+        			<dds>ON</dds>
+       			 	<selected>ON</selected>
+     			</dropdown>
+			<file>actions/digitalWrite.blk</file>
+		</block>
+		<block name="set pin %d to %d %" color="0xde8c3a">
+      			<dropdown>
+        			<dds>3</dds>
+        			<dds>5</dds>
+        			<dds>6</dds>
+        			<dds>9</dds>
+        			<dds>10</dds>
+        			<dds>11</dds>
+       	 			<selected>3</selected>
+      			</dropdown>
+      			<dropdown>
+        			<ddlow>10</ddlow>
+				<ddhigh>100</ddhigh>
+				<ddsteps>10</ddsteps>
+        			<selected>50</selected>
+     			</dropdown>
+			<file>actions/analogWrite.blk</file>
+		</block>
+	</bar>
+	<bar name="Timing blocks" color="0x13b5ea">
+		<block name="for %d seconds">
+			<bracket />
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>10</ddhigh>
+            </dropdown>
+			<file>timing/forSeconds.blk</file>
+		</block>
+		<block name="wait %d second">
+			<dropdown>
+				<ddlow>0</ddlow>
+				<ddhigh>5</ddhigh>
+			</dropdown>
+			<file>timing/delay.blk</file>
+		</block>
+		<block name="repeat %d times">
+			<bracket />
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>10</ddhigh>
+                <ddsteps>11</ddsteps>
+            </dropdown>
+			<file>timing/repeat.blk</file>
+		</block>
+		<block name="forever">
+			<bracket />
+			<file>timing/forever.blk</file>
+		</block>
+	</bar>
+	<bar name="Conditional blocks" color="0x65c270">
+		<block name="wait until pin %d is %d">
+			<dropdown>
+      		  		<ddlow>4</ddlow>
+				<ddhigh>13</ddhigh>
+				<ddsteps>10</ddsteps>
+       			 	<selected>13</selected>
+      			</dropdown>
+      			<dropdown>
+        			<dds>LOW</dds>
+        			<dds>HIGH</dds>
+       			 	<selected>HIGH</selected>
+     			</dropdown>
+			<file>conditions/waitBP.blk</file>
+		</block>
+		<block name="if pin %d is %d">
+			<dropdown>
+      		  		<ddlow>4</ddlow>
+				<ddhigh>13</ddhigh>
+				<ddsteps>10</ddsteps>
+       			 	<selected>13</selected>
+      			</dropdown>
+      			<dropdown>
+        			<dds>LOW</dds>
+        			<dds>HIGH</dds>
+       			 	<selected>HIGH</selected>
+     			</dropdown>
+			<bracket />
+			<file>conditions/ifBP.blk</file>
+		</block>
+		<block name="while pin %d is %d">
+			<dropdown>
+      		  		<ddlow>4</ddlow>
+				<ddhigh>13</ddhigh>
+				<ddsteps>10</ddsteps>
+       			 	<selected>13</selected>
+      			</dropdown>
+      			<dropdown>
+        			<dds>LOW</dds>
+        			<dds>HIGH</dds>
+       			 	<selected>HIGH</selected>
+     			</dropdown>
+			<bracket />
+			<file>conditions/whileBP.blk</file>
+		</block>
+	</bar>
+</blocks>
+	

@@ -1,0 +1,57 @@
+<blocks font="fonts/ArialNarrow.ttf" title="Program the Arduino" subtitle="Advanced: Create interactive sequences with conditional statements" xmlns:blck="http://www.smm.org/">
+  <bar name="Jack 1" label="jack1" type="dynamic" color="0xde8c3a">
+    <dropdown>
+      <dds>LED</dds>
+      <dds>Servo</dds>
+      <selected>Servo</selected>
+    </dropdown>
+    <device label="LED" source="devices/LED.xml" />
+    <device label="SRVO" source="devices/Servo.xml" />
+	</bar>
+  <bar name="Jack 2" label="jack2" type="dynamic" color="0x65c270">
+    <dropdown>
+      <dds>LED</dds>
+      <dds>Servo</dds>
+      <selected>LED</selected>
+    </dropdown>
+    <device label="LED" source="devices/LED.xml" />
+    <device label="SRVO" source="devices/Servo.xml" />
+	</bar>
+  <bar name="Jack 3" label="jack3" type="dynamic" color="0x6570c2">
+    <dropdown>
+      <dds>LED</dds>
+      <dds>Servo</dds>
+      <selected>Servo</selected>
+    </dropdown>
+    <device label="LED" source="devices/LED.xml" />
+    <device label="SRVO" source="devices/Servo.xml" />
+	</bar>
+  <bar name="Jack 4" label="jack4" type="dynamic" color="0xc26570">
+    <dropdown>
+      <dds>LED</dds>
+      <dds>Servo</dds>
+      <selected>LED</selected>
+    </dropdown>
+    <device label="LED" source="devices/LED.xml" />
+    <device label="SRVO" source="devices/Servo.xml" />
+	</bar>
+	<bar name="Timing blocks" color="0x13b5ea">
+		<block name="wait %d second">
+			<dropdown>
+				<ddlow>0</ddlow>
+				<ddhigh>5</ddhigh>
+			</dropdown>
+			<file>timing/delay.blk</file>
+		</block>
+		<block name="repeat %d times">
+			<bracket />
+            <dropdown>
+                <ddlow>0</ddlow>
+                <ddhigh>10</ddhigh>
+                <ddsteps>11</ddsteps>
+            </dropdown>
+			<file>timing/repeat.blk</file>
+		</block>
+	</bar>
+</blocks>
+	

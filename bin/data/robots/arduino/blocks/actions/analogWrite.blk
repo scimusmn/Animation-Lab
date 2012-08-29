@@ -1,0 +1,21 @@
+global(){
+	
+}
+
+setup(){
+
+}
+
+start(){
+
+}
+
+loop(){
+	analogWrite($dd[0].str,($dd[1].str /100.)*255);
+}
+
+end(){
+
+}
+
+~ath

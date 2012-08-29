@@ -1,0 +1,15 @@
+global(){
+}
+
+setup(){
+  ~pinMode($dd[0].str,OUTPUT);
+}
+
+loop(){
+	analogWrite($dd[0].str,($dd[1].str /100.)*255);
+}
+
+endLoop(){
+}
+
+~ath

@@ -1,0 +1,15 @@
+<device label="POT">
+  <block name="send signal to %d" label="SEND">
+    <dropdown>
+      <dds>port1</dds>
+      <dds>port2</dds>
+      <dds>port3</dds>
+      <dds>port4</dds>
+      <selected>port1</selected>
+    </dropdown>
+    <file>devices/Pot/send.blk</file>
+  </block>
+  <block name="variable delay" label="VAR">
+    <file>devices/Pot/varDelay.blk</file>
+  </block>
+</device>

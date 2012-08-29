@@ -1,0 +1,32 @@
+<base robot_number="0">
+	<block name="go forward %d inches" color="0xde8c3a">
+		<dropdown>
+			<ddlow>0</ddlow>
+			<ddhigh>12</ddhigh>
+			<ddsteps>7</ddsteps>
+			<selected>2</selected>
+		</dropdown>
+		<file>forward.blk</file>
+		<action>move:$dd[0].num()*$ppi</action>
+	</block>
+	<block name="turn right %d degrees" color="0xde8c3a">
+		<dropdown>
+			<ddlow>0</ddlow>
+			<ddhigh>180</ddhigh>
+			<ddsteps>5</ddsteps>
+			<selected>90</selected>
+		</dropdown>
+		<action>turn:$dd[0].num()</action>
+		<file>rightTurn.blk</file>
+	</block>
+	<block name="go forward %d inches" color="0xde8c3a">
+		<dropdown>
+			<ddlow>0</ddlow>
+			<ddhigh>12</ddhigh>
+			<ddsteps>7</ddsteps>
+			<selected>2</selected>
+		</dropdown>
+		<file>forward.blk</file>
+		<action>move:$dd[0].num()*$ppi</action>
+	</block>
+</base>

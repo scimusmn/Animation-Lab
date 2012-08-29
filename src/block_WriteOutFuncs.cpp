@@ -69,7 +69,9 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 				if(buffer[i]=='$'){
 					//-------- step through the buffer until you find [ ,\n;")]
 					strtPos=endPos=++i;
-					while (!isDelim(buffer[endPos]," ,\n;\")")) {
+					bool dotFound=false;
+					while ((!dotFound&&!isDelim(buffer[endPos]," ,\n;(\")"))||(dotFound&&!isDelim(buffer[endPos]," ,.\n;(\")"))) {
+						if(buffer[endPos]=='.') dotFound=true;
 						endPos++;
 					}
 					i=endPos-1; // move the step counter to the end of the word
@@ -211,6 +213,7 @@ bool block::siblingWritten(map<string,bool> * printed)
 	bool ret=false;
 	map<string,bool>::iterator it;
 	//(ofSplitString(label,":"));
+	cout << "Main label is " << label << endl;
 	if(label.find_last_of(":")!=string::npos){
 		string lbl1=label.substr(0,label.find_last_of(":"));
 		cout << lbl1 << endl;

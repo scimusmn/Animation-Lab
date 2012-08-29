@@ -1,0 +1,19 @@
+global(){
+}
+
+setup(){
+  ~($label[0]).mode(INPUT);
+  @($dd[0].str).mode(OUTPUT);
+}
+
+start(){
+}
+
+loop(){
+	($dd[0].str).aWrite(map(($label[0]).aRead(),0,1024,0,255));
+}
+
+end(){
+}
+
+~ath

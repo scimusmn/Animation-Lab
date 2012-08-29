@@ -1,0 +1,106 @@
+<blocks font="ArialNarrow.ttf" title="Program the Arduino" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
+	<bar name="Instruction blocks" color="883710">
+    <block name="turn pin %d %d" color="0xde8c3a">
+      	<dropdown>
+        	<ddlow>4</ddlow>
+		<ddhigh>13</ddhigh>
+		<ddsteps>10</ddsteps>
+       	 	<selected>13</selected>
+      	</dropdown>
+      	<dropdown>
+        	<dds>OFF</dds>
+        	<dds>ON</dds>
+        	<selected>ON</selected>
+     	</dropdown>
+	<file>actions/digitalWrite.blk</file>
+	<blocksOn>
+		<block name="delay %d second" color="0x13b5ea">
+			<dropdown>
+				<ddlow>0</ddlow>
+				<ddhigh>2</ddhigh>
+				<selected>1</selected>
+			</dropdown>
+			<file>timing/delay.blk</file>
+		</block>
+		<block name="turn pin %d %d" color="0xde8c3a">
+      			<dropdown>
+        			<ddlow>4</ddlow>
+				<ddhigh>13</ddhigh>
+				<ddsteps>10</ddsteps>
+       				<selected>13</selected>
+      			</dropdown>
+      			<dropdown>
+       				<dds>OFF</dds>
+      				<dds>ON</dds>
+        			<selected>OFF</selected>
+     			</dropdown>
+     			<file>actions/digitalWrite.blk</file>
+		</block>
+		<block name="delay %d second" color="0x13b5ea">
+			<dropdown>
+				<ddlow>0</ddlow>
+				<ddhigh>2</ddhigh>
+				<selected>1</selected>
+			</dropdown>
+			<file>timing/delay.blk</file>
+		</block>
+	</blocksOn>
+    </block>
+    <block name="set pin %d to %d %" color="0xde8c3a">
+      	<dropdown>
+        	<dds>3</dds>
+        	<dds>5</dds>
+        	<dds>6</dds>
+        	<dds>9</dds>
+        	<dds>10</dds>
+        	<dds>11</dds>
+       	 	<selected>3</selected>
+      	</dropdown>
+      	<dropdown>
+        	<ddlow>10</ddlow>
+		<ddhigh>100</ddhigh>
+		<ddsteps>10</ddsteps>
+        	<selected>50</selected>
+     	</dropdown>
+	<file>actions/analogWrite.blk</file>
+	<blocksOn>
+		<block name="delay %d second" color="0x13b5ea">
+			<dropdown>
+				<ddlow>0</ddlow>
+				<ddhigh>2</ddhigh>
+				<selected>1</selected>
+			</dropdown>
+			<file>timing/delay.blk</file>
+		</block>
+		<block name="set pin %d to %d %s" color="0xde8c3a">
+      			<dropdown>
+        			<dds>3</dds>
+        			<dds>5</dds>
+        			<dds>6</dds>
+        			<dds>9</dds>
+        			<dds>10</dds>
+        			<dds>11</dds>
+       	 			<selected>3</selected>
+      			</dropdown>
+      			<dropdown>
+        			<ddlow>10</ddlow>
+				<ddhigh>100</ddhigh>
+				<ddsteps>10</ddsteps>
+        			<selected>50</selected>
+     			</dropdown>
+			<file>actions/analogWrite.blk</file>
+		</block>
+		<block name="delay %d second" color="0x13b5ea">
+			<dropdown>
+				<ddlow>0</ddlow>
+				<ddhigh>2</ddhigh>
+				<selected>1</selected>
+			</dropdown>
+			<file>timing/delay.blk</file>
+		</block>
+	</blocksOn>
+    </block>
+    
+</bar>
+</blocks>
+	

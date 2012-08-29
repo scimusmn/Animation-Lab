@@ -1,0 +1,20 @@
+<device label="MOTOR">
+  <block name="turn Motor %d" label="SWITCH">
+    <dropdown>
+      <dds>off</dds>
+      <dds>on</dds>
+      <selected>on</selected>
+    </dropdown>
+    <file>devices/Motor/set.blk</file>
+  </block>
+  <block name="set Motor speed to %d" label="FADE">
+    <dropdown>
+      <dds>0</dds>
+      <dds>30</dds>
+      <dds>50</dds>
+      <dds>100</dds>
+      <selected>100</selected>
+    </dropdown>
+    <file>devices/Motor/fade.blk</file>
+  </block>
+</device>
