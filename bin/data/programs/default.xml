@@ -1,100 +1,20 @@
 <base robot_number="0">
-	<block name="turn Light %d" label="SWITCH" color="12739952.0000000">  
+	<block name="follow %d signal with servo" label="FOLLOW" color="14584890.0000000">  
+		<dropdown>    
+			<dds>port1</dds>
+			<dds>port2</dds>
+			<dds>port3</dds>
+			<dds>port4</dds>
+			<selected>port4</selected>
+		</dropdown>
+		<file>devices/Servo/follow.blk</file>
+	</block>
+	<block name="turn Light %d" label="SWITCH" color="6668912.0000000">  
 		<dropdown>    
 			<dds>off</dds>
 			<dds>on</dds>
 			<selected>on</selected>
 		</dropdown>
 		<file>devices/LED/set.blk</file>
-	</block>
-	<block name="if sensor sees %d" label="SEES" color="6648002.0000000">  
-		<dropdown>    
-			<dds>dark</dds>
-			<dds>light</dds>
-			<selected>light</selected>
-		</dropdown>
-		<bracket/>
-		<file>devices/LightSensor/detect.blk</file>
-		<blocksIn>
-			<block name="turn Motor %d" label="SWITCH" color="14584890.0000000">  
-				<dropdown>    
-					<dds>off</dds>
-					<dds>on</dds>
-					<selected>on</selected>
-				</dropdown>
-				<file>devices/Motor/set.blk</file>
-			</block>
-		</blocksIn>
-	</block>
-	<block name="if sensor sees %d" label="SEES" color="6648002.0000000">  
-		<dropdown>    
-			<dds>dark</dds>
-			<dds>light</dds>
-			<selected>dark</selected>
-		</dropdown>
-		<bracket/>
-		<file>devices/LightSensor/detect.blk</file>
-		<blocksIn>
-			<block name="turn Motor %d" label="SWITCH" color="14584890.0000000">  
-				<dropdown>    
-					<dds>off</dds>
-					<dds>on</dds>
-					<selected>off</selected>
-				</dropdown>
-				<file>devices/Motor/set.blk</file>
-			</block>
-		</blocksIn>
-	</block>
-	<block name="variable delay" label="VAR" color="6668912.0000000">  
-		<file>devices/Pot/varDelay.blk</file>
-	</block>
-	<block name="turn Light %d" label="SWITCH" color="12739952.0000000">  
-		<dropdown>    
-			<dds>off</dds>
-			<dds>on</dds>
-			<selected>off</selected>
-		</dropdown>
-		<file>devices/LED/set.blk</file>
-	</block>
-	<block name="if sensor sees %d" label="SEES" color="6648002.0000000">  
-		<dropdown>    
-			<dds>dark</dds>
-			<dds>light</dds>
-			<selected>light</selected>
-		</dropdown>
-		<bracket/>
-		<file>devices/LightSensor/detect.blk</file>
-		<blocksIn>
-			<block name="turn Motor %d" label="SWITCH" color="14584890.0000000">  
-				<dropdown>    
-					<dds>off</dds>
-					<dds>on</dds>
-					<selected>on</selected>
-				</dropdown>
-				<file>devices/Motor/set.blk</file>
-			</block>
-		</blocksIn>
-	</block>
-	<block name="if sensor sees %d" label="SEES" color="6648002.0000000">  
-		<dropdown>    
-			<dds>dark</dds>
-			<dds>light</dds>
-			<selected>dark</selected>
-		</dropdown>
-		<bracket/>
-		<file>devices/LightSensor/detect.blk</file>
-		<blocksIn>
-			<block name="turn Motor %d" label="SWITCH" color="14584890.0000000">  
-				<dropdown>    
-					<dds>off</dds>
-					<dds>on</dds>
-					<selected>off</selected>
-				</dropdown>
-				<file>devices/Motor/set.blk</file>
-			</block>
-		</blocksIn>
-	</block>
-	<block name="variable delay" label="VAR" color="6668912.0000000">  
-		<file>devices/Pot/varDelay.blk</file>
 	</block>
 </base>

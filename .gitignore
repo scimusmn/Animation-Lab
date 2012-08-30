@@ -166,8 +166,23 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
+bin/data/arduino_make/.DS_Store
+bin/data/arduino_make/applet/.DS_Store
 bin/data/arduino_make/applet/*
+bin/data/arduino_make/applet/*.*
 *._*.*
 bin/Arduino*
 
 ProgramBlocks.xcodeproj/exhibits.pbxuser
+
+bin/data/arduino_make/applet/arduino_make.elf
+
+bin/data/arduino_make/applet/arduino_make.hex
+
+bin/data/arduino_make/applet/arduino_make.cpp
+
+bin/data/arduino_make/.DS_Store
+
+bin/data/arduino_make/applet/.DS_Store
+
+bin/data/arduino_make/applet/arduino_make.o
