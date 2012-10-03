@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -276,9 +274,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>15</integer>
-									<integer>14</integer>
-									<integer>13</integer>
+									<integer>12</integer>
 									<integer>11</integer>
 									<integer>5</integer>
 									<integer>0</integer>
@@ -315,6 +311,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -332,12 +330,12 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>FFDDBD7E161C7E02005E65E4</string>
+										<string>FFBA458A161C7E550008CCD9</string>
 										<key>history</key>
 										<array>
 											<string>FF0074F115FFCE0000CFBF6F</string>
 											<string>FF0074F315FFCE0000CFBF6F</string>
-											<string>FFDDBD77161C346A005E65E4</string>
+											<string>FFDDBD7E161C7E02005E65E4</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -349,14 +347,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1497, 700}}</string>
+								<string>{{0, 0}, {1497, 695}}</string>
 								<key>RubberWindowFrame</key>
 								<string>83 226 1705 939 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>700pt</string>
+							<string>695pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -369,14 +367,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 705}, {1497, 193}}</string>
+								<string>{{0, 700}, {1497, 198}}</string>
 								<key>RubberWindowFrame</key>
 								<string>83 226 1705 939 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>193pt</string>
+							<string>198pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -395,9 +393,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>FFDDBD79161C346A005E65E4</string>
+				<string>FFBA4587161C7E370008CCD9</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>FFDDBD7A161C346A005E65E4</string>
+				<string>FFBA4588161C7E370008CCD9</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -535,10 +533,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>FFDDBD86161C7E02005E65E4</string>
-		<string>FFDDBD87161C7E02005E65E4</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>FF55BD3915FFC498002794FD</string>
 		<string>/Users/aheidgerken/Documents/Programming/openFrameworks/apps/projects/Animation-Lab/ProgramBlocks.xcodeproj</string>
 	</array>
@@ -620,7 +614,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>FF55BD3915FFC498002794FD</string>
-				<string>FFDDBD7B161C346A005E65E4</string>
+				<string>FFBA4589161C7E370008CCD9</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
