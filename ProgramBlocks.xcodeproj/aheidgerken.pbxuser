@@ -50,12 +50,10 @@
 			PBXWorkspaceStateSaveDate = 370947175;
 		};
 		perUserProjectItems = {
-			FF0074F115FFCE0000CFBF6F = FF0074F115FFCE0000CFBF6F /* PBXTextBookmark */;
-			FF0074F315FFCE0000CFBF6F = FF0074F315FFCE0000CFBF6F /* PBXTextBookmark */;
-			FF0074F415FFCE0000CFBF6F = FF0074F415FFCE0000CFBF6F /* PBXTextBookmark */;
-			FF0074F515FFCE0000CFBF6F = FF0074F515FFCE0000CFBF6F /* PBXTextBookmark */;
+			FF0074F115FFCE0000CFBF6F /* PBXTextBookmark */ = FF0074F115FFCE0000CFBF6F /* PBXTextBookmark */;
+			FF0074F315FFCE0000CFBF6F /* PBXTextBookmark */ = FF0074F315FFCE0000CFBF6F /* PBXTextBookmark */;
 			FFDDBD77161C346A005E65E4 /* PBXTextBookmark */ = FFDDBD77161C346A005E65E4 /* PBXTextBookmark */;
-			FFDDBD78161C346A005E65E4 /* PBXTextBookmark */ = FFDDBD78161C346A005E65E4 /* PBXTextBookmark */;
+			FFDDBD7E161C7E02005E65E4 /* PBXTextBookmark */ = FFDDBD7E161C7E02005E65E4 /* PBXTextBookmark */;
 		};
 		sourceControlManager = FF55BD3B15FFC498002794FD /* Source Control */;
 		userBuildSettings = {
@@ -93,26 +91,6 @@
 		rType = 0;
 		vrLen = 1233;
 		vrLoc = 613;
-	};
-	FF0074F415FFCE0000CFBF6F /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = AA85E4EE14EEB6A60047B1AF /* compiler.cpp */;
-		name = "compiler.cpp: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 834;
-		vrLoc = 0;
-	};
-	FF0074F515FFCE0000CFBF6F /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = AA85E4EE14EEB6A60047B1AF /* compiler.cpp */;
-		name = "compiler.cpp: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1038;
-		vrLoc = 1777;
 	};
 	FF55BD1515FFC494002794FD /* ProgramBlocks */ = {
 		isa = PBXExecutable;
@@ -168,7 +146,7 @@
 		vrLen = 1032;
 		vrLoc = 1777;
 	};
-	FFDDBD78161C346A005E65E4 /* PBXTextBookmark */ = {
+	FFDDBD7E161C7E02005E65E4 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = AA85E4EE14EEB6A60047B1AF /* compiler.cpp */;
 		name = "compiler.cpp: 1";
