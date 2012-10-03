@@ -8,24 +8,13 @@ bool thru=false;
 
 void setup(){
 	thru=false;
-<<<<<<< HEAD:bin/data/arduino_make/tinkWrapper.wrp
 	$blocks.setup()
-=======
-	(port2).mode(SERVO);
-	(port1).mode(INPUT);
-
->>>>>>> Re-included demos:bin/data/arduino_make/applet/arduino_make.cpp
 }
 
 void loop(){
 	$blocks.start()
 	if(1){
-<<<<<<< HEAD:bin/data/arduino_make/tinkWrapper.wrp
 		$blocks.loop()
-=======
-			(port2).sWrite(map((port1).aRead(),0,1024,0,180));
-
->>>>>>> Re-included demos:bin/data/arduino_make/applet/arduino_make.cpp
 		//thru=true;
 	}
 	$blocks.end()
