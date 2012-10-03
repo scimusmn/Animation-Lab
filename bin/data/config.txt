@@ -16,7 +16,7 @@ BOARD_DETECT=1
 #TEST_AVAILABLE option only used for the Dallas Robot Arena, at the moment
 TEST_AVAILABLE=0
 
-DEMO_AVAILABLE=0
+DEMO_AVAILABLE=1
 
 #program save options; set "SAVE_PROGRAMS" to zero to disable saving 
 

@@ -215,7 +215,8 @@ void controlBar::loadBlocks(blockGroup & bg){
 	cfg().robotTitle=bg.title;
     sideBar->clear();
     sideBar->setup(bg.blockXML,blocks);
-    anim.changeAnimXML(bg.animXML);
+    //anim.changeAnimXML(bg.animXML);
+	anim.changeBlockLevel(bg);
   }
 }
 
@@ -382,15 +383,16 @@ void controlBar::update()
 
 void controlBar::beginLevelChoice(){
 	if(sets.size()>1) bChooseLevel=true;
-	else if(sets.size()>0){
+	else if(sets.size()==1){
 		if(sets.clickDown(sets[0].choice.x,sets[0].choice.y)&&!anim.isPlaying()){
 			if(bChooseLevel){
 				bChooseLevel=false;
-				if(cfg().demoAvailable) anim.startPrompt();
 			}
+			if(cfg().demoAvailable) anim.startPrompt();
 			if(sets.getSelected())
 				loadBlocks((*sets.getSelected()));
 		}
+		if(cfg().demoAvailable) anim.startPrompt();
 	}
 }
 
@@ -428,8 +430,10 @@ bool controlBar::clickDown(int _x, int _y, int button)
 
 	if(cfg().newUser.clickDown(_x,_y)){
 		if(cfg().savePrograms) bPluginChoice=true;
-		else bChooseLevel=true;
-		blocks->clearAndReset(),anim.clearPrompt();
+		else if(sets.size()!=1) bChooseLevel=true;
+		else bChooseLevel=false,anim.startPrompt();
+		blocks->clearAndReset();
+		blocks->loadFile(ofToDataPath("programs/newUserProgram.xml"));
 	}
     
     if(cfg().test) test().clickDown(_x, _y);

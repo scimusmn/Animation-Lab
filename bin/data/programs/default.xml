@@ -1,10 +1,30 @@
 <base robot_number="0">
-	<block name="turn Motor %d" label="SWITCH" color="14584890.0000000">  
+<<<<<<< HEAD
+	<block name="follow %d signal with servo" label="FOLLOW" color="14584890.0000000">  
+=======
+	<block name="follow %d signal with servo" label="FOLLOW" color="6668912.0000000">  
+>>>>>>> Re-included demos
+		<dropdown>    
+			<dds>port1</dds>
+			<dds>port2</dds>
+			<dds>port3</dds>
+			<dds>port4</dds>
+<<<<<<< HEAD
+			<selected>port4</selected>
+		</dropdown>
+		<file>devices/Servo/follow.blk</file>
+	</block>
+	<block name="turn Light %d" label="SWITCH" color="6668912.0000000">  
 		<dropdown>    
 			<dds>off</dds>
 			<dds>on</dds>
 			<selected>on</selected>
 		</dropdown>
-		<file>devices/Motor/set.blk</file>
+		<file>devices/LED/set.blk</file>
+=======
+			<selected>port1</selected>
+		</dropdown>
+		<file>devices/Servo/follow.blk</file>
+>>>>>>> Re-included demos
 	</block>
 </base>

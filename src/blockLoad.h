@@ -40,6 +40,7 @@ struct blockGroup {
   ofxDirList DIR;
   ofXML blockXML;
   ofXML animXML;
+  vector<ofXML> demos;
   ofButton choice;
   ofImage example;
   ofButton choice2;

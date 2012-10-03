@@ -98,11 +98,11 @@ struct deviceBlocks {
 class dynamicSB : public vSideBar {
 protected:
   vector<deviceBlocks> devices;
-  dallasDrop select;
   string dropLabel;
   int dropOffset;
   int pad;
 public:
+	dallasDrop select;
   dynamicSB(ofTag & tag);
   int size();
   block & operator[](int i);
@@ -156,6 +156,8 @@ public:
 	vSideBar * operator[](int i){ return bars[i];}
 	
 	void setDest(bGroup * destin);
+
+	vSideBar * openBar();
 	
 	void unfold();
 	

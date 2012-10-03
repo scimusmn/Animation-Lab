@@ -8,6 +8,7 @@
  */
 
 #include "demoAnim.h"
+#include "../robotConfig.h"
 #include "ofMain.h"
 
 extern ofColor black, yellow, white, gray;
@@ -34,6 +35,24 @@ void demoAnim::setup(bGroup * bG, sbGroup * sbG)
   header.setMode(OF_FONT_CENTER);
 }
 
+void demoAnim::changeBlockLevel(blockGroup & bg)
+{
+	set=&bg;
+	demoButtons.clear();
+	if(bg.demos.size()==1){
+		changeAnimXML(bg.demos[0]);
+		no.setTitle("No");
+	}
+	else if(bg.demos.size()>1){
+		no.setTitle("No demo");
+		for(unsigned int i=0; i<bg.demos.size(); i++){
+			bg.demos[i].setCurrentTag(";animation");
+			demoButtons.push_back(dallasButton());
+			demoButtons.back().setup(bg.demos[i].getCurrentTag().getAttribute("title"),40);
+		}
+	}
+}
+
 void demoAnim::changeAnimXML(ofXML & newXML)
 {
   animXML=newXML;
@@ -41,9 +60,14 @@ void demoAnim::changeAnimXML(ofXML & newXML)
 
 ofTag moveTag(string speed,string obj="", string x="", string y=""){
   ofTag ret("step");
-  ret.addAttribute("type", obj);
-  ret.addAttribute("x", x);
-  ret.addAttribute("y", y);
+  ret.addAttribute("type", "move");
+  ret.addAttribute("speed",speed);
+  ret.addNode("pos");
+  ofTag & nd=ret.getNode("pos");
+  nd.addAttribute("type","obj");
+  nd.addAttribute("where",obj);
+  nd.addAttribute("x",x);
+  nd.addAttribute("y",y);
   return ret;
 }
 
@@ -76,7 +100,7 @@ void demoAnim::handleAnimStep(ofTag tag)
     if(type=="move") vType=OF_VMOUSE_MOVE_TO;
     else if(type=="clickDown") vType=OF_VMOUSE_CLICK_DOWN,xint=anim.x,yint=anim.y;
     else if(type=="clickUp") vType=OF_VMOUSE_CLICK_UP,xint=anim.x,yint=anim.y;
-    else if(type=="compound"){
+    else if(type=="select"){
       
     }
   }
@@ -145,6 +169,21 @@ void demoAnim::animationStepRequested()
     if(animStep<animXML.getNumTag("step")){
       //------- push into the tag and fetch the event Type
       animXML.pushTag("step",animStep);
+	  if(animXML.getCurrentTag().getAttribute("type")=="select"){
+		  ofTag& tag=animXML.getCurrentTag();
+		  animXML.setCurrentTag(";animation");
+		  string whr=tag.getAttribute("where");
+		  string which=tag.getAttribute("which");
+		  animXML.getCurrentTag().removeNode("step",animStep);
+		  animXML.addTag(moveTag("2000",whr,"w/2","h/2"),animStep);
+		  animXML.addTag(clickDownTag(),animStep+1);
+		  animXML.addTag(clickUpTag(),animStep+2);
+		  animXML.addTag(moveTag("2000",whr,"w/2","h*"+which+".5"),animStep+3);
+		  animXML.addTag(clickDownTag(),animStep+4);
+		  animXML.addTag(clickUpTag(),animStep+5);
+		  animXML.pushTag("step",animStep);
+		  animXML.writeFile("test.xml");
+	  }
       handleAnimStep(animXML.getCurrentTag());
     }
     //-- if the animStep is greater than the current number of steps in the xml, end the animation
@@ -178,10 +217,19 @@ ofInterObj * demoAnim::searchForObject(ofTag & tag, int & _x, int & _y)
   string where=tag.getAttribute("where");
   string xTemp=tag.getAttribute("x");
   string yTemp=tag.getAttribute("y");
-  vector<string> whSplit = ofSplitString(where, "[]");
+  vector<string> whSplit = ofSplitString(where, "[].");
   if(whSplit[0]=="sidebar"){
     if(whSplit.size()==2) ret=((*sideBar)[ofToInt(whSplit[1])]);
     if(whSplit.size()==3) ret=&((*(*sideBar)[ofToInt(whSplit[1])])[ofToInt(whSplit[2])]);
+  }
+  if(whSplit[0]=="openBar"){
+	  if(whSplit.size()==2&&sideBar->openBar()){
+		  if(whSplit[1]=="drop") ret=&((as_dynamic(sideBar->openBar()))->select);
+		  else ret=&((*(sideBar->openBar()))[ofToInt(whSplit[1])]);
+	  }
+  }
+  else if(whSplit[0]=="sidebarButton"){
+    if(whSplit.size()==2) ret=&((*sideBar)[ofToInt(whSplit[1])])->button;
   }
   else if(whSplit[0]=="base"){
     if(whSplit.size()==1) ret=&(blocks->base);
@@ -210,10 +258,10 @@ ofInterObj * demoAnim::searchBlock(vector<string> spl, block & currentBlock, int
   ofInterObj * ret=0;
   if(offset>=spl.size()) ret=&currentBlock;
   else {
-    char which=spl[offset][0];
-    int num=ofToInt(string(spl[offset],1,spl[offset].length()));
-    if(which=='i') ret=searchBlock(spl,currentBlock.blocksIn[num],offset+1);
-    else if(which=='d') ret=&(currentBlock.ddGroup[num]);
+    string which=spl[offset];
+    int num=((offset>=spl.size()-1)?ofToInt(spl[offset+1]):0);
+    if(which=="inside") ret=searchBlock(spl,currentBlock.blocksIn[ofToInt(spl[offset+1])],offset+2);
+    else if(which=="drop") ret=&(currentBlock.ddGroup[ofToInt(spl[offset+1])]);
   }
   return ret;
 }
@@ -255,25 +303,64 @@ void demoAnim::drawForeground()
   if(bPrompt){
     ofSetColor(black.opacity(.8));
     ofRect(0,0,ofGetWidth(),ofGetHeight());
-    string head="View Demo?";
-    int w=max(double(header.stringWidth(head)),yes.w*2+50);
-    int h=header.stringHeight(head)+50+no.h;
-    ofRectangle r((ofGetWidth()-w)/2-50, (ofGetHeight()-h)/2-50, w+100, h+100);
-    drawStyledBox(r.x,r.y,r.width,r.height);
-    header.drawString(head, r.x+r.width/2, r.y+50);
-    yes.draw(r.x+r.width/2-yes.w-25, r.y+r.height-50-yes.h);
-    no.draw(r.x+r.width/2+25, r.y+r.height-50-no.h);
+	if(!demoButtons.size()){
+		string head="View Demo?";
+		int w=max(double(header.stringWidth(head)),yes.w*2+50);
+		int h=header.stringHeight(head)+50+no.h;
+		ofRectangle r((ofGetWidth()-w)/2-50, (ofGetHeight()-h)/2-50, w+100, h+100);
+		drawStyledBox(r.x,r.y,r.width,r.height);
+		header.drawString(head, r.x+r.width/2, r.y+50);
+		yes.draw(r.x+r.width/2-yes.w-25, r.y+r.height-50-yes.h);
+		no.draw(r.x+r.width/2+25, r.y+r.height-50-no.h);
+	}
+	else{
+		string head="Select a demo.";
+		int w=max(double(header.stringWidth(head)),no.w+50);
+		int h=header.stringHeight(head)+50+no.h;
+		for(unsigned int i=0; i<demoButtons.size(); i++){
+			h+=demoButtons[i].h+25;
+			w=max(w,demoButtons[i].w+50);
+		}
+		ofRectangle r((ofGetWidth()-w)/2-25, (ofGetHeight()-h)/2-25, w+50, h+50);
+		drawStyledBox(r.x,r.y,r.width,r.height);
+		ofSetColor(white);
+		header.drawString(head, r.x+r.width/2, r.y+50);
+		//yes.draw(r.x+r.width/2-yes.w-25, r.y+r.height-50-yes.h);
+		int totH=25;
+		for(unsigned int i=0; i<demoButtons.size(); i++){
+			demoButtons[i].draw(r.x+(r.width-demoButtons[i].w)/2,r.y+header.stringHeight(head)+50+totH);
+			totH+=demoButtons[i].h+25;
+		}
+		no.draw(r.x+(r.width-no.w)/2, r.y+r.height-25-no.h);
+	}
+
   }
 }
 
 bool demoAnim::clickDown(int x, int y)
 {
 	bool ret=false;
-  if(bPrompt){
-    if(yes.clickDown(x, y)) play(),bPrompt=false,ret=true;
-    if(no.clickDown(x, y)) bPrompt=false,ret=true;
-  }
-  return ret;
+	if(bPrompt){
+		if(demoButtons.size()){
+			for(unsigned int i=0; i<demoButtons.size()&&!ret; i++){
+				if(demoButtons[i].clickDown(x,y)){
+					if(set) changeAnimXML(set->demos[i]);
+					play();
+					bPrompt=false, ret=true;
+				}
+			}
+			if(!ret&&no.clickDown(x,y)) bPrompt=false,ret=true;
+		}
+		else {
+			if(yes.clickDown(x, y)){
+				if(set) changeAnimXML(set->animXML);
+				play();
+				bPrompt=false,ret=true;
+			}
+			if(no.clickDown(x, y)) bPrompt=false,ret=true;
+		}
+	}
+	return ret;
 }
 
 bool demoAnim::clickUp()

@@ -14,16 +14,21 @@
 #include "ofExtended.h"
 
 #include "../../../dallasEng/dallasEng.h"
+#include "../blockLoad.h"
 
 class demoAnim : public ofAnimation {
 protected:
   int animStep;
   ofXML animXML;
+
 	ofImage pointer;
   
   bGroup * blocks;
   sbGroup * sideBar;
+  blockGroup * set;
   
+  vector<dallasButton> demoButtons;
+
   dallasButton yes;
   dallasButton no;
   
@@ -35,6 +40,7 @@ public:
   void handleAnimStep(ofTag tag);
   ofInterObj * searchForObject(ofTag & tag, int & _x, int & _y);
   ofInterObj * searchBlock(vector<string> spl, block & b, int offset);
+  void changeBlockLevel(blockGroup & bg);
   void changeAnimXML(ofXML & newXML);
   void update();
   void drawCursor();

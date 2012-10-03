@@ -1,0 +1,76 @@
+<animation title="Blink light">
+  <step type="move" time="0">
+    <pos type="mouse" />
+  </step>
+#click open the second sidebar
+  <step type="move" speed="2000">
+    <pos type="obj" where="sidebarButton[0]" x="20" y="20" />
+  </step>
+  <step type="clickDown" time=".25" />
+  <step type="clickUp" time=".25" />
+#click open the second sidebar
+  <step type="select" speed="2000" where="openBar.drop" which="1"/>
+#pickup the first block in the open sidebar
+  <step type="move" speed="2000">
+    <pos type="obj" where="openBar[0]" x="20" y="20"/>
+  </step>
+  <step type="clickDown" time=".25" />
+#drop it below the base
+  <step type="move" speed="2000">
+    <pos type="obj" where="base" x="20" y="h+30" />
+  </step>
+  <step type="clickUp" time=".25" />
+#change the dropdown to "on"
+  <step type="select" speed="2000" where="base[0].drop[0]" which="1"/>
+#pickup the first block in the open sidebar
+  <step type="move" speed="2000">
+    <pos type="obj" where="openBar[0]" x="20" y="20"/>
+  </step>
+  <step type="clickDown" time=".25" />
+#drop it below the base
+  <step type="move" speed="2000">
+    <pos type="obj" where="base[0]" x="20" y="h+30" />
+  </step>
+  <step type="clickUp" time=".25" />
+#change the dropdown to "off"
+  <step type="select" speed="2000" where="base[1].drop[0]" which="0"/>
+#click open the third sidebar
+  <step type="move" speed="2000">
+    <pos type="obj" where="sidebarButton[4]" x="20" y="20" />
+  </step>
+  <step type="clickDown" time=".25" />
+  <step type="clickUp" time=".25" />
+#grab a timing block
+  <step type="move" speed="2000">
+    <pos type="obj" where="openBar[0]" x="20" y="20"/>
+  </step>
+  <step type="clickDown" time=".25" />
+#drop it below the first block on the base
+  <step type="move" speed="2000">
+    <pos type="obj" where="base[0]" x="20" y="h+30" />
+  </step>
+  <step type="clickUp" time=".25" />
+#change the dropdown to ".5"
+  <step type="select" speed="2000" where="base[1].drop[0]" which="1"/>
+#grab a timing block
+  <step type="move" speed="2000">
+    <pos type="obj" where="openBar[0]" x="20" y="20"/>
+  </step>
+  <step type="clickDown" time=".25" />
+#drop it below the first block on the base
+  <step type="move" speed="2000">
+    <pos type="obj" where="base[2]" x="20" y="h+30" />
+  </step>
+  <step type="clickUp" time=".25" />
+#change the dropdown to ".5"
+  <step type="select" speed="2000" where="base[3].drop[0]" which="1"/>
+#move to the upload button and click it.
+  <step type="move" speed="2000">
+    <pos type="obj" where="upload" x="w/2" y="h/2" />
+  </step>
+  <step type="clickDown" time=".25" />
+  <step type="clickUp" time=".25" />
+  <step type="move" speed="2000">
+    <pos type="mouse" />
+  </step>
+</animation>

@@ -95,6 +95,17 @@ void blockGroup::load(string dir)
     vector<string> spl= ofSplitString(DIR.getPath(i), "/");
     if(spl.back()=="blocks.xml") blockXML.loadFile(DIR.getPath(i)), nLoaded++;
     else if(spl.back()=="anim.xml") animXML.loadFile(DIR.getPath(i)), nLoaded++;
+	else if(spl.back()=="demos"){
+		ofxDirList subdir;
+		int num=subdir.listDir(DIR.getPath(i));
+		for(int j=0; j<num; j++){
+			size_t found=subdir.getPath(j).find(".xml");
+			if(found!=string::npos){
+				demos.push_back(ofXML());
+				demos.back().loadFile(subdir.getPath(j));
+			}
+		}
+	}
     else if(spl.back()=="icon_big.png") choice.setup(200,OF_HOR,DIR.getPath(i)), nLoaded++;
     else if(spl.back()=="example.png") example.loadImage(DIR.getPath(i)), bImgLoaded=true;
   }

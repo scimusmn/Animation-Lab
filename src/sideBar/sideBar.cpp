@@ -674,6 +674,15 @@ void sbGroup::draw(){
 	bars.back()->y=y+h;
 }
 
+vSideBar * sbGroup::openBar()
+{
+	vSideBar * ret=0;
+	for (unsigned int i=0; i<bars.size()-1; i++) {
+		if(bars[i]->bOpen) ret=bars[i];
+	}
+	return ret;
+}
+
 /*****************************************************************
  * clickDown(double _x, double _y) :: member of sbGroup
  *
