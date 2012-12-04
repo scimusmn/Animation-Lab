@@ -198,6 +198,7 @@ void bGroup::clearAndReset()
 {
 	blocks.clear();
 	base.blocksOn.clear();
+	bar.setScrollPercent(0);
 	current=0;
 	ddopen=false;
 	inHand=false;

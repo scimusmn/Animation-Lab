@@ -138,6 +138,7 @@ void rootGroup::load(string dir)
   for(int i = 0; i < nDir; i++){
     vector<string> spl= ofSplitString(DIR.getPath(i), "/");
     vector<string> spl2= ofSplitString(spl.back(), ".");
+	//cout << "Loaded from " << DIR.getPath(i) << endl;
     if(spl2.size()==1){
 		//if(atoi(spl2[0].substr(0,3).c_str()))
       bool found=0;

@@ -213,10 +213,8 @@ bool block::siblingWritten(map<string,bool> * printed)
 	bool ret=false;
 	map<string,bool>::iterator it;
 	//(ofSplitString(label,":"));
-	cout << "Main label is " << label << endl;
 	if(label.find_last_of(":")!=string::npos){
 		string lbl1=label.substr(0,label.find_last_of(":"));
-		cout << lbl1 << endl;
 		//for (unsigned int i=0; i<sibling.size(); i++) {
 			//cout << sibling[i]+":"+title+":" << endl;
 			/*it=printed->find(sibling[i]);

@@ -115,6 +115,7 @@ void configuration::readGeneralConfig(string cfgFile){
 				ofSetFullscreen(ofToInt(token[1]));
 			}
 			else if(token[0]=="TITLE_BAR_SIZE"){
+				showTitle=ofToInt(token[1]);
 				titleBarSize=ofToInt(token[1]);
 			}
 			else if(token[0]=="DEMO_AVAILABLE"){

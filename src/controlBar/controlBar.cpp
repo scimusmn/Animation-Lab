@@ -347,9 +347,11 @@ void controlBar::drawForeground(){
 void controlBar::update()
 {
   serChk.threadCheckAvailability();
-  anim.update();
+  if(anim.isPlaying()&&!serChk.isAvailable()) anim.stop();
+	anim.update();
   
   if(serChk.justLostDevice()){
+	  if(anim.isPlaying()) anim.stop();
     if(!bPluginChoice){
       if(blocks->changedSinceSave()) report().post(cfg().disconnectMsg,3);
 	  blocks->saveXML(cfg().programDir+serChk.deviceNumber()+".xml");
@@ -431,7 +433,10 @@ bool controlBar::clickDown(int _x, int _y, int button)
 	if(cfg().newUser.clickDown(_x,_y)){
 		if(cfg().savePrograms) bPluginChoice=true;
 		else if(sets.size()!=1) bChooseLevel=true;
-		else bChooseLevel=false,anim.startPrompt();
+		else {
+			bChooseLevel=false;
+			if(cfg().demoAvailable) anim.startPrompt();
+		}
 		blocks->clearAndReset();
 		blocks->loadFile(ofToDataPath("programs/newUserProgram.xml"));
 	}
