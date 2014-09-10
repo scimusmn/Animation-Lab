@@ -8,7 +8,7 @@
 		<block label="forSec" source="blocks/timing.xml" />
 		<block label="delay" source="blocks/timing.xml" />
 		<block label="repeat" source="blocks/timing.xml" />
-		<block label="forever" source="blocks/timing.xml" />
+		<block label="oneMin" source="blocks/timing.xml" />
 	</bar>
 	<bar name="Conditional blocks" color="0x65c270">
 		<block label="waitBP" source="blocks/conditionals.xml" />

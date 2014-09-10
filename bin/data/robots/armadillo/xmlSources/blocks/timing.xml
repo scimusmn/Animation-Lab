@@ -1,5 +1,5 @@
 <blocks color="0x13b5ea">
-    <block label="delay" name="wait %d second">
+    <block class="delay" label="delay" name="wait %d second">
         <dropdown>
             <ddlow>0</ddlow>
             <ddhigh>5</ddhigh>
@@ -7,7 +7,7 @@
         </dropdown>
         <file>timing/delay.blk</file>
     </block>
-    <block label="forSec" name="for %d seconds">
+    <block class="timer" label="forSec" name="for %d seconds">
         <bracket />
         <dropdown>
             <ddlow>0</ddlow>
@@ -15,7 +15,7 @@
         </dropdown>
         <file>timing/forSeconds.blk</file>
     </block>
-    <block label="repeat" name="repeat %d times">
+    <block class="rpt" label="repeat" name="repeat %d times">
         <bracket />
         <dropdown>
             <ddlow>0</ddlow>
@@ -23,8 +23,12 @@
         </dropdown>
         <file>timing/repeat.blk</file>
     </block>
-    <block label="forever" name="forever">
+    <block class="rpt" label="forever" name="forever">
         <bracket />
         <file>timing/forever.blk</file>
+    </block>
+    <block class="timer" label="oneMin" name="repeat for 1 minute">
+        <bracket />
+        <file>timing/oneMin.blk</file>
     </block>
 </blocks>

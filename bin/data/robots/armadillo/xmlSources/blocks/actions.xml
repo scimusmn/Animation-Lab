@@ -1,8 +1,8 @@
 <blocks color="0xde8c3a">
     <block class="armadillo" label="moveHead" name="move head %d">
         <dropdown>
-            <dds value="950">UP</dds>
-            <dds value="750">DOWN</dds>
+            <dds value="900">UP</dds>
+            <dds value="700">DOWN</dds>
         </dropdown>
         <file>actions/moveHead.blk</file>
     </block>

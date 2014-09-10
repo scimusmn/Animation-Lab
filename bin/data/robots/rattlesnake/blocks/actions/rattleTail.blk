@@ -14,6 +14,7 @@ loop(){
 }
 
 end(){
+	snake.rattleSpeed(0);
 }
 
 ~ath

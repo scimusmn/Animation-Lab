@@ -14,7 +14,7 @@ loop(){
 }
 
 end(){
-
+	snake.moveByIndex(0);
 }
 
 ~ath

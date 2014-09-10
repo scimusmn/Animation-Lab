@@ -34,9 +34,8 @@ public:
 		//delay(100);
 	}
 	void call(int temp){
-		if(!isPlaying()){
-			play(temp);
-		}
+		play(temp);
+		while(isPlaying());
 	}
 	void stop(){
 		if(isPlaying()){
