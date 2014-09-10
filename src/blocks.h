@@ -107,6 +107,7 @@ public:
   ofTag origTag;
   
   string label;
+    string classLabel;
 	
 	block(ofTag & xml,ofColor col);
 

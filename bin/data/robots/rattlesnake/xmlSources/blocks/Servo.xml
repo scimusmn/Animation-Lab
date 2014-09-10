@@ -1,0 +1,39 @@
+<device label="SRVO">
+  <block name="set servo to %d degrees" label="SET">
+    <dropdown>
+      <ddhigh>0</ddhigh>
+      <ddlow>180</ddlow>
+      <ddsteps>5</ddsteps>
+      <selected>0</selected>
+    </dropdown>
+    <file>devices/Servo/set.blk</file>
+  </block>
+  <block name="move servo %d to %d degrees" label="SET">
+    <dropdown>
+      <dds>SLOW</dds>
+      <dds>MED</dds>
+      <dds>FAST</dds>
+      <selected>SLOW</selected>
+    </dropdown>
+    <dropdown>
+      <ddhigh>0</ddhigh>
+      <ddlow>180</ddlow>
+      <ddsteps>5</ddsteps>
+      <selected>0</selected>
+    </dropdown>
+    <file>devices/Servo/speedSet.blk</file>
+  </block>
+  <block name="follow %d signal with servo" label="FOLLOW">
+    <dropdown>
+      <dds>port1</dds>
+      <dds>port2</dds>
+      <dds>port3</dds>
+      <dds>port4</dds>
+      <selected>port1</selected>
+    </dropdown>
+    <file>devices/Servo/follow.blk</file>
+  </block>
+  <block name="wait for servo to finish moving" label="WAIT">
+    <file>devices/Servo/wait.blk</file>
+  </block>
+</device>

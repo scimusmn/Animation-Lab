@@ -1,0 +1,22 @@
+<blocks font="ArialNarrow.ttf" title="Make a story with the armadillo" subtitle="Advanced: Create interactive sequences with conditional statements" xmlns:blck="http://www.smm.org/">
+	<bar name="Action blocks" color="0xde8c3a">
+		<block label="moveHead" source="blocks/actions.xml" />
+		<block label="rattleTail" source="blocks/actions.xml" />
+		<block label="play" source="blocks/actions.xml" />
+        <block label="stop" source="blocks/actions.xml" />
+	</bar>
+	<bar name="Timing blocks" color="0x13b5ea">
+		<block label="forSec" source="blocks/timing.xml" />
+		<block label="delay" source="blocks/timing.xml" />
+		<block label="repeat" source="blocks/timing.xml" />
+		<block label="forever" source="blocks/timing.xml" />
+	</bar>
+	<bar name="Conditional blocks" color="0x65c270">
+		<block label="waitBP" source="blocks/conditionals.xml" />
+		<block label="ifBP" source="blocks/conditionals.xml" />
+		<block label="ifNotBP" source="blocks/conditionals.xml" />
+		<block label="whileBP" source="blocks/conditionals.xml" />
+		<block label="whileSound" source="blocks/conditionals.xml" />
+	</bar>
+</blocks>
+	

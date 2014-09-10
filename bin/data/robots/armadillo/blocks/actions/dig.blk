@@ -1,0 +1,20 @@
+global(){
+    ~#include "linearActuator.h"
+	~#include "armadillo.h"
+}
+
+setup(){
+}
+
+start(){
+}
+
+loop(){
+	armadillo.digSpeed($dd[0].num);
+}
+
+end(){
+    armadillo.stopDig();
+}
+
+~ath

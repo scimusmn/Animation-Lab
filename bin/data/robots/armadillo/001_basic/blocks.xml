@@ -1,0 +1,37 @@
+<blocks font="ArialNarrow.ttf" title="Control the armadillo!" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
+	<bar name="Instruction blocks" color="0x594072">
+        <block label="moveHead" source="blocks/actions.xml">
+          <blocksOn>
+                    <block label="delay" source="blocks/timing.xml" />
+                    <block label="moveHead" source="blocks/actions.xml">
+                        <ddselected number="0">DOWN</ddselected>
+                    </block>
+                    <block label="delay" source="blocks/timing.xml" />
+            </blocksOn>
+        </block>
+        <block label="moveTail" source="blocks/actions.xml">
+            <blocksOn>
+                <block label="delay" source="blocks/timing.xml" />
+                <block label="moveTail" source="blocks/actions.xml">
+                    <ddselected number="0">DOWN</ddselected>
+                </block>
+                <block label="delay" source="blocks/timing.xml" />
+            </blocksOn>
+        </block>
+        <block label="digPaw" source="blocks/actions.xml">
+            <ddselected number="0">FAST</ddselected>
+            <blocksOn>
+                <block label="delay" source="blocks/timing.xml">
+                    <ddselected number="0">2</ddselected>
+                </block>
+                <block label="digPaw" source="blocks/actions.xml">
+                    <ddselected number="0">STOP</ddselected>
+                </block>
+                <block label="delay" source="blocks/timing.xml">
+                    <ddselected number="0">2</ddselected>
+                </block>
+            </blocksOn>
+        </block>
+	</bar>
+</blocks>
+	

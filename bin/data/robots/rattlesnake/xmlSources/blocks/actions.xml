@@ -1,0 +1,27 @@
+<blocks color="0xde8c3a">
+    <block class="snake" label="moveHead" name="move head %d">
+        <dropdown>
+            <dds value="1">UP RIGHT</dds>
+            <dds value="2">UP LEFT</dds>
+            <dds value="0">LOWER</dds>
+        </dropdown>
+        <file>actions/moveHead.blk</file>
+    </block>
+    <block class="snake" label="rattleTail" name="rattle tail %d">
+        <dropdown>
+            <dds value="1">START</dds>
+            <dds value="0">STOP</dds>
+        </dropdown>
+        <file>actions/rattleTail.blk</file>
+    </block>
+    <block class="audio" label="play" name="play sound %d">
+        <dropdown>
+            <dds value="1">HISS</dds>
+            <dds value="2">RATTLE</dds>
+        </dropdown>
+        <file>actions/playSound.blk</file>
+    </block>
+    <block class="audio" label="stop" name="stop sound">
+        <file>actions/stopSound.blk</file>
+    </block>
+</blocks>

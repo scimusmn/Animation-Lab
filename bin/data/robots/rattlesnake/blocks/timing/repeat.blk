@@ -1,0 +1,19 @@
+global(){
+}
+
+setup(){
+}
+
+start(){
+}
+
+loop(){
+	for(int i=0; i<$dd[0].num; i++){
+		$blockIn;
+	}
+}
+
+end(){
+}
+
+~ath

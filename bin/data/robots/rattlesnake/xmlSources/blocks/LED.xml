@@ -1,0 +1,19 @@
+<device label="LED">
+  <block name="turn Light %d" label="SWITCH">
+    <dropdown>
+      <dds>off</dds>
+      <dds>on</dds>
+      <selected>on</selected>
+    </dropdown>
+    <file>devices/LED/set.blk</file>
+  </block>
+  <block name="set Light brightness to %d" label="FADE">
+    <dropdown>
+      <ddhigh>100</ddhigh>
+      <ddlow>0</ddlow>
+      <ddsteps>5</ddsteps>
+      <selected></selected>
+    </dropdown>
+    <file>devices/LED/fade.blk</file>
+  </block>
+</device>

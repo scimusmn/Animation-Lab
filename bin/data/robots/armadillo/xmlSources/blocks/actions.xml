@@ -1,0 +1,24 @@
+<blocks color="0xde8c3a">
+    <block class="armadillo" label="moveHead" name="move head %d">
+        <dropdown>
+            <dds value="950">UP</dds>
+            <dds value="750">DOWN</dds>
+        </dropdown>
+        <file>actions/moveHead.blk</file>
+    </block>
+    <block class="armadillo" label="moveTail" name="move tail %d">
+        <dropdown>
+            <dds value="250">UP</dds>
+            <dds value="750">DOWN</dds>
+        </dropdown>
+        <file>actions/moveTail.blk</file>
+    </block>
+    <block class="armadillo" label="digPaw" name="dig %d">
+        <dropdown>
+            <dds value="150">FAST</dds>
+            <dds value="96">SLOW</dds>
+            <dds value="0">STOP</dds>
+        </dropdown>
+        <file>actions/dig.blk</file>
+    </block>
+</blocks>

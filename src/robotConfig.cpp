@@ -7,12 +7,14 @@ configuration & cfg(){
 };
 
 void configuration::readGeneralConfig(string cfgFile){
+    cout << ofToDataPath(cfgFile) << endl;
 	ifstream config(ofToDataPath(cfgFile).c_str());
 	while (config.peek()!=EOF) {
 		string nextLine;
 		getline(config, nextLine);
-		vector<string> token=ofSplitString(nextLine, "=\r\n");
+		vector<string> token=ofSplitString(nextLine, "=");
 		if(token.size()){
+            cout << token[0] << endl;
 			if(token[0]=="MCU") mcu=token[1];
 			else if(token[0]=="TRANSFER_RATE") baud=token[1];
 			else if(token[0]=="PROGRAMMER") programmer=token[1];
@@ -25,6 +27,7 @@ void configuration::readGeneralConfig(string cfgFile){
 			else if(token[0]=="BOARD"){
 				if(token[1]=="UNO") mcu="atmega328p", programmer="arduino", freq="16000000L",baud="115200";
 				else if(token[1]=="DUEM") mcu="atmega328p", programmer="arduino", freq="16000000L",baud="57600";
+                else if(token[1]=="PEAPOD") mcu="attiny85", programmer="usbtiny", freq="8000000L",baud="";
 			}
 			else if(token[0]=="EXCLUDE_PORT"){
 				excludedPort.push_back(token[1]);
@@ -115,8 +118,8 @@ void configuration::readGeneralConfig(string cfgFile){
 				ofSetFullscreen(ofToInt(token[1]));
 			}
 			else if(token[0]=="TITLE_BAR_SIZE"){
-				showTitle=ofToInt(token[1]);
 				titleBarSize=ofToInt(token[1]);
+                if(titleBarSize) showTitle=true;
 			}
 			else if(token[0]=="DEMO_AVAILABLE"){
 				demoAvailable=ofToInt(token[1]);
@@ -142,7 +145,8 @@ void configuration::readGeneralConfig(string cfgFile){
 				textColor.a=255;
 			}
 			else if(token[0]=="SUBTITLE_COLOR"){
-				subtitleColor=ofColor(strtol(token[1].c_str(),NULL,0));
+				subtitleColor=ofColor::fromHex(strtol(token[1].c_str(),NULL,0));
+                cout << subtitleColor << endl;
 				subtitleColor.a=255;
 			}
 			else if(token[0]=="DEFAULT_COLORS"){
@@ -157,4 +161,5 @@ void configuration::readGeneralConfig(string cfgFile){
 		}
 	}
 	config.close();
+    if(!wrapperFile.length()) wrapperFile = robotRoot+"/wrapper.wrp";
 }

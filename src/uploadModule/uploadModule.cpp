@@ -23,6 +23,7 @@ void uploadModule::setup(bGroup * blks, serialCheck * srCk)
   uploaded.pause();
   cmplr.setup(serChk);
   bRunning=false;
+    bgUpload=false;
 }
 
 void uploadModule::update()
@@ -42,6 +43,16 @@ void uploadModule::upload()
 	//--------- unpress the upload button
 		
 	blocks->base.uploadBut.clickUp();
+}
+
+void uploadModule::uploadInBG()
+{
+    if(!bRunning){
+        bgUpload=true;
+        //--------- Generate the file which we will compile and upload to the arduino
+        //blocks->writeFile("arduino_make/applet/arduino_make.cpp");
+         cmplr.compile("arduino_make/applet/blank.cpp");
+    }
 }
 
 bool uploadModule::drawForeground()
@@ -85,13 +96,14 @@ void uploadModule::stopUpload(){
 
 bool uploadModule::isUploading()
 {
-	if(!cmplr.isCompiling()&&bRunning){
+	if(!cmplr.isCompiling()&&bRunning&&!bgUpload){
     //uploaded.set(3);
     //uploaded.run();
 		report().post(cfg().uploadedMessage,3);
 	}
+    else if(!cmplr.isCompiling()&&bRunning) bgUpload=false;
   bRunning=cmplr.isCompiling();
-  return bRunning;
+  return bRunning&&!bgUpload;
 }
 
 bool uploadModule::clickDown(int _x, int _y)

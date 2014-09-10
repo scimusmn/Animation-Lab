@@ -1,0 +1,11 @@
+<device label="SNSR">
+  <block name="if sensor sees %d" label="SEES">
+    <dropdown>
+      <dds>dark</dds>
+      <dds>light</dds>
+      <selected>dark</selected>
+    </dropdown>
+    <bracket />
+    <file>devices/LightSensor/detect.blk</file>
+  </block>
+</device>

@@ -92,6 +92,7 @@ void blockGroup::load(string dir)
   nDir = DIR.listDir(dir);
   //you can now iterate through the files as you like
   for(int i = 0; i < nDir; i++){
+      cout << DIR.getPath(i) << endl;
     vector<string> spl= ofSplitString(DIR.getPath(i), "/");
     if(spl.back()=="blocks.xml") blockXML.loadFile(DIR.getPath(i)), nLoaded++;
     else if(spl.back()=="anim.xml") animXML.loadFile(DIR.getPath(i)), nLoaded++;
@@ -138,7 +139,6 @@ void rootGroup::load(string dir)
   for(int i = 0; i < nDir; i++){
     vector<string> spl= ofSplitString(DIR.getPath(i), "/");
     vector<string> spl2= ofSplitString(spl.back(), ".");
-	//cout << "Loaded from " << DIR.getPath(i) << endl;
     if(spl2.size()==1){
 		//if(atoi(spl2[0].substr(0,3).c_str()))
       bool found=0;

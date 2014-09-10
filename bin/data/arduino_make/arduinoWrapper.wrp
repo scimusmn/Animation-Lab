@@ -1,0 +1,19 @@
+#include "WProgram.h"
+
+$blocks.global()
+
+bool thru=false;
+
+void setup(){
+	thru=false;
+	$blocks.setup()
+}
+
+void loop(){
+	$blocks.start()
+	if(1){
+		$blocks.loop()
+		//thru=true;
+	}
+	$blocks.end()
+}

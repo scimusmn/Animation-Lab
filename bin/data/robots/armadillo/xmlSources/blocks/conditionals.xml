@@ -1,0 +1,23 @@
+<blocks color="0x65c270">
+    <block class="button" label="waitBP" name="wait until button press">
+        <file>conditions/waitBP.blk</file>
+    </block>
+    <block class="button" label="ifBP" name="if button pressed">
+        <bracket />
+        <file>conditions/ifBP.blk</file>
+        <sibling>if button is not pressed</sibling>
+    </block>
+    <block class="button" label="ifNotBP" name="if button is not pressed">
+        <bracket />
+        <file>conditions/ifNotBP.blk</file>
+        <sibling>if button pressed</sibling>
+    </block>
+    <block class="button" label="whileBP" name="while button pressed">
+        <bracket>1</bracket>
+        <file>conditions/ifBP.blk</file>
+    </block>
+    <block class="audio" label="whileSound" name="while sound is playing">
+        <bracket />
+        <file>conditions/whileSoundPlaying.blk</file>
+    </block>
+</blocks>

@@ -1,0 +1,30 @@
+<blocks color="0x13b5ea">
+    <block label="delay" name="wait %d second">
+        <dropdown>
+            <ddlow>0</ddlow>
+            <ddhigh>5</ddhigh>
+            <selected>1</selected>
+        </dropdown>
+        <file>timing/delay.blk</file>
+    </block>
+    <block label="forSec" name="for %d seconds">
+        <bracket />
+        <dropdown>
+            <ddlow>0</ddlow>
+            <ddhigh>10</ddhigh>
+        </dropdown>
+        <file>timing/forSeconds.blk</file>
+    </block>
+    <block label="repeat" name="repeat %d times">
+        <bracket />
+        <dropdown>
+            <ddlow>0</ddlow>
+            <ddhigh>10</ddhigh>
+        </dropdown>
+        <file>timing/repeat.blk</file>
+    </block>
+    <block label="forever" name="forever">
+        <bracket />
+        <file>timing/forever.blk</file>
+    </block>
+</blocks>

@@ -1,0 +1,24 @@
+global(){
+	~#include <Wire.h>
+	~#include "Sound.h"
+    
+    void pbCb(){
+        $blockIn;
+    }
+}
+
+setup(){
+	~Sound.setup();
+    @Sound.pbCb = &(pbCb);
+}
+
+start(){
+}
+
+loop(){
+}
+
+end(){
+}
+
+~ath

@@ -41,7 +41,7 @@
   <step type="clickDown" time=".25" />
 #drop it below the first block on the base
   <step type="move" speed="2000">
-    <pos type="obj" where="base[0][i0]" x="20" y="h+20" />
+    <pos type="obj" where="base[0].inside[0]" x="20" y="h+20" />
   </step>
   <step type="clickUp" time=".25" />
 #move to the first bar of the sidebar
@@ -58,17 +58,17 @@
 #click and drag to the inside of the repeat block
   <step type="clickDown" time=".25" />
   <step type="move" speed="2000">
-    <pos type="obj" where="base[0][i0]" x="20" y="h-30" />
+    <pos type="obj" where="base[0].inside[0]" x="20" y="h-30" />
   </step>
   <step type="clickUp" time=".25" />
 #move to the dropdown on the first block on the base
   <step type="move" speed="2000">
-    <pos type="obj" where="base[0][i0][i0][d0]" x="w/2" y="h/2"/>
+    <pos type="obj" where="base[0].inside[0].inside[0].drop[0]" x="w/2" y="h/2"/>
   </step>
   <step type="clickDown" time=".25" />
   <step type="clickUp" time=".25" />
   <step type="move" speed="2000">
-    <pos type="obj" where="base[0][i0][i0][d0]" x="w/2" y="h*1.5"/>
+    <pos type="obj" where="base[0].inside[0].inside[0].drop[0]" x="w/2" y="h*1.5"/>
   </step>
   <step type="clickDown" time=".5" />
   <step type="clickUp" time=".5" />
@@ -79,7 +79,7 @@
   <step type="clickDown" time=".25" />
 #drag the block into the second cond statement
   <step type="move" speed="2000">
-    <pos type="obj" where="base[0][i1]" x="20" y="h-20" />
+    <pos type="obj" where="base[0].inside[1]" x="20" y="h-20" />
   </step>
   <step type="clickUp" time=".25" />
 #move to the upload button and click it.

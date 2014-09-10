@@ -71,6 +71,7 @@ struct configuration {
 
 	void readGeneralConfig(string cfgFile);
 	configuration(){
+        wrapperFile="";
 		drawNewUser=scroll=test=verbose=portraitMode=false;
 		ofEnableDataPath();
 	}

@@ -163,7 +163,7 @@ void robotTest::drawMap(int x, int y, int w, int h)
 void robotTest::drawForeground()
 {
   if(turtle.crashed()){
-    ofSetColor(black.opacity(.75));
+    ofSetColor(black.opacity(200));
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
     
     endBut.setTextSize(35);
@@ -187,7 +187,7 @@ void robotTest::drawForeground()
   }
   
   if (turtle.completedMaze()) {
-    ofSetColor(black.opacity(.75));
+    ofSetColor(black.opacity(200));
     ofRect(0, 0, ofGetWidth(), ofGetHeight());
     
     endBut.setTextSize(35);
@@ -217,7 +217,7 @@ void robotTest::drawControlBar(int x, int y)
   cBar.width=mapArea.width;
   cBar.x=x,cBar.y=y;
   ofSetColor(black);
-  ofRect(cBar);
+  ofRect(cBar.x,cBar.y,cBar.width,cBar.height);
   
   ofSetColor(gray);
   //drawHatching(cBar.x, cBar.y, cBar.width, cBar.height, 85,80);

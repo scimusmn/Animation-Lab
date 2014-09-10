@@ -113,7 +113,7 @@ void block::draw(int _x, int _y)
 
 void block::draw(bool fade){
   //-------- we set the color of the block and draw the shape depending on type
-  ofSetColor(color.opacity(1));
+  ofSetColor(color.opacity(255));
   ofSetLineWidth(2);
   if (type==BLK_BRACKET){
     drawBigBlock(x,y,w,h,interior.x,interior.y,h-bottomBar);//drawBigBlock(x,y,w,h,orig.height,orig.width);

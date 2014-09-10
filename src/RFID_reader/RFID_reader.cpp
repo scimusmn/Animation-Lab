@@ -66,7 +66,7 @@ int CCONV TagHandler(CPhidgetRFIDHandle RFID, void *usrptr, unsigned char *TagVa
 	//turn on the Onboard LED
 	CPhidgetRFID_setLEDOn(RFID, 1);
   tagVal=ssprintf("%02x%02x%02x%02x%02x",TagVal[0], TagVal[1], TagVal[2], TagVal[3], TagVal[4]);
-	cout << "Tag found!" << endl;
+	
   tagAvailable=true;
 	return 0;
 }
@@ -75,7 +75,7 @@ int CCONV TagLostHandler(CPhidgetRFIDHandle RFID, void *usrptr, unsigned char *T
 {
 	//turn off the Onboard LED
 	CPhidgetRFID_setLEDOn(RFID, 0);
-	cout << "Tag lost!" << endl;
+  
   //tagVal="";
   tagAvailable=false;
 	return 0;

@@ -93,7 +93,7 @@ void bGroup::writeFile(string filename)
 
 void bGroup::writeFile(ofstream *k){
 	//blocks[lastBlock].printOut(k);
-	if(blocks.size()||1){
+	if(blocks.size()||true){
 		//-------- Updated to allow for greater flexability (ie we can change basic behavior, without recompile
 		
 		//-------- open the path to the wrapper file, which contains general program structure.
@@ -109,6 +109,7 @@ void bGroup::writeFile(ofstream *k){
 				if(buffer[i]=='\t'){
 					tabs++;
 					if(buffer[i+1]!='$') *k << '\t';
+                    cout << '\t';
 				}
 				//-------- if we find a '$'
 				else if(buffer[i]=='$'){
@@ -161,12 +162,16 @@ void bGroup::writeFile(ofstream *k){
 				//-------- if we didn't find either of those things, write the i^th character to k. 
 				else {
 					*k << buffer[i];
+                    cout << buffer[i];
 				}
 			}
 			//-------- end each line with a newline.
 			*k << endl;
+            cout << endl;
 		}
 	}
+    used.clear();
+    used[""]=false;
 }
 
 //_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_//_-_-_-_-_
