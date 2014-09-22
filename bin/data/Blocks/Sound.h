@@ -20,14 +20,14 @@ public:
 	bool isPlaying(){
 		Wire.requestFrom(4,1);
 		while(Wire.available()){
-			playing=Wire.receive();
+			playing=Wire.read();
 		}
 		return playing;
 	}
 	void play(int snd){
 		sound=snd;
 		Wire.beginTransmission(4);
-		Wire.send(sound);
+		Wire.write(sound);
 		Wire.endTransmission();
 		//while(sound!=0&&!isPlaying()) delay(1);
 		//delay(100);
@@ -35,14 +35,6 @@ public:
 	void call(int temp){
 		if(!isPlaying()){
 			play(temp);
-		}
-	}
-	void call(String temp){
-		sound=0;
-		if(temp.equals("BUBBLE")) sound = 1;
-		else if(temp.equals("GLUB")) sound= 2;
-		if(!isPlaying()){
-			play(sound);
 		}
 	}
 	void stop(){

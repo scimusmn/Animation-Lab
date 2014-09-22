@@ -61,23 +61,12 @@ public:
 	  dTime=0;
   }
   void sWriteSpeed(int pos, int speed){
-<<<<<<< HEAD
     dTime=((speed==0)?35:((speed==1)?14:5));
     for(int cPos=jackServo.read(); cPos!=pos; cPos+=(pos-cPos)/abs(pos-cPos)){
       jackServo.write(cPos);
       delay(dTime);
     }
     dTime=0;
-=======
-	  jackServo.attach(out);
-	dTime=((speed==0)?35:((speed==1)?14:5));
-	for(int cPos=jackServo.read(); cPos!=pos; cPos+=(pos-cPos)/abs(pos-cPos)){
-		jackServo.write(cPos);
-		delay(dTime);
-	}
-	dTime=0;
-	jackServo.detach();
->>>>>>> Re-included demos
   }
   int dChanged(){
     int ret=0;

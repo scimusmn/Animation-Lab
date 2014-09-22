@@ -315,11 +315,11 @@ void demoAnim::drawForeground()
 	}
 	else{
 		string head="Select a demo.";
-		int w=max(double(header.stringWidth(head)),no.w+50);
+		double w=max(double(header.stringWidth(head)),no.w+50);
 		int h=header.stringHeight(head)+50+no.h;
 		for(unsigned int i=0; i<demoButtons.size(); i++){
 			h+=demoButtons[i].h+25;
-			w=max(w,demoButtons[i].w+50);
+				w=max(w,demoButtons[i].w+50);
 		}
 		ofRectangle r((ofGetWidth()-w)/2-25, (ofGetHeight()-h)/2-25, w+50, h+50);
 		drawStyledBox(r.x,r.y,r.width,r.height);
