@@ -159,11 +159,11 @@ void ofTurtle::draw(int _x, int _y)
   ofRotate(360-bearing.absoluteAngle());
   
   ofEnableSmoothing();
-  ofSetColor(black.opacity(.5));
-  ofRect(body);
+  ofSetColor(black.opacity(128));
+  ofRect(body.x,body.y,body.width,body.height);
   ofSetColor(white);
   ofNoFill();
-  ofRect(body);
+  ofRect(body.x,body.y,body.width,body.height);
   ofFill();
   ofSetColor(black);
   ofRect(body.x-ppi*3/8, body.y, wheel.x, wheel.y);

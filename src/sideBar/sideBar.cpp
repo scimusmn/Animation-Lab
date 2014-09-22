@@ -75,7 +75,7 @@ sideBar::sideBar(string title,ofColor col):vSideBar(){
 	arialHeader.setSize(cfg().buttonFontSize);
 	bOver=bPressed=false;
 	bOpen = false;
-	color=col.opacity(1);
+	color=col.opacity(255);
   h=arialHeader.stringHeight("Kjhg")*1.3;
 	filename=title;
 }
@@ -88,13 +88,13 @@ sideBar::sideBar(ofTag & tag):vSideBar()
 	bOver=bPressed=false;
 	bOpen = false;
   h=arialHeader.stringHeight("Kjhg")*1.3;
-  color.set(strtol(tag.getAttribute("color").c_str(),NULL,0));
+  color.setHex(strtol(tag.getAttribute("color").c_str(),NULL,0));
   filename=tag.getAttribute("name");
   w=0;
   for (unsigned int j=0; j<tag.size(); j++) {
     if (tag[j].getLabel()=="block") {
-      blocks.push_back(block(tag[j],color));
-      w=max(w,blocks.back().fullWidth());
+        blocks.push_back(block(tag[j],color));
+        w=max(w,blocks.back().fullWidth());
     }
   }
 }
@@ -192,7 +192,7 @@ void sideBar::draw(int _x, int _y){
 		ofSetColor(color);
 		if(!bOpen) trimmedRect(x,y,w/8,h);
 		else trimmedRect(x,y,w,h);
-		ofSetColor(yellow);
+		ofSetColor(cfg().lineColor);
 		ofNoFill();
 		trimmedRect(x,y,w,h);
 		ofFill();
@@ -205,7 +205,7 @@ void sideBar::draw(int _x, int _y){
 		for (unsigned int j=0; j<blocks.size(); j++) {
 			blocks[j].draw(x+pad,temp);
 			if(j<blocks.size()-1){
-				ofSetColor(black.opacity(.5));
+				ofSetColor(black.opacity(128));
 				ofRect(x, temp+blocks[j].h+blocks[j].newHeightOn()+pad/2, w, 1);
 			}
 			temp+=blocks[j].h+blocks[j].newHeightOn()+pad;
@@ -269,7 +269,7 @@ dynamicSB::dynamicSB(ofTag & tag):vSideBar()
   string oldLabel=tag.getAttribute("label");
   filename=tag.getAttribute("name");
   string colorString=tag.getAttribute("color");
-  color.set(strtol(colorString.c_str(),NULL,0));
+  color.setHex(strtol(colorString.c_str(),NULL,0));
   
   string src=tag.getAttribute("source");
   if(src.length()){
@@ -339,7 +339,7 @@ void dynamicSB::draw(int _x, int _y)
     if(cfg().defaultColor) ofSetColor(gray);
 	else ofSetColor(cfg().subtitleColor);
     ofRectangle k(x, y+(!cfg().buttonsOnSidebar?h:0), w, select.h+pad*2);
-    ofRect(k);
+    ofRect(k.x,k.y,k.width,k.height);
     ofSetColor(black);
     if(cfg().defaultColor) drawHatching(k.x,k.y,k.width,k.height, 1, 15);
     drawBorder(k);
@@ -371,7 +371,7 @@ void dynamicSB::draw(int _x, int _y)
 		for (unsigned int j=0; j<set().size(); j++) {
 			set()[j].draw(x+pad*2,temp);
 			if(j<set().size()-1){
-				ofSetColor(black.opacity(.5));
+				ofSetColor(black.opacity(128));
 				ofRect(x, temp+set()[j].h+set()[j].newHeightOn()+pad, w, 1);
 			}
 			temp+=set()[j].h+set()[j].newHeightOn()+pad*2;
@@ -590,13 +590,13 @@ void sbGroup::draw(int _x, int _y)
   else y+=30;
   if(cfg().defaultColor)  ofSetColor(gray);
   else ofSetColor(cfg().sideBarColor);
-  ofRect(area);
+  ofRect(area.x,area.y,area.width,area.height);
   
-  ofSetColor(black.opacity(.2));
+  ofSetColor(black.opacity(50));
   if(cfg().defaultColor) drawHatching(area.x, area.y, area.width, area.height, 50, 50);
 
   if(cfg().buttonsOnSidebar){
-	  //ofSetColor(black.opacity(.25));
+	  //ofSetColor(black.opacity(64));
 	  //ofRect(x,area.y,w,y-area.y);
 	  if(!cfg().defaultColor){
 		//ofSetColor(cfg().lineColor.opacity(.1));
@@ -650,14 +650,14 @@ void sbGroup::draw(){
 	//ofSetColor(0x80633B);
 	int binWidth=w;
 	for (unsigned int i=0; i<bars.size()-1; i++) {
-		if(bars[i]->bOpen) ofSetColor((bars[i]->color*.75).opacity(.5));
+		if(bars[i]->bOpen) ofSetColor((bars[i]->color*.75).opacity(128));
 	}
   
 	//ofSetColor((white*.2).opacity(.7));
 	ofRect(x,y,binWidth,h);
 	
 	if(!cfg().defaultColor){
-		ofSetColor(cfg().lineColor.opacity(.1));
+		ofSetColor(cfg().lineColor.opacity(25));
 		drawHatching(x,y,binWidth,h, 7,1);
 	}
 	

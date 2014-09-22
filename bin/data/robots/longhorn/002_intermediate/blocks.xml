@@ -1,0 +1,14 @@
+<blocks font="ArialNarrow.ttf" title="Make a story with the longhorn!" subtitle="Intermediate: Assemble repeating sequences" xmlns:blck="http://www.smm.org/">
+	<bar name="Action blocks" color="0xde8c3a">
+		<block label="verHead" source="blocks/actions.xml" />
+		<block label="horHead" source="blocks/actions.xml" />
+        <block label="play" source="blocks/actions.xml" />
+        <block label="stop" source="blocks/actions.xml" />
+	</bar>
+	<bar name="Timing blocks" color="0x13b5ea">
+		<block label="repeat" source="blocks/timing.xml" />
+		<block label="delay" source="blocks/timing.xml" />
+	</bar>
+	
+</blocks>
+	

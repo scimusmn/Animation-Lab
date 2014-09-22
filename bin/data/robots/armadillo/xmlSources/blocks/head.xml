@@ -1,0 +1,16 @@
+<blocks>
+    <block label="verHead" name="move head %d">
+        <dropdown>
+            <dds>LEFT</dds>
+            <dds>RIGHT</dds>
+        </dropdown>
+        <file>actions/horHead.blk</file>
+    </block>
+    <block label="horHead" name="%d head">
+        <dropdown>
+            <dds>RAISE</dds>
+            <dds>LOWER</dds>
+        </dropdown>
+        <file>actions/verHead.blk</file>
+    </block>
+</blocks>

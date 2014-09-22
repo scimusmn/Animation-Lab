@@ -160,12 +160,14 @@ int bGroup::totalBlocks()
 {
   int ret=0;
   for (unsigned int i=0; i<base.blocksOn.size(); i++) {
-    ret+=1+base.blocksOn[i].totalInside();
+      if(base.blocksOn[i].type==BLK_BRACKET)
+         ret+=1+base.blocksOn[i].totalInside();
   }
   for (unsigned int i=0; i<blocks.size(); i++) {
     ret++;
     for (unsigned int j=0; j<blocks[i].blocksOn.size(); j++) {
-      ret+=1+base.blocksOn[j].totalInside();
+        if(base.blocksOn[i].type==BLK_BRACKET)
+            ret+=1+base.blocksOn[j].totalInside();
     }
   }
   return ret;
@@ -174,7 +176,8 @@ int bGroup::totalBlocks()
 void bGroup::addFromSB(block t,int _x,int _y){
 	if(!inHand){
 		if(totalBlocks()<50){
-			used[t.title]=false;
+			used[t.label]=false;
+            used[t.classLabel]=false;
       held=t;
       held.bGrabbed=bGrabbed=inHand=true;
 			dispx = held.x-_x;

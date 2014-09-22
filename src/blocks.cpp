@@ -48,8 +48,8 @@ string defaultFont="fonts/HelveticaBold.otf";
  */
 
 void block::setup(ofTag & cur,ofColor col){ //old, TODO: remove
-	w=150;
-	//********* This is the method by which all of the blocks are first generated from the xml files in the data root.
+	/*w=150;
+	// ********* This is the method by which all of the blocks are first generated from the xml files in the data root.
 	//-------- TODO: get rid of the garbage with the color triples. blech.
 	//-------- load the font for the arialHeader, at 10 pt.
 	
@@ -62,7 +62,7 @@ void block::setup(ofTag & cur,ofColor col){ //old, TODO: remove
   bGrabbed=false;
 	//-------- color initialization
 	if(cur.getAttribute("color").length())
-		color=ofColor(strtol(cur.getAttribute("color").c_str(),NULL,0));
+		color=ofColor::fromHex(strtol(cur.getAttribute("color").c_str(),NULL,0));
 	else color=col;
 	
 	//-------- load name from the name of the xmlNode
@@ -150,7 +150,7 @@ void block::setup(ofTag & cur,ofColor col){ //old, TODO: remove
     }
 	}
   
-  parseTitle();
+  parseTitle();*/
 }
 
 
@@ -162,10 +162,25 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
   string src=cur.getAttribute("source");
   
   if(src.length()){
-    ofXML xml;
-    xml.loadFile(cfg().robotRoot+"/xmlSources/"+src);
-    xml.setCurrentTag(";");
-    cur=xml.getCurrentTag();
+      ofXML xml;
+      xml.loadFile(cfg().robotRoot+"/xmlSources/"+src);
+      xml.setCurrentTag(";blocks");
+      
+      ofTag tag(xml.getCurrentTag());
+      if(tag.getAttribute("color").length())
+          col=ofColor::fromHex(strtol(tag.getAttribute("color").c_str(),NULL,0));
+      cout << col << endl;
+      ofTag newTag;
+      string lbl = cur.getAttribute("label");
+      for (unsigned int i=0; i<tag.size(); i++) {
+          if(tag[i].getAttribute("label")==lbl){
+              newTag=tag[i];
+          }
+      }
+      for(int i=0; i<cur.size(); i++){
+          newTag.addNode(cur[i]);
+      }
+      cur=newTag;
   }
 	
 	origTag=cur;
@@ -177,10 +192,13 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
   bGrabbed=false;
 	//-------- color initialization
 	if(cur.getAttribute("color").length())
-		color=ofColor(strtol(cur.getAttribute("color").c_str(),NULL,0));
-	else color=col;
+		color=ofColor::fromHex(strtol(cur.getAttribute("color").c_str(),NULL,0));
+	else color=col,cur.addAttribute("color", int_to_hex(color.getHex()));
+    
+    cout << color << " is the block color" << endl;
 
-	label=cur.getAttribute("label");
+    classLabel = cur.getAttribute("class");
+	label=classLabel+":"+cur.getAttribute("label");
 	
 	//-------- load name from the name of the xmlNode
 	title=cur.getAttribute("name");
@@ -210,7 +228,8 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
 	list["num"]=7;
 	list["dropdown"]=8;
 	list["blocksIn"]=9;
-  list["blocksOn"]=10;
+    list["blocksOn"]=10;
+    list["ddselected"]=11;
 	for(int i=0;i<cur.size();i++){
 		string node[2]={cur[i].getLabel(),cur[i].getValue()};
 		//-- node[0] is the label, node[1] is the value
@@ -256,6 +275,11 @@ block::block(ofTag & cur,ofColor col):ofInterObj(-200,-200,150,TITLE_HEIGHT) {
               blocksOn.push_back(block(cur[i][j],color));
             }
           }
+          break;
+        case 11:{
+            int ddnum = atoi(cur[i].getAttribute("number").c_str());
+            ddGroup[ddnum].setSelected(node[1]);
+        }
           break;
         default:
           break;
@@ -443,6 +467,7 @@ void block::operator=(const block &t) {
   
   origTag=t.origTag;
   label=t.label;
+    classLabel=t.classLabel;
 }
 
 /*****************************************************************
@@ -480,13 +505,14 @@ void block::setup(double _w, double _h)
 	w=max(w,double(arialHeader.stringWidth(title)+20));
 	ddOpen=false;
 	titlePos.x=10;
-	color.set(0xdbb700);
+	color.setHex(0xdbb700);
 	filename="null";
 	placeHolder=false;
   
   ttlSize.y=h/2;
   ttlSize.x=_w;
   label="";
+    classLabel="";
 }
 
 //--------------- Maybe unnecessary functions? --------------

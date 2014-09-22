@@ -1,0 +1,25 @@
+global(){
+	~#include "forTimer.h"
+	@forTimer minTmr;
+}
+
+setup(){
+
+}
+
+start(){
+	@minTmr.start();
+}
+
+loop(){
+	minTmr.set(60000);
+	while(minTmr.isRunning()){
+		$blockIn;
+	}
+}
+
+end(){
+	@minTmr.end();
+}
+
+~ath

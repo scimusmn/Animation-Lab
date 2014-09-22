@@ -1,0 +1,19 @@
+global(){
+	~#include "linearActuator.h"
+	~#include "armadillo.h"
+}
+
+setup(){
+}
+
+start(){
+}
+
+loop(){
+	armadillo.moveTail($dd[0].num);
+}
+
+end(){
+}
+
+~ath

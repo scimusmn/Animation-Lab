@@ -5,10 +5,10 @@ VERBOSE=1
 SCROLL_SCREEN=1
 FULLSCREEN=1
 PORTRAIT_MODE=0
-BUTTONS_ON_SIDEBAR=1
+BUTTONS_ON_SIDEBAR=0
 
 #Controls the size of the Title Bar; Set to 0 to hide bar
-TITLE_BAR_SIZE=0
+TITLE_BAR_SIZE=36
 
 #Changes how we check if there is a board attached; set to 0 to not check
 BOARD_DETECT=0
@@ -24,33 +24,35 @@ DEMO_AVAILABLE=1
 SAVED_PROGRAM_DIR=programs/
 SAVE_PROGRAMS=0
 
-SAVE_NOT_UNDO=1
+SAVE_NOT_UNDO=0
 
-BLOCK_FONT_SIZE=13
-BUTTON_FONT_SIZE=18
+BLOCK_FONT_SIZE=20
+BUTTON_FONT_SIZE=24
 
 #Main things to change when using different boards
 
 #ROBOT=arena
-ROBOT=tinkerboard
-WRAPPER=arduino_make/tinkWrapper.wrp
+#ROBOT=tinkerboard
+ROBOT=longhorn
 BOARD=UNO
 
 #colors
 
 DEFAULT_COLORS=0
-BG_COLOR=0xeeeeff
-SIDE_BAR_COLOR=0xebebeb
-CONTROL_BAR_COLOR=0xebebeb
-LINE_COLOR=0x999999
-TEXT_COLOR=0x555555
-SUBTITLE_COLOR=0xc3c3c3
+BG_COLOR=0x444444
+#SIDE_BAR_COLOR=0xebebeb
+#CONTROL_BAR_COLOR=0xebebeb
+SIDE_BAR_COLOR=0x333333
+CONTROL_BAR_COLOR=0x333333
+LINE_COLOR=0xcccccc
+TEXT_COLOR=0xeeeeee
+SUBTITLE_COLOR=0x777777
 
 #On screen text
 
-CONNECT_MESSAGE=Connect a Tinkerboard to begin
-UPLOADED_MESSAGE=Watch the Tinkerboard|run your program
-DISCONNECT_MESSAGE=Program changes not uploaded;|Reconnect robot to upload.
+CONNECT_MESSAGE=Connect the longhorn to begin
+UPLOADED_MESSAGE=Watch the longhorn|run your program
+DISCONNECT_MESSAGE=Program changes not uploaded;|Reconnect longhorn to upload.
 DEMO_MESSAGE=View Demo
 CREATE_MESSAGE=Create new program
 EDIT_MESSAGE=Edit existing program
@@ -62,9 +64,9 @@ NEW_USER_BUTTON=New user?
 
 #programmer level folders to grab, if they exist
 
-LEVEL_FOLDER=001_Basic
-#LEVEL_FOLDER=002_Intermediate
-LEVEL_FOLDER=003_Advanced
+LEVEL_FOLDER=001_basic
+LEVEL_FOLDER=002_intermediate
+LEVEL_FOLDER=003_advanced
 
 #you shouldn't need to edit below here, unless arduinos were upgraded
 

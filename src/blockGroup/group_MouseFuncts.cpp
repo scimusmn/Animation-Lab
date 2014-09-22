@@ -39,7 +39,7 @@ bool bGroup::clickDown(int _x, int _y)
     }
     for (unsigned int i=0; i<base.blocksOn.size()&&!ret; i++) {
       if(!ret) 
-        if(ret=newHandleClick(base.blocksOn,i,_x,_y)) bChanged=true;
+        if((ret=newHandleClick(base.blocksOn,i,_x,_y))) bChanged=true;
     }
     if(!ret) ret=base.clickDown(_x, _y);
   }

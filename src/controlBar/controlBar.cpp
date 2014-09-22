@@ -178,9 +178,9 @@ void controlBar::setup(bGroup * bG, sbGroup * sbG)
 	subBar.width=ofGetWidth();
   
 	//ROOT_DIR=config("robots/config.cfg");
-
+    cout << cfg().robotRoot << " is the root" << endl;
 	sets.load(cfg().robotRoot);
-
+    cout << sets.size() << " sets" << endl;
 	loadBlocks(sets[0]);
 
   
@@ -233,9 +233,9 @@ void controlBar::draw(int _x, int _y)
   
   if(!cfg().defaultColor) ofSetColor(cfg().controlBarColor);
   else ofSetColor(black);
-  ofRect(buttonBar);
+  ofRect(buttonBar.x,buttonBar.y,buttonBar.width,buttonBar.height);
   
-  ofSetColor(gray.opacity(.5));
+  ofSetColor(gray.opacity(128));
   if(cfg().defaultColor) drawHatching(buttonBar.x, buttonBar.y, buttonBar.width, buttonBar.height, 50,50);
   
   for (unsigned int i=0; i<sets.size(); i++) sets(i).w=sets(i).h=72;
@@ -249,7 +249,7 @@ void controlBar::draw(int _x, int _y)
   
   if(cfg().defaultColor) ofSetColor(gray);
   else ofSetColor(cfg().subtitleColor);
-  ofRect(subBar);
+  ofRect(subBar.x,subBar.y,subBar.width,subBar.height);
   drawBorder(subBar);
   
   if(cfg().defaultColor) ofSetColor(yellow);
@@ -308,7 +308,7 @@ void controlBar::drawForeground(){
   else if(serChk.drawForeground());
   else if(upload.drawForeground());
   else if(cfg().savePrograms&&bPluginChoice){
-	  ofSetColor(black.opacity(.9));
+	  ofSetColor(black.opacity(200));
 	  ofRect(0,0,ofGetWidth(),ofGetHeight());
 	  drawStyledBox(create.x-50, create.y-50, create.w+100, (edit.y-create.y)+edit.h+100);
 	  create.draw((ofGetWidth()-create.w)/2,(ofGetHeight()-create.h*2)/2-50);
@@ -332,7 +332,7 @@ void controlBar::drawForeground(){
 
 	drawStyledBox(0, y, ofGetWidth(),ofGetHeight()-y);
     //drawStyledBox((ofGetWidth()-boxWid)/2, ofGetHeight()/2-stringHgt-50, boxWid,boxHgt);
-	ofSetColor(yellow);
+	ofSetColor(cfg().textColor);
 	subtitle.drawString(title1,ofGetWidth()/2,ofGetHeight()/2-stringHgt);
 	subtitle.drawString(title2,ofGetWidth()/2,ofGetHeight()/2-stringHgt+(stringHgt)/2);
     for (unsigned int i=0; i<sets.size(); i++) sets(i).draw((i+.5)*ofGetWidth()/(sets.size())-(sets(i).w)/2,ofGetHeight()/2+50);
@@ -407,6 +407,7 @@ bool controlBar::clickDown(int _x, int _y, int button)
     timeOut.run();
     if (clearBut.clickDown(_x, _y)) {
       blocks->clearAndReset();
+        upload.uploadInBG();
 	  ret=true;
     }
     

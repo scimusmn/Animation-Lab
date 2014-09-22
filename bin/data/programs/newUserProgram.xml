@@ -1,6 +1,2 @@
 <base robot_number="0">
-	<block label="ONCE" name="once" color="0x13b5ea"> 
-		<bracket /> 
-		<file>timing/once.blk</file> 
-	</block>
 </base>

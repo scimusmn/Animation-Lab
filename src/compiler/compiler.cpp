@@ -143,6 +143,7 @@ void compiler::update()
 				else {
 					string err;
 					for(unsigned int i=0; i<cmd.linesOfOutput(); i++){
+                        cout <<cmd[i]<<endl;
 						if(cmd[i].find_last_of(":")!=cmd[i].npos){
 							err=cmd[i].substr(cmd[i].find_last_of(":"));
 						}
@@ -390,7 +391,7 @@ void compiler::upload(string port)
 	cmd.addArgument("-p "+cfg().mcu);
 	cmd.addArgument("-P "+serChk->portName());
 	cmd.addArgument("-c "+cfg().programmer);
-	cmd.addArgument("-b "+cfg().baud);
+	if(cfg().baud.length()) cmd.addArgument("-b "+cfg().baud);
 	cmd.addArgument("-U flash:w:"+appletDir+mainObj.baseName+".hex");
 
 	cmd.execute();

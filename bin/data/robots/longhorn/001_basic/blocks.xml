@@ -1,0 +1,37 @@
+<blocks font="ArialNarrow.ttf" title="Control the longhorn!" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
+	<bar name="Instruction blocks" color="0x594072">
+        <block label="horHead" source="blocks/actions.xml">
+          <blocksOn>
+                    <block label="delay" source="blocks/timing.xml" />
+                    <block label="horHead" source="blocks/actions.xml">
+                        <ddselected number="0">RIGHT</ddselected>
+                    </block>
+                    <block label="delay" source="blocks/timing.xml" />
+            </blocksOn>
+        </block>
+        <block label="verHead" source="blocks/actions.xml">
+            <blocksOn>
+                <block label="delay" source="blocks/timing.xml" />
+                <block label="verHead" source="blocks/actions.xml">
+                    <ddselected number="0">LOWER</ddselected>
+                </block>
+                <block label="delay" source="blocks/timing.xml" />
+            </blocksOn>
+        </block>
+        <block label="play" source="blocks/actions.xml">
+            <ddselected number="0">MOO</ddselected>
+            <blocksOn>
+                <block label="delay" source="blocks/timing.xml">
+                    <ddselected number="0">2</ddselected>
+                </block>
+                <block label="play" source="blocks/actions.xml">
+                    <ddselected number="0">BELLER</ddselected>
+                </block>
+                <block label="delay" source="blocks/timing.xml">
+                    <ddselected number="0">2</ddselected>
+                </block>
+            </blocksOn>
+        </block>
+	</bar>
+</blocks>
+	

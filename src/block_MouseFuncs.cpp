@@ -87,7 +87,7 @@ bool block::newClickDD(int _x, int _y, bool & ddopen)
 		//-------- if we are over a any drop down with no drop downs open, or we are over the only open dd,
 		if(((ddGroup[j].over(_x,_y)&&!ddopen)||ddGroup[j].open)){
 			//-------- we check if we are over the dropdown
-			if(ddopen=ddGroup[j].clickDown(_x,_y)){
+			if((ddopen=ddGroup[j].clickDown(_x,_y))){
 				//-------- if we are, we set ddOpen to the dropdown number
 				ddOpen=j+1;
 			}
@@ -192,7 +192,7 @@ bool searchUnderBlock(dropBlock & foundBlock,block & strt, block & drpd, blkVect
   if(!foundBlock.found()){
     
     //------- check directly under the strt block, if we're checking the blocksOn
-    if(!strt.type==BLK_BRACKET||t==OF_BLOCK_ON){
+    if(strt.type!=BLK_BRACKET||t==OF_BLOCK_ON){
       if (strt.beneath(drpd)) {
         tmp=true;
         foundBlock.set(strt,t,0);

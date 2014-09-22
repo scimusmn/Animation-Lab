@@ -71,7 +71,7 @@ void bGroup::draw(int _x, int _y, int _w, int _h)
   draw();
   base.draw(x+(w-base.w)/2, y-bar.getScrollPosition());
   base.drawButtonArea(x+(w-base.w)/2, y);
-  ofSetColor(black.opacity(.5));
+  ofSetColor(black.opacity(128));
   if(bScrolling){
     bar.draw(x+w-bar.w,y);
     if(bar.getScrollPosition()>50){

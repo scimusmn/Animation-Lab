@@ -1,0 +1,25 @@
+global(){
+	~#include "forTimer.h"
+	@forTimer forTmr;
+}
+
+setup(){
+
+}
+
+start(){
+	@forTmr.start();
+}
+
+loop(){
+	forTmr.set($dd[0].num *1000);
+	while(forTmr.isRunning()){
+		$blockIn;
+	}
+}
+
+end(){
+	@forTmr.end();
+}
+
+~ath

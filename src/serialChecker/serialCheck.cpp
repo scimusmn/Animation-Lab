@@ -117,6 +117,7 @@ void serialCheck::excludeDevice(string prtNm)
 
 void serialCheck::checkAvailability()
 {
+    cout<< "checking..."<<endl;
   if(checkTimer.expired()&&setUp){
     serial.enumerateDevices();
     if(serial.numDevices()!=numDevices){
@@ -124,6 +125,7 @@ void serialCheck::checkAvailability()
         numDevices=serial.numDevices();
   #if defined( TARGET_OSX )
         for (int i=0; i<serial.numDevices(); i++) {
+            cout<<serial.deviceNameByNumber(i)<< endl;
           bool excluded=false;
           for(unsigned int j=0; j<excludedPorts.size(); j++){
             if(excludedPorts[j]==serial.deviceNameByNumber(i))

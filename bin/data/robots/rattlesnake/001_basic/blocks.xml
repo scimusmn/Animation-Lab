@@ -1,0 +1,38 @@
+<blocks font="ArialNarrow.ttf" title="Control the rattlesnake!" subtitle="Basic: Connect example instruction blocks" xmlns:blck="http://www.smm.org/">
+	<bar name="Instruction blocks" color="0x594072">
+        <block label="moveHead" source="blocks/actions.xml">
+          <blocksOn>
+                    <block label="delay" source="blocks/timing.xml" />
+                    <block label="moveHead" source="blocks/actions.xml">
+                        <ddselected number="0">LOWER</ddselected>
+                    </block>
+                    <block label="delay" source="blocks/timing.xml" />
+            </blocksOn>
+        </block>
+        <block label="rattleTail" source="blocks/actions.xml">
+            <ddselected number="0">FAST</ddselected>
+            <blocksOn>
+                <block label="delay" source="blocks/timing.xml" />
+                <block label="rattleTail" source="blocks/actions.xml">
+                    <ddselected number="0">STOP</ddselected>
+                </block>
+                <block label="delay" source="blocks/timing.xml" />
+            </blocksOn>
+        </block>
+        <block label="play" source="blocks/actions.xml">
+            <ddselected number="0">HISS</ddselected>
+            <blocksOn>
+                <block label="delay" source="blocks/timing.xml">
+                    <ddselected number="0">2</ddselected>
+                </block>
+                <block label="play" source="blocks/actions.xml">
+                    <ddselected number="0">RATTLE</ddselected>
+                </block>
+                <block label="delay" source="blocks/timing.xml">
+                    <ddselected number="0">2</ddselected>
+                </block>
+            </blocksOn>
+        </block>
+	</bar>
+</blocks>
+	

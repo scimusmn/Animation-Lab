@@ -21,11 +21,13 @@ protected:
   ofFont label;
   bool bRunning;
   ofTimer uploaded;
+    bool bgUpload;
 
   compiler cmplr;
 public:
   void setup(bGroup * blks, serialCheck * srCk);
   void upload();
+    void uploadInBG();
   void update();
   bool drawForeground();
   bool isUploading();

@@ -301,7 +301,7 @@ bool demoAnim::isPrompting()
 void demoAnim::drawForeground()
 {
   if(bPrompt){
-    ofSetColor(black.opacity(.8));
+    ofSetColor(black.opacity(200));
     ofRect(0,0,ofGetWidth(),ofGetHeight());
 	if(!demoButtons.size()){
 		string head="View Demo?";

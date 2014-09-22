@@ -134,8 +134,8 @@ void baseBlock::draw(int _x, int _y)
 
   if(!blocksOn.size()){
 	if((ofGetElapsedTimeMillis()%1000)<500)
-		ofSetColor(blue.opacity((ofGetElapsedTimeMillis()%500)/500.));
-	else ofSetColor(blue.opacity(1-(ofGetElapsedTimeMillis()%500)/500.));
+		ofSetColor(blue.opacity(255*(ofGetElapsedTimeMillis()%500)/500.));
+	else ofSetColor(blue.opacity(255-255*(ofGetElapsedTimeMillis()%500)/500.));
 	//drawBaseBlock(x, y, w, h,0,h);
 	int sz=TITLE_HEIGHT/4;
 	ofRect(x+10,y+3*h/4-10,w-20-butArea.x,10);

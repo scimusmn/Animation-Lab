@@ -1,0 +1,20 @@
+global(){
+	~#include "linearActuator.h"
+    ~#include "snake.h"
+}
+
+setup(){
+}
+
+start(){
+}
+
+loop(){
+	snake.moveByIndex($dd[0].num);
+}
+
+end(){
+	snake.moveByIndex(0);
+}
+
+~ath

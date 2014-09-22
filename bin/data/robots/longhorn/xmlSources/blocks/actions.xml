@@ -1,0 +1,27 @@
+<blocks color="0xde8c3a">
+    <block class="longhorn" label="horHead" name="move head %d">
+        <dropdown>
+            <dds value="950">LEFT</dds>
+            <dds value="775">CENTER</dds>
+            <dds value="600">RIGHT</dds>
+        </dropdown>
+        <file>actions/horHead.blk</file>
+    </block>
+    <block class="longhorn" label="verHead" name="%d head">
+        <dropdown>
+            <dds value="500">RAISE</dds>
+            <dds value="950">LOWER</dds>
+        </dropdown>
+        <file>actions/verHead.blk</file>
+    </block>
+    <block class="audio" label="play" name="play sound %d">
+        <dropdown>
+            <dds value="1">BELLER</dds>
+            <dds value="2">MOO</dds>
+        </dropdown>
+        <file>actions/playSound.blk</file>
+    </block>
+    <block class="audio" label="stop" name="stop sound">
+        <file>actions/stopSound.blk</file>
+    </block>
+</blocks>

@@ -1,0 +1,21 @@
+global(){
+    ~#include "linearActuator.h"
+	~#include "longhorn.h"
+}
+
+setup(){
+}
+
+start(){
+
+}
+
+loop(){
+	longhorn.moveVert($dd[0].num);
+}
+
+end(){
+
+}
+
+~ath

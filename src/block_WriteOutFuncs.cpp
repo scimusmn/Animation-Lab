@@ -15,6 +15,7 @@ void resetList(block & t, map<string,bool> & used)
 	//-------- resets the log of what blocks have been used in the last print stage
 	used[""]=false;
 	used[t.label]=false;
+    used[t.classLabel]=false;
 	for (unsigned int i=0; i<t.numInside(); i++) {
 		resetList(t.blocksIn[i],used);
 	}
@@ -79,6 +80,7 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 					//-------- once you have found the segment of code after the $, store it in "temp" and split the string by "[]"
 					//-------- doing this allows you to find which dropdown to look at (most often, it's 0)
 					string temp(buffer,strtPos,endPos-strtPos);
+                    cout << temp << " is the data" << endl;
 					vector<string> tempVec=ofSplitString(temp, "[]");
       
 					//-------- pos stores the vector position of the dd you are looking for 
@@ -86,13 +88,17 @@ void block::printOut(ofstream* fOut,ifstream * fInput,int t, map<string,bool> * 
 					if(tempVec.size()>1){
 						pos=atoi(tempVec[1].c_str());
 					}
+                    
+                    
 					
 					//-------- reassemble the string without the []
 					if(tempVec.size()>2) temp = tempVec[0] + tempVec[2];
-          else if(tempVec.size()==2) temp=tempVec[0];
+                    else if(tempVec.size()==2) temp=tempVec[0];
 					
 					if(temp.compare("blockIn")==0&&buffer[i+1]==';') i++;
-          cout <<temp<<endl;
+                    
+                    cout << temp << " is the split data" << endl;
+                    
 					//-------- generate the map for use in the switch
 					map<string,int> list;
 					list["dd.num"]=0;
@@ -211,32 +217,22 @@ bool block::siblingWritten(map<string,bool> * printed)
 {
 	//-------- checks to see if a complement block has been printed
 	bool ret=false;
-	map<string,bool>::iterator it;
-	//(ofSplitString(label,":"));
-	cout << "Main label is " << label << endl;
-	if(label.find_last_of(":")!=string::npos){
-		string lbl1=label.substr(0,label.find_last_of(":"));
-		cout << lbl1 << endl;
-		//for (unsigned int i=0; i<sibling.size(); i++) {
-			//cout << sibling[i]+":"+title+":" << endl;
-			/*it=printed->find(sibling[i]);
-			if(it!=printed->end()){
-				ret=ret||it->second;
-			}*/
-		//}
+    cout << label << " is the full label" << endl;
+	if(classLabel.length()){
+        cout << "Class label is " << classLabel << endl;
 		map<string, bool>::iterator it;
 		for(it=printed->begin(); it!=printed->end(); it++){
 			size_t pos=it->first.find_last_of(":");
 			if(pos!=string::npos){
 				cout << it->first.substr(0,pos) << endl;
-				if(it->first.substr(0,pos)==lbl1){
+				if(classLabel.length()&&it->first.substr(0,pos)==classLabel){
 					ret=ret||it->second;
 				}
 			}
 		}
 	}
 	//-------- checks to see if the block itself has been printed
-	ret=ret||printed->find(title)->second;
+	ret=ret||printed->find(label)->second;
 	return ret;
 }
 
@@ -261,7 +257,7 @@ bool block::siblingWritten(map<string,bool> * printed)
  */
 
 
-void block::printData(string sblng,ofstream* k,int t,map<string,bool> * printed, bool printIn){
+void block::printData(string stage,ofstream* k,int t,map<string,bool> * printed, bool printIn){
 	string buffer;
 	//cout << filename << " is the base filename" << endl;
 	if(filename.compare("null")){
@@ -270,7 +266,7 @@ void block::printData(string sblng,ofstream* k,int t,map<string,bool> * printed,
 		//-------- burn the buffer until we find the start of the end
 		bool found=false;
 		while(f.peek()!=EOF&&!found){
-			if (buffer==sblng||buffer==sblng+"\r") {
+			if (buffer==stage||buffer==stage+"\r") {
 				found=true;
 			}
 			else {
@@ -278,25 +274,25 @@ void block::printData(string sblng,ofstream* k,int t,map<string,bool> * printed,
 			}
 		}
 		if(found){
+            //-------- print the start routines for the blocks on and in
+			if(printIn)
+				for (unsigned int i=0; i<blocksIn.size(); i++) {
+					blocksIn[i].printData(stage,k,t,printed,printIn);
+				}
+			for (unsigned int i=0; i<blocksOn.size(); i++) {
+				blocksOn[i].printData(stage,k,t,printed,printIn);
+			}
 			//-------- printout the code for the start routines
 			printOut(k,&f,t,printed);
 			//-------- set the printed flag for the block and close the input
 			(*printed)[label]=true;
 			f.close();
 			
-			//-------- print the start routines for the blocks on and in
-			if(printIn)
-				for (unsigned int i=0; i<blocksIn.size(); i++) {
-					blocksIn[i].printData(sblng,k,t,printed,printIn);
-				}
-			for (unsigned int i=0; i<blocksOn.size(); i++) {
-				blocksOn[i].printData(sblng,k,t,printed,printIn);
-			}
 		}
 	}
 	else {
 		for (unsigned int i=0; i<blocksOn.size(); i++) {
-			blocksOn[i].printData(sblng,k,t,printed,printIn);
+			blocksOn[i].printData(stage,k,t,printed,printIn);
 		}
 	}
 

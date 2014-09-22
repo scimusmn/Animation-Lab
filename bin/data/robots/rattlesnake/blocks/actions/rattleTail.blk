@@ -1,0 +1,20 @@
+global(){
+	~#include "linearActuator.h"
+    ~#include "snake.h"
+}
+
+setup(){
+}
+
+start(){
+}
+
+loop(){
+	snake.rattleSpeed($dd[0].num);
+}
+
+end(){
+	snake.rattleSpeed(0);
+}
+
+~ath
