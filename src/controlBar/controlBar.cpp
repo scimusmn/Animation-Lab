@@ -366,13 +366,15 @@ void controlBar::update()
 		beginLevelChoice();
 	}
   }
-  
+    
   if(timeOut.justExpired()){
 	if(cfg().savePrograms) bPluginChoice=true;
 	else {
 		beginLevelChoice();
 	}
-	blocks->clearAndReset(),anim.clearPrompt();
+      blocks->clearAndReset();
+      anim.clearPrompt();
+      upload.uploadInBG();
   }
  
   upload.update();
@@ -403,7 +405,7 @@ bool controlBar::clickDown(int _x, int _y, int button)
 {
 	bool ret=false;
   if(!mouseLockout(button)){
-    timeOut.reset();
+    timeOut.set(cfg().timeout);
     timeOut.run();
     if (clearBut.clickDown(_x, _y)) {
       blocks->clearAndReset();

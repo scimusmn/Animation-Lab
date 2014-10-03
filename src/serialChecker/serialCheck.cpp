@@ -117,7 +117,7 @@ void serialCheck::excludeDevice(string prtNm)
 
 void serialCheck::checkAvailability()
 {
-    cout<< "checking..."<<endl;
+    //cout<< "checking..."<<endl;
   if(checkTimer.expired()&&setUp){
     serial.enumerateDevices();
     if(serial.numDevices()!=numDevices){

@@ -45,6 +45,7 @@ void configuration::readGeneralConfig(string cfgFile){
 			}
 			else if(token[0]=="TIMEOUT"){
 				timeout=ofToInt(token[1]);
+                cout << "timeout is " << timeout/1000 << "seconds" << endl;
 			}
 			else if(token[0]=="ROBOT"){
 				if(verbose) cout << token[1] << " is the current robot configuration." << endl;

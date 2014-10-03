@@ -3,13 +3,48 @@
 		<bracket/>
 		<file>timing/oneMin.blk</file>
 		<blocksIn>
-			<block class="audio" label="play" name="play sound %d" color="14584890">    
+			<block class="longhorn" label="verHead" name="%d head" color="14584890">    
 				<dropdown>        
-					<dds value="1">BELLER</dds>
-					<dds value="2">MOO</dds>
-					<selected>BELLER</selected>
+					<dds value="500">RAISE</dds>
+					<dds value="950">LOWER</dds>
+					<selected>RAISE</selected>
 				</dropdown>
-				<file>actions/playSound.blk</file>
+				<file>actions/verHead.blk</file>
+			</block>
+			<block class="longhorn" label="verHead" name="%d head" color="14584890">    
+				<dropdown>        
+					<dds value="500">RAISE</dds>
+					<dds value="950">LOWER</dds>
+					<selected>LOWER</selected>
+				</dropdown>
+				<file>actions/verHead.blk</file>
+			</block>
+			<block class="longhorn" label="horHead" name="move head %d" color="14584890">    
+				<dropdown>        
+					<dds value="950">LEFT</dds>
+					<dds value="775">CENTER</dds>
+					<dds value="600">RIGHT</dds>
+					<selected>LEFT</selected>
+				</dropdown>
+				<file>actions/horHead.blk</file>
+			</block>
+			<block class="longhorn" label="horHead" name="move head %d" color="14584890">    
+				<dropdown>        
+					<dds value="950">LEFT</dds>
+					<dds value="775">CENTER</dds>
+					<dds value="600">RIGHT</dds>
+					<selected>RIGHT</selected>
+				</dropdown>
+				<file>actions/horHead.blk</file>
+			</block>
+			<block class="longhorn" label="horHead" name="move head %d" color="14584890">    
+				<dropdown>        
+					<dds value="950">LEFT</dds>
+					<dds value="775">CENTER</dds>
+					<dds value="600">RIGHT</dds>
+					<selected>CENTER</selected>
+				</dropdown>
+				<file>actions/horHead.blk</file>
 			</block>
 		</blocksIn>
 	</block>
