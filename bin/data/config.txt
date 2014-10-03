@@ -11,7 +11,7 @@ BUTTONS_ON_SIDEBAR=0
 TITLE_BAR_SIZE=36
 
 #Changes how we check if there is a board attached; set to 0 to not check
-BOARD_DETECT=1
+BOARD_DETECT=0
 
 #TEST_AVAILABLE option only used for the Dallas Robot Arena, at the moment
 TEST_AVAILABLE=0

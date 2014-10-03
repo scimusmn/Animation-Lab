@@ -186,3 +186,7 @@ bin/data/arduino_make/.DS_Store
 bin/data/arduino_make/applet/.DS_Store
 
 bin/data/arduino_make/applet/arduino_make.o
+
+ProgramBlocks.xcodeproj/project.xcworkspace/xcuserdata/exhibits.xcuserdatad/UserInterfaceState.xcuserstate
+
+ProgramBlocks.xcodeproj/xcuserdata/exhibits.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist

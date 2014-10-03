@@ -1,0 +1,221 @@
+// !$*UTF8*$!
+{
+	AA4B132512F7546700C962B4 /* blocks.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1145, 7033}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{11766, 1013}";
+			sepNavWindowFrame = "{{15, 356}, {1204, 817}}";
+		};
+	};
+	AA7A3106146862F400D95060 /* demoAnim.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 4966}}";
+			sepNavSelRange = "{9621, 0}";
+			sepNavVisRange = "{9671, 637}";
+		};
+	};
+	AA85E4EE14EEB6A60047B1AF /* compiler.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1436, 6734}}";
+			sepNavSelRange = "{2379, 0}";
+			sepNavVisRange = "{1777, 1014}";
+			sepNavWindowFrame = "{{15, 615}, {750, 558}}";
+		};
+	};
+	AA85E4EF14EEB6A60047B1AF /* compiler.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1436, 1079}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{613, 1233}";
+		};
+	};
+	AA8CCFDA151BA82100C19F00 /* robotConfig.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1237, 1066}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{491, 528}";
+		};
+	};
+	E4B69B4C0A3A1720003C02F2 /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeExecutable = FF55BD1515FFC494002794FD /* ProgramBlocks */;
+		activeTarget = E4B69B5A0A3A1756003C02F2 /* ProgramBlocks */;
+		codeSenseManager = FF55BD3C15FFC498002794FD /* Code sense */;
+		executables = (
+			FF55BD1515FFC494002794FD /* ProgramBlocks */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					1059,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 427308501;
+			PBXWorkspaceStateSaveDate = 427308501;
+		};
+		perUserProjectItems = {
+			FF0074F115FFCE0000CFBF6F /* PBXTextBookmark */ = FF0074F115FFCE0000CFBF6F /* PBXTextBookmark */;
+			FF0074F315FFCE0000CFBF6F /* PBXTextBookmark */ = FF0074F315FFCE0000CFBF6F /* PBXTextBookmark */;
+			FF072311198FCBB90018CAB8 /* PBXTextBookmark */ = FF072311198FCBB90018CAB8 /* PBXTextBookmark */;
+			FF16FE1D161CA8BD00AF5E74 /* PBXTextBookmark */ = FF16FE1D161CA8BD00AF5E74 /* PBXTextBookmark */;
+			FF18B68E161C47DC00126B70 /* PBXTextBookmark */ = FF18B68E161C47DC00126B70 /* PBXTextBookmark */;
+			FF7F2939168358B90090E1CA /* PBXTextBookmark */ = FF7F2939168358B90090E1CA /* PBXTextBookmark */;
+			FF7F293F168361ED0090E1CA /* PBXTextBookmark */ = FF7F293F168361ED0090E1CA /* PBXTextBookmark */;
+		};
+		sourceControlManager = FF55BD3B15FFC498002794FD /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	E4B69B5A0A3A1756003C02F2 /* ProgramBlocks */ = {
+		activeExec = 0;
+		executables = (
+			FF55BD1515FFC494002794FD /* ProgramBlocks */,
+		);
+	};
+	FF0074F115FFCE0000CFBF6F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = FF0074F215FFCE0000CFBF6F /* arduino_make.cpp */;
+		name = "arduino_make.cpp: 26";
+		rLen = 0;
+		rLoc = 216;
+		rType = 0;
+		vrLen = 216;
+		vrLoc = 0;
+	};
+	FF0074F215FFCE0000CFBF6F /* arduino_make.cpp */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.cpp.cpp;
+		name = arduino_make.cpp;
+		path = "/Users/aheidgerken/Documents/Programming/openFrameworks/apps/projects/Animation-Lab/bin/data/arduino_make/applet/arduino_make.cpp";
+		sourceTree = "<absolute>";
+	};
+	FF0074F315FFCE0000CFBF6F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AA85E4EF14EEB6A60047B1AF /* compiler.h */;
+		name = "compiler.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1233;
+		vrLoc = 613;
+	};
+	FF072311198FCBB90018CAB8 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AA8CCFDA151BA82100C19F00 /* robotConfig.h */;
+		name = "robotConfig.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 528;
+		vrLoc = 491;
+	};
+	FF16FE1D161CA8BD00AF5E74 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AA7A3106146862F400D95060 /* demoAnim.cpp */;
+		name = "demoAnim.cpp: 314";
+		rLen = 0;
+		rLoc = 9570;
+		rType = 0;
+		vrLen = 1650;
+		vrLoc = 9056;
+	};
+	FF16FE26161CA91B00AF5E74 /* multiJack.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = multiJack.h;
+		path = "/Users/aheidgerken/Documents/Programming/openFrameworks/apps/projects/Animation-Lab/bin/data/robots/tinkerboard/include/multiJack.h";
+		sourceTree = "<absolute>";
+	};
+	FF18B68E161C47DC00126B70 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AA85E4EE14EEB6A60047B1AF /* compiler.cpp */;
+		name = "compiler.cpp: 139";
+		rLen = 0;
+		rLoc = 2379;
+		rType = 0;
+		vrLen = 1014;
+		vrLoc = 1777;
+	};
+	FF55BD1515FFC494002794FD /* ProgramBlocks */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = ProgramBlocks;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	FF55BD3B15FFC498002794FD /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	FF55BD3C15FFC498002794FD /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	FF7F2939168358B90090E1CA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = FF16FE26161CA91B00AF5E74 /* multiJack.h */;
+		name = "multiJack.h: 63";
+		rLen = 0;
+		rLoc = 1011;
+		rType = 0;
+		vrLen = 581;
+		vrLoc = 0;
+	};
+	FF7F293F168361ED0090E1CA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = AA8CCFDA151BA82100C19F00 /* robotConfig.h */;
+		name = "robotConfig.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 576;
+		vrLoc = 601;
+	};
+}
